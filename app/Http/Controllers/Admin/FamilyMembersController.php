@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\FamilyMember;
 
 class FamilyMembersController extends Controller
 {
@@ -22,9 +23,15 @@ class FamilyMembersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createMember($customerId)
     {
-        //
+        return view('admin.customer.createCustomerMember', compact('customerId'));
+    }
+
+    public function saveMember(Request $request, $customerId)
+    {
+        $member = FamilyMember::create($request->all());
+        return redirect()->route('admin.customers.show', $customerId)->with('success', 'Thêm thành viên gia đình thành công!');
     }
 
     /**

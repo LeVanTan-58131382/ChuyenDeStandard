@@ -36,7 +36,7 @@ class Customer extends Model
 
     public function apartmentAddress()
     {
-        return $this->has(ApartmentAddress::class, 'customer_id', 'id');
+        return $this->hasOne(ApartmentAddress::class, 'customer_id', 'id');
     }
 
     public function familyMembers()

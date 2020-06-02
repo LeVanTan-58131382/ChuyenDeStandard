@@ -179,6 +179,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     // Route::post('employees/media', 'EmployeesController@storeMedia')->name('employees.storeMedia');
     Route::resource('customers', 'CustomersController');
 
+    // Family Members
+    Route::get('/familyMembers/create/{customerId}', 'FamilyMembersController@createMember')->name('family-member-create');
+    Route::post('/familyMembers/save/{customerId}', 'FamilyMembersController@saveMember')->name('family-member-save');
+    Route::resource('familyMembers', 'FamilyMembersController');
+
     // Comment
     Route::resource('comments', 'CommentsController');
 

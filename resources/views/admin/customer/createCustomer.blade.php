@@ -103,7 +103,7 @@
     .vehicle input{
         border-radius: 4px;
         border: 1px solid gray;
-        height: 30px;
+        height: 35px;
     }
     .create-customer{
         position: relative;

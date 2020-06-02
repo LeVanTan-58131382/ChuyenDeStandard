@@ -97,7 +97,8 @@ class CustomersController extends Controller
      */
     public function show($id)
     {
-        //
+        $customer = Customer::with('apartmentAddress', 'familyMembers')->find($id);
+        return view('admin.customer.detailCustomer', compact('customer'));
     }
 
     /**
