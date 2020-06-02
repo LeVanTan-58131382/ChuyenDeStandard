@@ -1,0 +1,184 @@
+
+
+    *{
+        margin: 0;
+        padding: 0;
+    }
+
+    
+
+    .header{
+			width: 100%;
+			height: 80px;
+			position: fixed;
+			top: 0px;
+			z-index: 10;
+			
+			background-color: -webkit-linear-gradient(top right, #00d8c2, #0068b7);
+            background-image: -webkit-linear-gradient(right top, rgb(0, 216, 194), rgb(0, 104, 183));
+			color: white;
+			transition: 0.5s;
+		}
+		.canggiua{
+			width: 1200px;
+			margin: auto;
+		}
+		.trai{
+			width: 50%;
+			float: left;
+		}
+		.trai a.logo{
+			font-family: 'Kaushan Script', cursive;
+			font-size: 30px;
+			font-weight: bold;
+			text-decoration: none;
+			display: block;
+			padding: 20px 0 0 0;
+			transition: 0.5s;
+			float: left;
+		}
+
+		.trai img.img_logo{
+			float: left;
+			width: 70px;
+			height: 60px;
+			margin: 10px;
+			transition: 0.5s;
+        }
+    
+        
+    .ad-part-left{
+        position: absolute;
+        left: 0%;
+        top: 80px;
+        width:20%;
+        height:2000px;
+        background-color: #24292e;
+        overflow: hidden;
+    }
+
+    .ad-part-right{
+        position: absolute;
+        right: 0%;
+        top: 80px;
+        width:80%;
+        height: 2000px;
+        background-color: whitesmoke;
+        overflow: hidden;
+        
+    }
+
+    .ad-menu-right{
+        position: absolute;
+        z-index: 3;
+        right: 0%;
+        top: 0%;
+        width:100%;
+        height: 60px;
+        background-color: blueviolet;
+        overflow: hidden;
+        transition: 0.5s;
+    }
+
+    .ad-part-left li{
+        width: 100%;
+        height: 60px;
+        list-style: none;
+        font-family: 'Kaushan Script', cursive;
+        font-size: 20px;
+        padding: 10px;
+        background-color: #FFC107;
+        transition: 0.5s;
+        text-align: center;
+        color: black;
+        margin-bottom: 5px;
+        overflow: hidden;
+        cursor: pointer;
+
+    }
+    .ad-menu-right li{
+        width: 20%;
+        height: 60px;
+        list-style: none;
+        font-family: 'Kaushan Script', cursive;
+        font-size: 20px;
+        padding: 10px;
+        background-color: -webkit-linear-gradient(top right, DimGray, #363636);
+        background-image: -webkit-linear-gradient(right top, DimGray, #363636);
+        transition: 0.5s;
+        text-align: center;
+        color: white;
+        float: left;
+        cursor: pointer;
+
+    }
+
+    .nutdangxuat{
+        width: 100%;
+        height: 100%;
+        font-size: 20px;
+        background-color: -webkit-linear-gradient(top right, DimGray, #363636);
+        background-image: -webkit-linear-gradient(right top, DimGray, #363636);
+        border: none;
+        color: white;
+        transition: 0.5s;
+    }
+
+    .ad-part-content{
+        position: absolute;
+        left: 0%;
+        top: 60px;
+        width: 100%;
+        padding: 30px;
+        
+    }
+
+    #li1:hover {
+        font-size: 25px;
+        background-color: white;
+    }
+    #li2:hover {
+        font-size: 25px;
+        background-color: white;
+    }
+    #li3:hover {
+        font-size: 25px;
+        background-color: white;
+    }
+    #li4:hover {
+        font-size: 25px;
+        background-color: white;
+    }
+    #li5:hover {
+        font-size: 25px;
+        background-color: white;
+    }
+    #li6:hover {
+        font-size: 25px;
+        background-color: white;
+    }
+    #li7:hover {
+        font-size: 25px;
+        background-color: white;
+    }
+
+    #li8:hover {
+        font-size: 25px;
+        background-color: white;
+    }
+    #li9:hover {
+        font-size: 25px;
+        background-color: white;
+    }
+    #li10:hover {
+        font-size: 25px;
+        background-color: white;
+    }
+    #li11:hover .nutdangxuat{
+        font-size: 25px;
+        background-color: white;
+    }
+    #li12:hover {
+        font-size: 25px;
+        background-color: white;
+    }
