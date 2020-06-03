@@ -25,14 +25,14 @@ class Customer extends Model
         'deleted_at',
     ];
 
-    public function create(Request $request){
-        $customer = new Customer();
-        $customer -> name = $request -> name;
-        $customer -> email = $request -> email;
-        // phần sinh password tự động 
-        $customer -> password = 'aa';
-        $customer -> phone = $request -> phone;
-    }
+    // public function create(Request $request){
+    //     $customer = new Customer();
+    //     $customer -> name = $request -> name;
+    //     $customer -> email = $request -> email;
+    //     // phần sinh password tự động 
+    //     $customer -> password = 'aa';
+    //     $customer -> phone = $request -> phone;
+    // }
 
     public function apartmentAddress()
     {
@@ -52,5 +52,76 @@ class Customer extends Model
     public function notifications() // tên table
     {
         return $this->belongsToMany(Notification::class);
+    }
+
+    // fuction kiểm tra apartment khi thêm customer
+    public static  function checkApartment($block, $floor, $apartment){
+        // apartment đã có người thuê -> return false, else return true
+        $apartment = ApartmentAddress::select('*')
+        ->where('block', $block)
+        ->where('floor', $floor)
+        ->where('apartment', $apartment)
+        ->where('hired', 1)
+        ->get(); 
+        if(count($apartment)>0)
+            {
+                return false;
+            }
+        return true;
+    }
+
+    public static function utf8convert($str) {
+        if(!$str) return false;
+        $utf8 = array(
+            'a'=>'á|à|ả|ã|ạ|ă|ắ|ặ|ằ|ẳ|ẵ|â|ấ|ầ|ẩ|ẫ|ậ|Á|À|Ả|Ã|Ạ|Ă|Ắ|Ặ|Ằ|Ẳ|Ẵ|Â|Ấ|Ầ|Ẩ|Ẫ|Ậ',
+            'd'=>'đ|Đ',
+            'e'=>'é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ|É|È|Ẻ|Ẽ|Ẹ|Ê|Ế|Ề|Ể|Ễ|Ệ',
+            'i'=>'í|ì|ỉ|ĩ|ị|Í|Ì|Ỉ|Ĩ|Ị',
+            'o'=>'ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ|Ó|Ò|Ỏ|Õ|Ọ|Ô|Ố|Ồ|Ổ|Ỗ|Ộ|Ơ|Ớ|Ờ|Ở|Ỡ|Ợ',
+            'u'=>'ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự|Ú|Ù|Ủ|Ũ|Ụ|Ư|Ứ|Ừ|Ử|Ữ|Ự',
+            'y'=>'ý|ỳ|ỷ|ỹ|ỵ|Ý|Ỳ|Ỷ|Ỹ|Ỵ',);
+        foreach($utf8 as $ascii=>$uni) $str = preg_replace("/($uni)/i",$ascii,$str);
+        return $str;
+    }
+
+    public static function createCustomer(Request $request){
+            // phần sinh password tự động 
+            $name = strtolower(Customer::utf8convert($request -> name));
+            $passForName = '';
+            $lastName = '';
+            $count = str_word_count($name);
+            $pieces = explode(" ", $name);
+            // lấy ký tự cuối - tên
+            for($i = $count-1; $i > 1; $i--){
+                $lastName = $pieces[$i];
+                break;
+            }
+            // lấy các ký tự đầu tiên của họ và tên lót
+            for($i = 0; $i < $count-1; $i++){
+                $passForName = $passForName.$pieces[$i][0]; // lấy ký tự đầu tiên của từ thứ i
+            }
+            $passForName = $lastName.$passForName;
+            
+            $customer = new Customer();
+            $customer -> name = $request -> name;
+            $customer -> email = $request -> email;
+            $customer -> password = $passForName;
+            $customer -> phone = $request -> phone;
+            $customer -> date_of_birth = $request -> date_of_birth;
+            $customer -> gender = $request -> gender;
+            $customer -> save();
+
+            $block = $request -> selectBlock;
+            $floor = $request -> selectFloor;
+            $apartmentInput = $request -> selectApartment;
+
+            $apartment = new ApartmentAddress();
+            $apartment -> customer_id = $customer->id;
+            $apartment -> block = $block;
+            $apartment -> floor = $floor;
+            $apartment -> apartment = $apartmentInput; // để tên giống sẽ bị báo lỗi đệ quy
+            $apartment -> hired = 1;
+            $apartment -> save();
+        
     }
 }

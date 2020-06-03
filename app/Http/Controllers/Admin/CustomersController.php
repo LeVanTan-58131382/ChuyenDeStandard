@@ -86,7 +86,14 @@ class CustomersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $block = $request -> selectBlock;
+        $floor = $request -> selectFloor;
+        $apartment = $request -> selectApartment;
+        if((Customer::checkApartment($block, $floor, $apartment)) === false){
+            return redirect() -> back() -> withErrors(['errors'=>'Không thể tạo khách hàng vì địa chỉ đã có người thuê!!!']);
+        }
+        Customer::createCustomer($request);
+            return redirect() -> route('admin.customers.index') -> with(['success'=>'Thêm khách hàng thành công!!!']);
     }
 
     /**

@@ -4,17 +4,17 @@
 <div class="create-customer">
     <h3 style="text-align: center">Tạo mới Chủ hộ</h3>
     <br><br>
-    <form method="post" action="/customers">
+    <form method="post" action="{{ route('admin.customers.store')}}">
         @csrf
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="">Tên Chủ hộ:</label>
-                    <input type="text" class="form-control" placeholder="Nhập tên chủ hộ" name="name" value="{{ old('name') }}">
+                    <input required type="text" class="form-control" placeholder="Nhập tên chủ hộ..." name="name" value="{{ old('name') }}">
                 </div>
                 <div class="form-group">
                     <label for="">Ngày sinh:</label>
-                    <input type="date" class="form-control" name="date_of_birth">
+                    <input required type="date" class="form-control" name="date_of_birth">
                 </div>
                 <div class="form-group">
                 <label for="">Giới tính:</label>
@@ -25,19 +25,14 @@
                 </div>
                 <div class="form-group">
                     <label for="email">SĐT:</label>
-                    <input type="text" class="form-control" placeholder="Nhập SĐT" name="phone" value="{{ old('phone') }}">
+                    <input required type="text" class="form-control" placeholder="Nhập SĐT" name="phone" value="{{ old('phone') }}">
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" class="form-control" placeholder="Nhập email" name="email" value="{{ old('email') }}">
+                    <input required type="email" class="form-control" placeholder="Nhập email" name="email" value="{{ old('email') }}">
                 </div>
             </div>
-            {{-- <div class="col-md-2"></div> --}}
             <div class="col-md-6">
-                {{-- <div class="form-group">
-                    <label for="pwd">Mật khẩu: Tự động</label>
-                    {{-- <input type="password" class="form-control" placeholder="Nhập mật khẩu" name="password">
-                </div> --}}
                   <div class="form-group vehicle">
                       <label for="pwd">Phương tiện:</label>
                       <ul>
