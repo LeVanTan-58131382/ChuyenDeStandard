@@ -13,17 +13,16 @@ class CreateVehicleCuctomersTable extends Migration
      */
     public function up()
     {
-        Schema::create('vehicle_customer', function (Blueprint $table) {
+        Schema::create('customer_vehicle', function (Blueprint $table) {
             $table->id();
-            $table->integer('living_expenses_type_id');
             $table->integer('month_use')->nullable();
             $table->integer('amount')->default(0); // số lượng
         
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
         
-            $table->unsignedBigInteger('vehicle_type_id');
-            $table->foreign('vehicle_type_id')->references('id')->on('vehicle_types')->onDelete('cascade');
+            $table->unsignedBigInteger('vehicle_id'); // mã vehicle của customer
+            $table->foreign('vehicle_id')->references('id')->on('vehicles')->onDelete('cascade');
             
             $table->timestamps();
             $table->softDeletes();

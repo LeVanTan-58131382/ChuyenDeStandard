@@ -144,7 +144,10 @@ class DatabaseSeeder extends Seeder
             ['id' => 15, 'customer_id' => null, 'block' => 2, 'floor' => 1, 'apartment' => 5, 'hired' => 0],
         ]);
 
-         
+        //system_calendars
+        DB::table('system_calendars')->insert([
+            ['id' => 1,  'month' => 5,'year' => 2020],
+            ]);
 
         // DB::table('living_expenses_types')->insert([
         //     ['id' => 1, 'name' => 'Điện'],
@@ -189,21 +192,21 @@ class DatabaseSeeder extends Seeder
            
         // ]);
 
-        // DB::table('vehicle_types')->insert([
-        //     ['id' => 1, 'name' => 'Xe ô tô'],
-        //     ['id' => 2, 'name' => 'Xe mô tô'],
-        //     ['id' => 3, 'name' => 'Xe đạp'],
-        // ]);
+        DB::table('vehicles')->insert([
+            ['id' => 1, 'name' => 'Xe ô tô'],
+            ['id' => 2, 'name' => 'Xe mô tô'],
+            ['id' => 3, 'name' => 'Xe đạp'],
+        ]);
 
-        // DB::table('vehicle_prices')->insert([
-        //     ['id' => 1, 'name' => 'Phí phương tiện Xe ô tô 1', 'vehicle_type_id' => 1, 'price_regulation_id' => 5, 'price' => 1250000],
-        //     ['id' => 2, 'name' => 'Phí phương tiện Xe mô tô 1', 'vehicle_type_id' => 2, 'price_regulation_id' => 5, 'price' => 45000],
-        //     ['id' => 3, 'name' => 'Phí phương tiện Xe đạp 1', 'vehicle_type_id' => 3, 'price_regulation_id' => 5, 'price' => 30000],
+        DB::table('vehicle_prices')->insert([
+            ['id' => 1, 'name' => 'Phí phương tiện Xe ô tô 1', 'vehicle_type_id' => 1, 'price_regulation_id' => 5, 'price' => 1250000],
+            ['id' => 2, 'name' => 'Phí phương tiện Xe mô tô 1', 'vehicle_type_id' => 2, 'price_regulation_id' => 5, 'price' => 45000],
+            ['id' => 3, 'name' => 'Phí phương tiện Xe đạp 1', 'vehicle_type_id' => 3, 'price_regulation_id' => 5, 'price' => 30000],
 
-        //     ['id' => 4, 'name' => 'Phí phương tiện Xe ô tô 2', 'vehicle_type_id' => 1, 'price_regulation_id' => 6, 'price' => 1350000],
-        //     ['id' => 5, 'name' => 'Phí phương tiện Xe mô tô 2', 'vehicle_type_id' => 2, 'price_regulation_id' => 6, 'price' => 55000],
-        //     ['id' => 6, 'name' => 'Phí phương tiện Xe đạp 2', 'vehicle_type_id' => 3, 'price_regulation_id' => 6, 'price' => 40000],
-        // ]);
+            ['id' => 4, 'name' => 'Phí phương tiện Xe ô tô 2', 'vehicle_type_id' => 1, 'price_regulation_id' => 6, 'price' => 1350000],
+            ['id' => 5, 'name' => 'Phí phương tiện Xe mô tô 2', 'vehicle_type_id' => 2, 'price_regulation_id' => 6, 'price' => 55000],
+            ['id' => 6, 'name' => 'Phí phương tiện Xe đạp 2', 'vehicle_type_id' => 3, 'price_regulation_id' => 6, 'price' => 40000],
+        ]);
 
 
         // DB::table('statisticals')->insert([

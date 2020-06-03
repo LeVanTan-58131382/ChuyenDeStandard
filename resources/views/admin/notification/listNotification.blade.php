@@ -3,7 +3,7 @@
 @section('content')
 <div class="list-notifi">
     <h3 style="text-align: center">Danh sách thông báo</h3>
-    <a class="btn btn-dark" href="{{ route('create-notifi')}}">Tạo thông báo mới</a>
+    <a class="btn btn-dark" href="{{ route('admin.notifications.create')}}">Tạo thông báo mới</a>
     <br><br>
     <div class="row">
         <div class="col-md-12">
@@ -26,15 +26,15 @@
                         <td>15/5/2020</td>
                         <td>
                             <?php
-                                if($notifi -> scope == 0){
+                                if($notifi -> scope == 99999){
                                     echo 'Tất cả khách hàng';
                                 }
                                 else{
-                                    foreach ($notificationUser as $notifiuser){
-                                        foreach ($users as $user) {
-                                            if($notifiuser->notifi_id == $notifi -> id && $notifiuser -> user_id == $user->id)
+                                    foreach ($notificationCustomer as $notifiCustomer){
+                                        foreach ($customers as $customer) {
+                                            if($notifiCustomer->notification_id == $notifi -> id && $notifiCustomer -> customer_id == $customer->id)
                                             {
-                                                echo $user->name;
+                                                echo $customer->name;
                                             }
                                         }
                                     }
@@ -44,13 +44,13 @@
                         <td>
                             <?php
                                 if($notifi -> scope == 1){
-                                    foreach ($notificationUser as $notifiuser){
-                                        if($notifiuser->notifi_id == $notifi -> id && $notifiuser->read == 0)
+                                    foreach ($notificationCustomer as $notifiCustomer){
+                                        if($notifiCustomer->notification_id == $notifi -> id && $notifiCustomer->read == 0)
                                             { 
                                                 echo "Chưa xem";
                                             }
                                         
-                                        elseif($notifiuser->notifi_id == $notifi -> id && $notifiuser->read == 1)
+                                        elseif($notifiCustomer->notification_id == $notifi -> id && $notifiCustomer->read == 1)
                                         {
                                             echo "Đã xem";
                                         }

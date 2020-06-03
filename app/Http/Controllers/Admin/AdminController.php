@@ -145,7 +145,7 @@ class AdminController extends Controller
         return view('admin.message.listMessages', compact('users', 'messages'))->with('success', 'Xóa tin nhắn thành công!');
     }
 
-    public function notifications()
+    public function notifications() 
     {
         $users = User::select('*')->where('id', '>', 1)->get();
         $notifications = Notification::get();
@@ -263,7 +263,7 @@ class AdminController extends Controller
     }
 
     public function create_calculate_bill($id)
-    {
+    { 
         $bills = Bill::select('*')->where('user_id', $id)->where('payment_month', 5)->get();
         // nếu khách hàng đạ dc xuất hóa đơn cho tháng 5 thì không xuất nữa
         if(!$bills->isEmpty()){

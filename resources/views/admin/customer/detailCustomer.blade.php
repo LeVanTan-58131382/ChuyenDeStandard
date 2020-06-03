@@ -24,7 +24,9 @@
     <p><b>Số điện thoại:</b> {{ $customer -> phone}}</p>
     <a class="btn btn-info" href="{{ url()->previous() }}">Quay về</a>
 
+    @if(count($customer->familyMembers) > 0)
     <h3>Thành viên gia đình</h3>
+    @endif
     @foreach ($customer->familyMembers as $member)
     <div class="member">
         <p><b>Họ tên:</b> {{ $member -> name}}</p>

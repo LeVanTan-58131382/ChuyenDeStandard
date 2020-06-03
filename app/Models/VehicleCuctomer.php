@@ -1,22 +1,23 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Customer;
 
 class VehicleCuctomer extends Model
 {
-    protected $table = 'vehicle_customer';
+    protected $table = 'customer_vehicle';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'user_id', 'vehicle_type_id', 'living_expenses_type_id', 'month_use', 'amount'
+        'customer_id', 'vehicle_id', 'amount', 'month_use'
     ];
     
-    public function user() {
-        return $this->belongsTo('App\User');
-    }
+    // public function user() {
+    //     return $this->belongsTo(Customer::class);
+    // }
 }

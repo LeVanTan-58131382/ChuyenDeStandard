@@ -160,6 +160,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     Route::get('/', 'AdminHomeController@index')->name('home');
     // Bills
     //Route::delete('bills/destroy', 'BillsController@massDestroy')->name('bills.massDestroy'); // route cho các other function 
+    Route::get('/bills/show/electric', 'BillsController@showBillElectric')->name('show-bill-electric');
+    Route::get('/bills/show/water', 'BillsController@showBillWater')->name('show-bill-water');
+    Route::get('/bills/show/vehicle', 'BillsController@showBillVehicle')->name('show-bill-vehicle');
+    Route::get('/bills/createBill/{customerID}', 'BillsController@createBill')->name('create-bill');
     Route::resource('bills', 'BillsController');
 
     // Messages

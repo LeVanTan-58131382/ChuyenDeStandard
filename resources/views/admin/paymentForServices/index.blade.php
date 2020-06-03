@@ -9,16 +9,16 @@
             <br><br>
             <ul>
                 <li>
-                    <a class="btn btn-secondary" href="{{route('list-calBill')}}">Tất cả</a>
+                    <a class="btn btn-secondary" href="{{route('admin.bills.index')}}">Tất cả</a>
                 </li>
                 <li>
-                    <a class="btn btn-outline-secondary" href="{{route('show-BillE')}}">Phí điện sinh hoạt</a>
+                    <a class="btn btn-outline-secondary" href="{{route('admin.show-bill-electric')}}">Phí điện sinh hoạt</a>
                 </li>
                 <li>
-                    <a class="btn btn-outline-secondary" href="{{route('show-BillW')}}">Phí nước sinh hoạt</a>
+                    <a class="btn btn-outline-secondary" href="{{route('admin.show-bill-water')}}">Phí nước sinh hoạt</a>
                 </li>
                 <li>
-                    <a class="btn btn-outline-secondary" href="{{route('show-BillC')}}">Phí gửi xe</a>
+                    <a class="btn btn-outline-secondary" href="{{route('admin.show-bill-vehicle')}}">Phí gửi xe</a>
                 </li>
             </ul>
         </div>
@@ -45,13 +45,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                    @foreach ($listUsers as $user)
+                    @foreach ($customers as $customer)
                     <tr>
-                        <th scope="row">{{ $user -> id }}</th>
-                        <td>{{ $user -> name }}</td>
+                        <th scope="row">{{ $customer -> id }}</th>
+                        <td>{{ $customer -> name }}</td>
                         <td>
                             <?php foreach($apartments as $apart)
-                                        if(($apart -> user_id) == ($user -> id))
+                                        if(($apart -> customer_id) == ($customer -> id))
                                         {
                                            echo 'Căn hộ '.$apart->block.$apart->floor.$apart->apartment;
                                         }
@@ -59,10 +59,10 @@
                         </td>
                         <td>
                             <?php foreach($bills as $bill)
-                                if((($bill -> user_id) == ($user -> id)) && ($bill -> living_expenses_type_id == 1))
+                                if((($bill -> customer_id) == ($customer -> id)) && ($bill -> living_expenses_type_id == 1))
                             {
                                 {?>
-                                <a style="text-decoration: none;" href="{{ route('create-calBill', $user -> id)}}">Đã xuất hóa đơn</a>&nbsp <i class="fa fa-check-square-o" style="font-size:20px;color:green"></i>
+                                <a style="text-decoration: none;" href="{{ route('admin.create-bill', $customer -> id)}}">Đã xuất hóa đơn</a>&nbsp <i class="fa fa-check-square-o" style="font-size:20px;color:green"></i>
                                 <script>
                                     jQuery(document).ready(function($) {
                                         $('#chamthang{{$user->id}}').css({'opacity':'0'},{'visibility':'hidden'});
@@ -71,15 +71,15 @@
                                 <?php }
                             }
                             ?>
-                            <a id="chamthang{{$user->id}}" style="text-decoration: none;" href="{{ route('create-calBill', $user -> id)}}">Chưa xuất hóa đơn&nbsp<i class="fa fa-exclamation-circle" style="font-size:20px;color:red"></i></a>
+                            <a id="chamthang{{$customer->id}}" style="text-decoration: none;" href="{{ route('admin.create-bill', $customer -> id)}}">Chưa xuất hóa đơn&nbsp<i class="fa fa-exclamation-circle" style="font-size:20px;color:red"></i></a>
                         </td>
-                        <td><a href="{{ route('show-Bill', $user -> id)}}"><i class="fa fa-search" style="font-size:20px"></i></a></td>
+                        <td><a href="{{ route('admin.bills.show', $customer -> id)}}"><i class="fa fa-search" style="font-size:20px"></i></a></td>
                     </tr>
                     @endforeach
                 </tbody>
               </table>
         </div>
-        {{ $listUsers->links() }}
+        {{ $customers->links() }}
     </div>
 </div>
 <style>

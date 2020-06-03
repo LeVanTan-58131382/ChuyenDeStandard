@@ -7,7 +7,10 @@ use App\Models\ApartmentAddress;
 use App\Models\FamilyMember;
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use App\Models\VehicleCuctomer;
 use App\Models\Notification;
+use App\Models\Vehicle;
+use App\Models\SystemCalendar;
 
 class Customer extends Model
 {
@@ -25,14 +28,10 @@ class Customer extends Model
         'deleted_at',
     ];
 
-    // public function create(Request $request){
-    //     $customer = new Customer();
-    //     $customer -> name = $request -> name;
-    //     $customer -> email = $request -> email;
-    //     // phần sinh password tự động 
-    //     $customer -> password = 'aa';
-    //     $customer -> phone = $request -> phone;
-    // }
+    public function vehicles()
+    {
+        return $this->belongsToMany(Vehicle::class);
+    }
 
     public function apartmentAddress()
     {
@@ -111,6 +110,7 @@ class Customer extends Model
             $customer -> gender = $request -> gender;
             $customer -> save();
 
+            // add apartment
             $block = $request -> selectBlock;
             $floor = $request -> selectFloor;
             $apartmentInput = $request -> selectApartment;
@@ -122,6 +122,33 @@ class Customer extends Model
             $apartment -> apartment = $apartmentInput; // để tên giống sẽ bị báo lỗi đệ quy
             $apartment -> hired = 1;
             $apartment -> save();
-        
+
+            // add vehicle
+            $calendar = SystemCalendar::find(1); 
+            $month = $calendar -> month;
+            //$year = $calendar -> year;
+            // Các loại phương tiện
+            $typeVehicle_Car = Vehicle::where('id', 1)->first();
+            $typeVehicle_Moto = Vehicle::where('id', 2)->first();
+            $typeVehicle_Bike = Vehicle::where('id', 3)->first();
+            
+            // if customer have car
+            if($request -> car > 0){
+                $customer->vehicles()->attach($typeVehicle_Car, [ 'amount' => $request -> car,
+                                                'month_use' => $month,
+                                                   ]);                          
+            }
+            // if customer have moto
+            if($request -> moto > 0){
+                $customer->vehicles()->attach($typeVehicle_Moto, [ 'amount' => $request -> moto,
+                                                    'month_use' => $month
+                                                    ]);
+            }
+            // if customer have bike
+            if($request -> bike > 0){
+                $customer->vehicles()->attach($typeVehicle_Bike, [ 'amount' => $request -> bike,
+                                                    'month_use' => $month
+                                                    ]);
+            }
     }
 }

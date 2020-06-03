@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Customer;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
+use App\Models\Notification;
+use App\Models\NotificationCustomer;
 
 class NotificationsController extends Controller
 {
@@ -14,7 +17,7 @@ class NotificationsController extends Controller
      */
     public function index()
     {
-        //
+       
     }
 
     /**

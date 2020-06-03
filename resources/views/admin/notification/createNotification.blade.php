@@ -3,7 +3,7 @@
 @section('content')
 <div class="create-notifi">
     <h3>Tạo thông báo</h3>
-<form action="{{ route('send-notifi')}}" method="post">
+<form action="{{ route('admin.notifications.store')}}" method="post">
   @csrf
         <div class="form-group">
             <label>Tiêu đề thông báo:</label>
@@ -15,10 +15,10 @@
         </div>
         <div class="form-group">
           <label>Người nhận thông báo:</label>
-          <select name="selectUser">
+          <select name="selectCustomer">
               <option selected value="99999">Tất cả khách hàng</option>
-              @foreach ($users as $user)
-                <option value="{{ $user->id}}">{{ $user->name}}</option>
+              @foreach ($customers as $customer)
+                <option value="{{ $customer->id}}">{{ $customer->name}}</option>
               @endforeach
           </select>
         </div>

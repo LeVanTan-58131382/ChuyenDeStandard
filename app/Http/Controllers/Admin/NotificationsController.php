@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
+use App\Models\Notification;
+use App\Models\NotificationCustomer;
 
 class NotificationsController extends Controller
 {
@@ -14,7 +17,10 @@ class NotificationsController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customer::select('*')->where('id', '>', 1)->get();
+        $notifications = Notification::get();
+        $notificationCustomer = NotificationCustomer::get();
+        return view('admin.notification.listNotification', compact('customers', 'notifications', 'notificationCustomer'));
     }
 
     /**
@@ -24,7 +30,8 @@ class NotificationsController extends Controller
      */
     public function create()
     {
-        //
+        $customers = Customer::get();
+        return view('admin.notification.createNotification', compact('customers'));
     }
 
     /**
@@ -35,7 +42,41 @@ class NotificationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $title = $request -> title;
+        $content = $request -> content;
+        $selectCustomer = $request -> selectCustomer;
+        $customers = Customer::get();
+        if($selectCustomer == 99999){
+            $notification = new Notification();
+            $notification -> title = $title;
+            $notification -> content = $content;
+            $notification -> scope = 99999;
+            $notification -> save();
+            foreach($customers as $customer){
+                $notifiCustomer = new NotificationCustomer();
+                $notifiCustomer -> customer_id = $customer -> id;
+                $notifiCustomer -> notification_id = $notification -> id;
+                $notifiCustomer -> save();
+            }
+        }
+        else {
+            $notification = new Notification();
+            $notification -> title = $title;
+            $notification -> content = $content;
+            $notification -> scope = 1;
+            $notification -> save();
+            foreach($customers as $customer)
+            {
+                if( $customer -> id == $selectCustomer){
+                    $notifiUser = new NotificationCustomer();
+                    $notifiUser -> customer_id = $customer -> id;
+                    $notifiUser -> notification_id = $notification -> id;
+                    $notifiUser -> save();
+                }
+            }
+        }
+        //return view('admin.notification.createNotification', compact('customers'))-> with(['success'=>'Gửi thông báo thành công!!!']);
+        return redirect() -> route('admin.notifications.index') -> with(['success'=>'Gửi thông báo thành công!!!']);
     }
 
     /**
