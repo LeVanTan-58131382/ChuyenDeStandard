@@ -116,22 +116,44 @@ class BillsController extends Controller
     {
         $celendar = SystemCalendar::find(1);
         $month = $celendar -> month;
+        $year = $celendar -> year;
 
         $customer = Customer::find($id);
 
-        $bills = Bill::select('*')->where('customer_id', $id)->where('payment_month', $month)->get();
+        $bills = Bill::select('*')->where('customer_id', $id)->where('payment_month', $month)
+                                                            ->where('payment_year', $year)
+                                                            ->get();
         // nếu khách hàng đạ dc xuất hóa đơn cho tháng 5 thì không xuất nữa
         if($bills->isEmpty()){
             return view('admin.paymentForServices.billnotexported');
         }
-        $consumptionIndex_E = ConsumptionIndex::select('*')->where('customer_id', $id)->where('month_consumption', $month)->where('living_expenses_type_id', 1)->get();
-        $consumptionIndex_W = ConsumptionIndex::select('*')->where('customer_id', $id)->where('month_consumption', $month)->where('living_expenses_type_id', 2)->get();
+        $consumptionIndex_E = ConsumptionIndex::select('*')->where('customer_id', $id)
+                                                            ->where('year_consumption', $year)
+                                                            ->where('month_consumption', $month)
+                                                            ->where('living_expenses_type_id', 1)
+                                                            ->get();
+        $consumptionIndex_W = ConsumptionIndex::select('*')->where('customer_id', $id)
+                                                            ->where('year_consumption', $year)
+                                                            ->where('month_consumption', $month)
+                                                            ->where('living_expenses_type_id', 2)
+                                                            ->get();
         $vehicles = VehicleCuctomer::select('*')->where('customer_id', $id)->get();
         $vehicles_prices = VehiclePrice::get();
-        $billElectric = Bill::select('*')->where('customer_id', $id)->where('payment_month', $month)->where('living_expenses_type_id', 1)->get();
-        $billWater = Bill::select('*')->where('customer_id', $id)->where('payment_month', $month)->where('living_expenses_type_id', 2)->get();
-        $billCar = Bill::select('*')->where('customer_id', $id)->where('payment_month', $month)->where('living_expenses_type_id', 3)->get();
-
+        $billElectric = Bill::select('*')->where('customer_id', $id)
+                                        ->where('payment_year', $year)
+                                        ->where('payment_month', $month)
+                                        ->where('living_expenses_type_id', 1)
+                                        ->get();
+        $billWater = Bill::select('*')->where('customer_id', $id)
+                                        ->where('payment_year', $year)
+                                        ->where('payment_month', $month)
+                                        ->where('living_expenses_type_id', 2)
+                                        ->get();
+        $billCar = Bill::select('*')->where('customer_id', $id)
+                                        ->where('payment_year', $year)
+                                        ->where('payment_month', $month)
+                                        ->where('living_expenses_type_id', 3)
+                                        ->get();
         $price_regulation = PriceRegulation::get();
         $usage_norm = UsageNormInvestors::get();
         return view('admin.paymentForServices.HoaDon', compact('customer', 'consumptionIndex_E', 'consumptionIndex_W', 'billElectric', 'billWater', 'billCar', 'price_regulation', 'vehicles', 'vehicles_prices', 'usage_norm'));
@@ -141,20 +163,31 @@ class BillsController extends Controller
     {
         $celendar = SystemCalendar::find(1);
         $month = $celendar -> month;
+        $year = $celendar -> year;
+
         $customers = Customer::paginate(10);
         if($type == 1)
         {
-            $bills = Bill::select('*')->where('living_expenses_type_id', 1)->where('payment_month', $month)->get();
+            $bills = Bill::select('*')->where('living_expenses_type_id', 1)
+                                        ->where('payment_year', $year)
+                                        ->where('payment_month', $month)
+                                        ->get();
             return view('admin.paymentForServices.billElectric', compact('bills', 'customers'));
         }
         if($type == 2)
         {
-            $bills = Bill::select('*')->where('living_expenses_type_id', 2)->where('payment_month', $month)->get();
+            $bills = Bill::select('*')->where('living_expenses_type_id', 2)
+                                        ->where('payment_year', $year)
+                                        ->where('payment_month', $month)
+                                        ->get();
             return view('admin.paymentForServices.billWater', compact('bills', 'customers'));
         }
         if($type == 3)
         {
-            $bills = Bill::select('*')->where('living_expenses_type_id', 3)->where('payment_month', $month)->get();
+            $bills = Bill::select('*')->where('living_expenses_type_id', 3)
+                                        ->where('payment_year', $year)
+                                        ->where('payment_month', $month)
+                                        ->get();
             return view('admin.paymentForServices.billCar', compact('bills', 'customers'));
         }
     }
@@ -162,10 +195,13 @@ class BillsController extends Controller
     public function showBillDetail( $type, $billID){
         $celendar = SystemCalendar::find(1);
         $month = $celendar -> month;
+        $year = $celendar -> year;
+
         $bill = Bill::find($billID);
         $customer = Customer::find($bill -> customer_id);
         if($type == 1){
             $consumptionIndex_E = ConsumptionIndex::select('*')->where('customer_id', $customer->id)
+                                                                ->where('year_consumption', $year)
                                                                 ->where('month_consumption', $month)
                                                                 ->where('living_expenses_type_id', 1)->get();
             $price_regulation = PriceRegulation::get();
@@ -174,6 +210,7 @@ class BillsController extends Controller
         }
         if($type == 2){
             $consumptionIndex_W = ConsumptionIndex::select('*')->where('customer_id', $customer->id)
+                                                                ->where('year_consumption', $year)
                                                                 ->where('month_consumption', 5)
                                                                 ->where('living_expenses_type_id', 2)->get();
             $price_regulation = PriceRegulation::get();
@@ -192,40 +229,68 @@ class BillsController extends Controller
     public function showBillPaid($type){
         $celendar = SystemCalendar::find(1);
         $month = $celendar -> month;
+        $year = $celendar -> year;
+
         $customers = Customer::paginate(10);
         if($type == 1)
         {
-            $bills = Bill::select('*')->where('living_expenses_type_id', 1)->where('payment_month', $month)->where('paid', 1)->get();
+            $bills = Bill::select('*')->where('living_expenses_type_id', 1)
+                                        ->where('payment_year', $year)
+                                        ->where('payment_month', $month)
+                                        ->where('paid', 1)
+                                        ->get();
             return view('admin.paymentForServices.billElectric', compact('bills', 'customers'));
         }
         if($type == 2)
         {
-            $bills = Bill::select('*')->where('living_expenses_type_id', 2)->where('payment_month', $month)->where('paid', 1)->get();
+            $bills = Bill::select('*')->where('living_expenses_type_id', 2)
+                                        ->where('payment_year', $year)
+                                        ->where('payment_month', $month)
+                                        ->where('paid', 1)
+                                        ->get();
             return view('admin.paymentForServices.billWater', compact('bills', 'customers'));
         }
         if($type == 3)
         {
-            $bills = Bill::select('*')->where('living_expenses_type_id', 3)->where('payment_month', $month)->where('paid', 1)->get();
+            $bills = Bill::select('*')->where('living_expenses_type_id', 3)
+                                        ->where('payment_year', $year)
+                                        ->where('payment_month', $month)
+                                        ->where('paid', 1)
+                                        ->get();
             return view('admin.paymentForServices.billCar', compact('bills', 'customers'));
         }
     }
     public function showBillNotPaid($type){
         $celendar = SystemCalendar::find(1);
         $month = $celendar -> month;
+        $year = $celendar -> year;
+
         $customers = Customer::paginate(10);
         if($type == 1)
         {
-            $bills = Bill::select('*')->where('living_expenses_type_id', 1)->where('payment_month', $month)->where('paid', 0)->get();
+            $bills = Bill::select('*')->where('living_expenses_type_id', 1)
+                                        ->where('payment_year', $year)
+                                        ->where('payment_month', $month)
+                                        ->where('paid', 0)
+                                        ->get();
             return view('admin.paymentForServices.billElectric', compact('bills', 'customers'));
         }
         if($type == 2)
         {
-            $bills = Bill::select('*')->where('living_expenses_type_id', 2)->where('payment_month', $month)->where('paid', 0)->get();
+            $bills = Bill::select('*')->where('living_expenses_type_id', 2)
+                                        ->where('payment_year', $year)
+                                        ->where('payment_month', $month)
+                                        ->where('paid', 0)
+                                        ->get();
             return view('admin.paymentForServices.billWater', compact('bills', 'customers'));
         }
         if($type == 3)
         {
-            $bills = Bill::select('*')->where('living_expenses_type_id', 3)->where('payment_month', $month)->where('paid', 0)->get();
+            $bills = Bill::select('*')->where('living_expenses_type_id', 3)
+                                        ->where('payment_year', $year)
+                                        ->where('payment_month', $month)
+                                        ->where('paid', 0)
+                                        ->get();
             return view('admin.paymentForServices.billCar', compact('bills', 'customers'));
         }
     }

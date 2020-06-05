@@ -54,6 +54,7 @@ class Bill extends Model
         $consumptionIndex_E -> customer_id = $id;
         $consumptionIndex_E -> living_expenses_type_id = 1;
         $consumptionIndex_E -> month_consumption = $month;
+        $consumptionIndex_E -> year_consumption = $year;
         $consumptionIndex_E -> last_month_index = $consumptionIndex_E_old;
         $consumptionIndex_E -> this_month_index = $consumptionIndex_E_new;
         $consumptionIndex_E -> save();
@@ -112,6 +113,7 @@ class Bill extends Model
         $consumptionIndex_W -> customer_id = $id;
         $consumptionIndex_W -> living_expenses_type_id = 2;
         $consumptionIndex_W -> month_consumption = $month;
+        $consumptionIndex_W -> year_consumption = $year;
         $consumptionIndex_W -> last_month_index = $consumptionIndex_W_old;
         $consumptionIndex_W -> this_month_index = $consumptionIndex_W_new;
         $consumptionIndex_W -> save();
