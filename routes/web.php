@@ -204,6 +204,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     // Thống kê
     // Thống kê theo loại phí dịch vụ ( của tất cả khách hàng) ( mặc định là từ trước đến nay - có thể tùy chọn tháng)
     Route::post('statistical', 'StatisticalsController@statistical')->name('statistical');
+
+    Route::get('statisticals-month-to-month', 'StatisticalsController@statisticalMonthToMonth')->name('statistical-month-to-month');
     
     // Thống kê theo loại phí dịch vụ của một khách hàng nào đó ( mặc định là từ trước đến nay - có thể tùy chọn tháng)
     Route::get('statisticals/electric/{customerId}', 'StatisticalsController@electricStatisticalCustomer')->name('statisticals-electric');

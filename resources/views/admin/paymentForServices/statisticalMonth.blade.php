@@ -2,8 +2,18 @@
 
 @section('content')
 <div class="statistical">
-    <h3 style="text-align: center">Thống Kê Phí Dịch Vụ</h3>
-    <form action="{{ route('admin.statistical')}}" method="post">
+    {{-- <h3 style="text-align: center">Thống Kê Phí Dịch Vụ</h3> --}}
+    <div class="menuTime">
+        <ul>
+            <li>
+                <a class="btn btn-secondary" href="{{route('admin.statisticals.index')}}">Thống kê theo mốc thời gian</a>
+            </li>
+            <li>
+                <a class="btn btn-outline-secondary" href="{{route('admin.statistical-month-to-month')}}">Thống kê theo khoảng thời gian</a>
+            </li>
+        </ul>
+    </div>
+    <form action="{{ route('admin.statistical')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="hienthi">
         <div class="hienthi-left">
@@ -28,10 +38,10 @@
         <div class="hienthi-right-center">
             <b>Theo Mốc</b>
             <br><br>
-            <div class="month">
+            <div style="float: left" class="month">
                 <b>Tháng</b>
                 <select style="width: 70px" name="month" id="">
-                    <option selected value="0">Không chọn</option>
+                    <option selected value="{{ $celendar->month}}">{{ $celendar->month}}</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -46,68 +56,10 @@
                     <option value="12">12</option>
                 </select>
             </div>
-            <br>
-            <div class="year">
-                <b>Năm</b>&nbsp&nbsp&nbsp
+            <div style="float: left" class="year">
+                &nbsp&nbsp&nbsp<b>Năm</b>
                 <select style="width: 70px" name="year" id="">
-                    <option selected value="0">Không chọn</option>
-                    <option value="2019">2019</option>
-                    <option value="2020">2020</option>
-                    <option value="2021">2021</option>
-                    <option value="2022">2022</option>
-                </select>
-            </div>
-        </div>
-        <div class="hienthi-right">
-            <b>Theo Khoảng Thời Gian</b>
-            <br><br>
-            <div class="timeFrom">
-                <b>Từ tháng</b>&nbsp&nbsp
-                <select style="width: 70px" name="monthFrom" id="">
-                    <option selected value="0">Không chọn</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                </select>
-                <b>Năm</b>
-                <select style="width: 70px" name="yearFrom" id="">
-                    <option selected value="0">Không chọn</option>
-                    <option value="2019">2019</option>
-                    <option value="2020">2020</option>
-                    <option value="2021">2021</option>
-                    <option value="2022">2022</option>
-                </select>
-            </div>
-            <br>
-            <div class="timeTo">
-                <b>Đến tháng</b>
-                <select style="width: 70px" name="monthTo" id="">
-                    <option selected value="0">Không chọn</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                </select>
-                <b>Năm</b>
-                <select style="width: 70px" name="yearTo" id="">
-                    <option selected value="0">Không chọn</option>
+                    <option selected value="{{ $celendar->year}}">{{ $celendar->year}}</option>
                     <option value="2019">2019</option>
                     <option value="2020">2020</option>
                     <option value="2021">2021</option>
@@ -117,12 +69,15 @@
         </div>
         <div class="nutsubmit">
             <input type="submit" class="btn btn-info" value="Thực hiện">
+            {{-- <input style="margin-top: 16px" type="reset" class="btn btn-info" value=" Làm mới "> --}}
         </div>
     </div>
 </form>
     @if($result == 1)
         <div class="result">
             @if($result_processed == 1)
+            <b style="margin:auto" >{{$title}}:</b>
+            <br><br>
                 <div class="result_processed">
                     <table class="table table-hover">
                         <thead>
@@ -159,6 +114,8 @@
                 </div>
             @endif
             @if($result_processed == 2)
+            <b style="margin:auto" >{{$title}}:</b>
+            <br><br>
                 <div class="result_processed">
                     <table class="table table-hover">
                         <thead>
@@ -173,12 +130,12 @@
                         <tbody>
                                 @foreach ($bills as $bill)
                                     @if($bill -> count() > 0)
-                                        @if(($bill -> customer_id) == ($customer -> id))
+                                        @if(($bill -> customer_id) == ($customer_result -> id))
                                             <tr>
-                                                <th scope="row">{{ $customer -> id }}</th>
-                                                <td>{{ $customer -> name }}</td>
+                                                <th scope="row">{{ $customer_result -> id }}</th>
+                                                <td>{{ $customer_result -> name }}</td>
                                                 <td>
-                                                    Căn hộ {{ $customer->apartmentAddress['block'].$customer->apartmentAddress['floor'].$customer->apartmentAddress['apartment']}}
+                                                    Căn hộ {{ $customer_result->apartmentAddress['block'].$customer_result->apartmentAddress['floor'].$customer_result->apartmentAddress['apartment']}}
                                                 </td>
                                                 <td>{{$bill->payment_month}}</td>
                                                 <td>
@@ -191,9 +148,6 @@
                         </tbody>
                       </table>
                 </div>
-            @endif
-            @if($result_processed == 3)
-                <div class="result_processed"></div>
             @endif
         </div>
     @endif
@@ -213,10 +167,19 @@
         position: relative;
         width: 100%;
         height: auto;
-        background-color: white;
+        margin-top: 20px;
+    }
+    .menuTime{
+        position: relative;
+    }
+    .menuTime li{
+        list-style: none;
+        float: left;
+        margin-right: 5px;
     }
     .hienthi{
         position: relative;
+        margin-top: 65px;
         width: 100%;
         height: 170px;
         padding: 5px;
@@ -244,22 +207,14 @@
         position: absolute;
         left: 46%;
         top: 0%;
-        width: 15%;
-        height: 100%;
-        padding: 13px;
-    }
-    .hienthi-right{
-        position: absolute;
-        left: 62%;
-        top: 0%;
-        width: 28%;
+        width: 30%;
         height: 100%;
         padding: 13px;
     }
     .nutsubmit{
         position: absolute;
-        right: 0%;
-        top: 37%;
+        right: 10%;
+        top: 36%;
         width: 10%;
         height: 20%;
     }
