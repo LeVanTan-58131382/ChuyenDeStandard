@@ -30,7 +30,12 @@ class Customer extends Model
 
     public function vehicles()
     {
-        return $this->belongsToMany(Vehicle::class);
+        return $this->belongsToMany(Vehicle::class)->withPivot([
+            'month_use',
+            'amount',
+            'customer_id',
+            'vehicle_id'
+        ]);;
     }
 
     public function apartmentAddress()

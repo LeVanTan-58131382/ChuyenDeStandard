@@ -149,48 +149,48 @@ class DatabaseSeeder extends Seeder
             ['id' => 1,  'month' => 5,'year' => 2020],
             ]);
 
-        // DB::table('living_expenses_types')->insert([
-        //     ['id' => 1, 'name' => 'Điện'],
-        //     ['id' => 2, 'name' => 'Nước'],
-        //     ['id' => 3, 'name' => 'Gửi xe'],
-        // ]); 
+        DB::table('living_expenses_types')->insert([
+            ['id' => 1, 'name' => 'Điện'],
+            ['id' => 2, 'name' => 'Nước'],
+            ['id' => 3, 'name' => 'Gửi xe'],
+        ]); 
         
-        // DB::table('price_regulations')->insert([
-        //     ['id' => 1, 'name' => 'QĐ phí điện Sinh hoạt 1', 'living_expenses_type_id' => 1, 'month_start_of_use' =>1],
-        //     ['id' => 2, 'name' => 'QĐ phí điện Sinh hoạt 2', 'living_expenses_type_id' => 1, 'month_start_of_use' =>2],
+        DB::table('price_regulations')->insert([
+            ['id' => 1, 'name' => 'QĐ phí điện Sinh hoạt 1', 'living_expenses_type_id' => 1, 'month_start_of_use' =>1],
+            ['id' => 2, 'name' => 'QĐ phí điện Sinh hoạt 2', 'living_expenses_type_id' => 1, 'month_start_of_use' =>2],
 
-        //     ['id' => 3, 'name' => 'QĐ phí nước Sinh hoạt 1', 'living_expenses_type_id' => 2, 'month_start_of_use' =>1],
-        //     ['id' => 4, 'name' => 'Quy định phí nước Sinh hoạt 2', 'living_expenses_type_id' => 2, 'month_start_of_use' =>2],
+            ['id' => 3, 'name' => 'QĐ phí nước Sinh hoạt 1', 'living_expenses_type_id' => 2, 'month_start_of_use' =>1],
+            ['id' => 4, 'name' => 'Quy định phí nước Sinh hoạt 2', 'living_expenses_type_id' => 2, 'month_start_of_use' =>2],
             
-        //     ['id' => 5, 'name' => 'QĐ phí gửi xe 1', 'living_expenses_type_id' => 3, 'month_start_of_use' =>1],
-        //     ['id' => 6, 'name' => 'QĐ phí gửi xe 2', 'living_expenses_type_id' => 3, 'month_start_of_use' =>2],
+            ['id' => 5, 'name' => 'QĐ phí gửi xe 1', 'living_expenses_type_id' => 3, 'month_start_of_use' =>1],
+            ['id' => 6, 'name' => 'QĐ phí gửi xe 2', 'living_expenses_type_id' => 3, 'month_start_of_use' =>2],
             
-        // ]); 
+        ]); 
 
-        // DB::table('usage_norm_investors')->insert([
-        //     ['id' => 1, 'name' => 'Phí tiêu thụ điện mức 1', 'level' => 1, 'living_expenses_type_id' => 1, 'price_regulation_id' => 1, 'usage_index_from' => 1, 'usage_index_to' => 50, 'price' => 1388],
-        //     ['id' => 2, 'name' => 'Phí tiêu thụ điện mức 2', 'level' => 2, 'living_expenses_type_id' => 1, 'price_regulation_id' => 1, 'usage_index_from' => 51, 'usage_index_to' => 100, 'price' => 1433],
-        //     ['id' => 3, 'name' => 'Phí tiêu thụ điện mức 3', 'level' => 3, 'living_expenses_type_id' => 1, 'price_regulation_id' => 1, 'usage_index_from' => 101, 'usage_index_to' => 200, 'price' => 1660],
-        //     ['id' => 4, 'name' => 'Phí tiêu thụ điện mức 4', 'level' => 4, 'living_expenses_type_id' => 1, 'price_regulation_id' => 1, 'usage_index_from' => 201, 'usage_index_to' => 300, 'price' => 2082],
-        //     ['id' => 5, 'name' => 'Phí tiêu thụ điện mức 5', 'level' => 5, 'living_expenses_type_id' => 1, 'price_regulation_id' => 1, 'usage_index_from' => 301, 'usage_index_to' => 400, 'price' => 2324],
-        //     ['id' => 6, 'name' => 'Phí tiêu thụ điện mức 6', 'level' => 6, 'living_expenses_type_id' => 1, 'price_regulation_id' => 1, 'usage_index_from' => 401, 'usage_index_to' => 1000, 'price' => 2399],
+        DB::table('usage_norm_investors')->insert([
+            ['id' => 1, 'name' => 'Phí tiêu thụ điện mức 1', 'level' => 1, 'living_expenses_type_id' => 1, 'price_regulation_id' => 1, 'usage_index_from' => 1, 'usage_index_to' => 50, 'price' => 1388],
+            ['id' => 2, 'name' => 'Phí tiêu thụ điện mức 2', 'level' => 2, 'living_expenses_type_id' => 1, 'price_regulation_id' => 1, 'usage_index_from' => 51, 'usage_index_to' => 100, 'price' => 1433],
+            ['id' => 3, 'name' => 'Phí tiêu thụ điện mức 3', 'level' => 3, 'living_expenses_type_id' => 1, 'price_regulation_id' => 1, 'usage_index_from' => 101, 'usage_index_to' => 200, 'price' => 1660],
+            ['id' => 4, 'name' => 'Phí tiêu thụ điện mức 4', 'level' => 4, 'living_expenses_type_id' => 1, 'price_regulation_id' => 1, 'usage_index_from' => 201, 'usage_index_to' => 300, 'price' => 2082],
+            ['id' => 5, 'name' => 'Phí tiêu thụ điện mức 5', 'level' => 5, 'living_expenses_type_id' => 1, 'price_regulation_id' => 1, 'usage_index_from' => 301, 'usage_index_to' => 400, 'price' => 2324],
+            ['id' => 6, 'name' => 'Phí tiêu thụ điện mức 6', 'level' => 6, 'living_expenses_type_id' => 1, 'price_regulation_id' => 1, 'usage_index_from' => 401, 'usage_index_to' => 1000, 'price' => 2399],
 
-        //     ['id' => 7, 'name' => 'Phí tiêu thụ điện mức 1', 'level' => 1, 'living_expenses_type_id' => 1, 'price_regulation_id' => 2, 'usage_index_from' => 1, 'usage_index_to' => 50, 'price' => 2388],
-        //     ['id' => 8, 'name' => 'Phí tiêu thụ điện mức 2', 'level' => 2, 'living_expenses_type_id' => 1, 'price_regulation_id' => 2, 'usage_index_from' => 51, 'usage_index_to' => 100, 'price' => 2433],
-        //     ['id' => 9, 'name' => 'Phí tiêu thụ điện mức 3', 'level' => 3, 'living_expenses_type_id' => 1, 'price_regulation_id' => 2, 'usage_index_from' => 101, 'usage_index_to' => 200, 'price' => 2660],
-        //     ['id' => 10, 'name' => 'Phí tiêu thụ điện mức 4', 'level' => 4, 'living_expenses_type_id' => 1, 'price_regulation_id' => 2, 'usage_index_from' => 201, 'usage_index_to' => 300, 'price' => 3082],
-        //     ['id' => 11, 'name' => 'Phí tiêu thụ điện mức 5', 'level' => 5, 'living_expenses_type_id' => 1, 'price_regulation_id' => 2, 'usage_index_from' => 301, 'usage_index_to' => 400, 'price' => 3324],
-        //     ['id' => 12, 'name' => 'Phí tiêu thụ điện mức 6', 'level' => 6, 'living_expenses_type_id' => 1, 'price_regulation_id' => 2, 'usage_index_from' => 401, 'usage_index_to' => 1000, 'price' => 3399],
+            ['id' => 7, 'name' => 'Phí tiêu thụ điện mức 1', 'level' => 1, 'living_expenses_type_id' => 1, 'price_regulation_id' => 2, 'usage_index_from' => 1, 'usage_index_to' => 50, 'price' => 2388],
+            ['id' => 8, 'name' => 'Phí tiêu thụ điện mức 2', 'level' => 2, 'living_expenses_type_id' => 1, 'price_regulation_id' => 2, 'usage_index_from' => 51, 'usage_index_to' => 100, 'price' => 2433],
+            ['id' => 9, 'name' => 'Phí tiêu thụ điện mức 3', 'level' => 3, 'living_expenses_type_id' => 1, 'price_regulation_id' => 2, 'usage_index_from' => 101, 'usage_index_to' => 200, 'price' => 2660],
+            ['id' => 10, 'name' => 'Phí tiêu thụ điện mức 4', 'level' => 4, 'living_expenses_type_id' => 1, 'price_regulation_id' => 2, 'usage_index_from' => 201, 'usage_index_to' => 300, 'price' => 3082],
+            ['id' => 11, 'name' => 'Phí tiêu thụ điện mức 5', 'level' => 5, 'living_expenses_type_id' => 1, 'price_regulation_id' => 2, 'usage_index_from' => 301, 'usage_index_to' => 400, 'price' => 3324],
+            ['id' => 12, 'name' => 'Phí tiêu thụ điện mức 6', 'level' => 6, 'living_expenses_type_id' => 1, 'price_regulation_id' => 2, 'usage_index_from' => 401, 'usage_index_to' => 1000, 'price' => 3399],
            
-        //     ['id' => 13, 'name' => 'Phí tiêu thụ nước mức 1', 'level' => 1, 'living_expenses_type_id' => 2, 'price_regulation_id' => 3, 'usage_index_from' => 1, 'usage_index_to' => 20, 'price' => 5930],
-        //     ['id' => 14, 'name' => 'Phí tiêu thụ nước mức 2', 'level' => 2, 'living_expenses_type_id' => 2, 'price_regulation_id' => 3, 'usage_index_from' => 21, 'usage_index_to' => 30, 'price' => 7313],
-        //     ['id' => 15, 'name' => 'Phí tiêu thụ nước mức 3', 'level' => 3, 'living_expenses_type_id' => 2, 'price_regulation_id' => 3, 'usage_index_from' => 31, 'usage_index_to' => 1000, 'price' => 13377],
+            ['id' => 13, 'name' => 'Phí tiêu thụ nước mức 1', 'level' => 1, 'living_expenses_type_id' => 2, 'price_regulation_id' => 3, 'usage_index_from' => 1, 'usage_index_to' => 20, 'price' => 5930],
+            ['id' => 14, 'name' => 'Phí tiêu thụ nước mức 2', 'level' => 2, 'living_expenses_type_id' => 2, 'price_regulation_id' => 3, 'usage_index_from' => 21, 'usage_index_to' => 30, 'price' => 7313],
+            ['id' => 15, 'name' => 'Phí tiêu thụ nước mức 3', 'level' => 3, 'living_expenses_type_id' => 2, 'price_regulation_id' => 3, 'usage_index_from' => 31, 'usage_index_to' => 1000, 'price' => 13377],
 
-        //     ['id' => 16, 'name' => 'Phí tiêu thụ nước mức 1', 'level' => 1, 'living_expenses_type_id' => 2, 'price_regulation_id' => 4, 'usage_index_from' => 1, 'usage_index_to' => 20, 'price' => 6930],
-        //     ['id' => 17, 'name' => 'Phí tiêu thụ nước mức 2', 'level' => 2, 'living_expenses_type_id' => 2, 'price_regulation_id' => 4, 'usage_index_from' => 21, 'usage_index_to' => 30, 'price' => 8313],
-        //     ['id' => 18, 'name' => 'Phí tiêu thụ nước mức 3', 'level' => 3, 'living_expenses_type_id' => 2, 'price_regulation_id' => 4, 'usage_index_from' => 31, 'usage_index_to' => 1000, 'price' => 14377],
+            ['id' => 16, 'name' => 'Phí tiêu thụ nước mức 1', 'level' => 1, 'living_expenses_type_id' => 2, 'price_regulation_id' => 4, 'usage_index_from' => 1, 'usage_index_to' => 20, 'price' => 6930],
+            ['id' => 17, 'name' => 'Phí tiêu thụ nước mức 2', 'level' => 2, 'living_expenses_type_id' => 2, 'price_regulation_id' => 4, 'usage_index_from' => 21, 'usage_index_to' => 30, 'price' => 8313],
+            ['id' => 18, 'name' => 'Phí tiêu thụ nước mức 3', 'level' => 3, 'living_expenses_type_id' => 2, 'price_regulation_id' => 4, 'usage_index_from' => 31, 'usage_index_to' => 1000, 'price' => 14377],
            
-        // ]);
+        ]);
 
         DB::table('vehicles')->insert([
             ['id' => 1, 'name' => 'Xe ô tô'],

@@ -12,13 +12,13 @@
                     <a class="btn btn-secondary" href="{{route('admin.bills.index')}}">Tất cả</a>
                 </li>
                 <li>
-                    <a class="btn btn-outline-secondary" href="{{route('admin.show-bill-electric')}}">Phí điện sinh hoạt</a>
+                    <a class="btn btn-outline-secondary" href="{{route('admin.show-bill', 1)}}">Phí điện sinh hoạt</a>
                 </li>
                 <li>
-                    <a class="btn btn-outline-secondary" href="{{route('admin.show-bill-water')}}">Phí nước sinh hoạt</a>
+                    <a class="btn btn-outline-secondary" href="{{route('admin.show-bill', 2)}}">Phí nước sinh hoạt</a>
                 </li>
                 <li>
-                    <a class="btn btn-outline-secondary" href="{{route('admin.show-bill-vehicle')}}">Phí gửi xe</a>
+                    <a class="btn btn-outline-secondary" href="{{route('admin.show-bill', 3)}}">Phí gửi xe</a>
                 </li>
             </ul>
         </div>
@@ -26,21 +26,21 @@
             <b>Tình trạng</b>
             <br><br>
             <ul>
-                <a class="btn btn-outline-secondary" href=""><li>Chưa thanh toán</li></a>
-                <a class="btn btn-outline-secondary" href=""><li>Đã thanh toán</li></a>
+                <a class="btn btn-outline-secondary" href=""><li>Chưa xuất hóa đơn</li></a>
+                <a class="btn btn-outline-secondary" href=""><li>Đã xuất hóa đơn</li></a>
             </ul>
         </div>
     </div>
     <br>
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-hover">
+            <table class="table table-hover noidungbang hienlen">
                 <thead>
                   <tr>
                     <th scope="col">Mã khách hàng</th>
                     <th scope="col">Tên khách hàng</th>
                     <th scope="col">Địa chỉ</th>
-                    <th scope="col">Tính tiền thanh toán</th>
+                    <th scope="col">Trạng thái hóa đơn</th>
                     <th scope="col">Hóa đơn</th>
                   </tr>
                 </thead>
@@ -59,13 +59,13 @@
                         </td>
                         <td>
                             <?php foreach($bills as $bill)
-                                if((($bill -> customer_id) == ($customer -> id)) && ($bill -> living_expenses_type_id == 1))
+                                if((($bill -> customer_id) == ($customer -> id)) && ($bill -> living_expenses_type_id == 1) && ($bill -> payment_month == $month))
                             {
                                 {?>
                                 <a style="text-decoration: none;" href="{{ route('admin.create-bill', $customer -> id)}}">Đã xuất hóa đơn</a>&nbsp <i class="fa fa-check-square-o" style="font-size:20px;color:green"></i>
                                 <script>
                                     jQuery(document).ready(function($) {
-                                        $('#chamthang{{$user->id}}').css({'opacity':'0'},{'visibility':'hidden'});
+                                        $('#chamthang{{$customer -> id}}').css({'opacity':'0'},{'visibility':'hidden'});
                                     });
                                 </script>
                                 <?php }
@@ -78,6 +78,85 @@
                     @endforeach
                 </tbody>
               </table>
+              {{-- bảng cho các khách hàng chưa được xuất hóa đơn --}}
+              {{-- <table class="table table-hover noidungbang">
+                <thead>
+                  <tr>
+                    <th scope="col">Mã khách hàng</th>
+                    <th scope="col">Tên khách hàng</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Trạng thái hóa đơn</th>
+                    <th scope="col">Hóa đơn</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    
+                    @foreach($bills as $bill)
+                    @if($bill -> living_expenses_type_id == 1)
+                    
+                    @foreach ($customers as $customer)
+                            @if($bill -> customer_id != $customer -> id )
+                            @php
+                        dd($bill);
+                    @endphp
+                                @if($bill -> count() < 0)
+                                    <tr>
+                                        <th scope="row">{{ $customer -> id }}</th>
+                                        <td>{{ $customer -> name }}</td>
+                                        <td>
+                                            @foreach($apartments as $apart)
+                                                @if(($apart -> customer_id) == ($customer -> id))
+                                                    Căn hộ {{$apart->block.$apart->floor.$apart->apartment}}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            <a id="chamthang{{$customer->id}}" style="text-decoration: none;" href="{{ route('admin.create-bill', $customer -> id)}}">Chưa xuất hóa đơn&nbsp<i class="fa fa-exclamation-circle" style="font-size:20px;color:red"></i></a>
+                                        </td>
+                                        <td><a href="{{ route('admin.bills.show', $customer -> id)}}"><i class="fa fa-search" style="font-size:20px"></i></a></td>
+                                    </tr>
+                                @endif
+                                @endif
+                        @endforeach
+                        @endif
+                    @endforeach
+                </tbody>
+              </table>
+              {{-- bảng cho các khách hàng đã được xuất hóa đơn 
+              <table class="table table-hover noidungbang">
+                <thead>
+                  <tr>
+                    <th scope="col">Mã khách hàng</th>
+                    <th scope="col">Tên khách hàng</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Trạng thái hóa đơn</th>
+                    <th scope="col">Hóa đơn</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    @foreach ($customers as $customer)
+                    @foreach($bills as $bill)
+                            @if(($bill -> customer_id == $customer -> id ) && ($bill -> living_expenses_type_id == 1))
+                                    <tr>
+                                        <th scope="row">{{ $customer -> id }}</th>
+                                        <td>{{ $customer -> name }}</td>
+                                        <td>
+                                            @foreach($apartments as $apart)
+                                                @if(($apart -> customer_id) == ($customer -> id))
+                                                    Căn hộ {{$apart->block.$apart->floor.$apart->apartment}}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            <a style="text-decoration: none;" href="{{ route('admin.create-bill', $customer -> id)}}">Đã xuất hóa đơn</a>&nbsp <i class="fa fa-check-square-o" style="font-size:20px;color:green"></i>
+                                        </td>
+                                        <td><a href="{{ route('admin.bills.show', $customer -> id)}}"><i class="fa fa-search" style="font-size:20px"></i></a></td>
+                                    </tr>
+                            @endif
+                        @endforeach
+                    @endforeach
+                </tbody>
+              </table> --}}
         </div>
         {{ $customers->links() }}
     </div>

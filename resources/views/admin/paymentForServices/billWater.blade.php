@@ -1,6 +1,6 @@
 @extends('admin.home')
 
-@section('content')
+@section('content') 
 <div class="payment-service">
     <h3 style="text-align: center">Danh sách khách hàng và Tình trạng thanh toán Phí nước sinh hoạt</h3>
     <div class="hienthi">
@@ -9,16 +9,16 @@
             <br><br>
             <ul>
                 <li>
-                    <a class="btn btn-outline-secondary" href="{{route('list-calBill')}}">Tất cả</a>
+                    <a class="btn btn-outline-secondary" href="{{route('admin.bills.index')}}">Tất cả</a>
                 </li>
                 <li>
-                    <a class="btn btn-outline-secondary" href="{{route('show-BillE')}}">Phí điện sinh hoạt</a>
+                    <a class="btn btn-outline-secondary" href="{{route('admin.show-bill', 1)}}">Phí điện sinh hoạt</a>
                 </li>
                 <li>
-                    <a class="btn btn-secondary" href="{{route('show-BillW')}}">Phí nước sinh hoạt</a>
+                    <a class="btn btn-secondary" href="{{route('admin.show-bill', 2)}}">Phí nước sinh hoạt</a>
                 </li>
                 <li>
-                    <a class="btn btn-outline-secondary" href="{{route('show-BillC')}}">Phí gửi xe</a>
+                    <a class="btn btn-outline-secondary" href="{{route('admin.show-bill', 3)}}">Phí gửi xe</a>
                 </li>
             </ul>
         </div>
@@ -26,8 +26,8 @@
             <b>Tình trạng</b>
             <br><br>
             <ul>
-                <a class="btn btn-outline-secondary" href="{{route('show-BillW-notpaid')}}"><li>Chưa thanh toán</li></a>
-                <a class="btn btn-outline-secondary" href="{{route('show-BillE-paid')}}"><li>Đã thanh toán</li></a>
+                <a class="btn btn-outline-secondary" href="{{route('admin.show-bill-notpaid', 2)}}"><li>Chưa thanh toán</li></a>
+                <a class="btn btn-outline-secondary" href="{{route('admin.show-bill-paid', 2)}}"><li>Đã thanh toán</li></a>
             </ul>
         </div>
     </div>
@@ -47,55 +47,37 @@
                   </tr>
                 </thead>
                 <tbody>
-                    @foreach ($listUsers as $user)
-                    <tr>
-                        <th scope="row">{{ $user -> id }}</th>
-                        <td>{{ $user -> name }}</td>
-                        <td>
-                            <?php foreach($apartments as $apart)
-                                        if(($apart -> user_id) == ($user -> id))
-                                        {
-                                           echo 'Căn hộ '.$apart->block.$apart->floor.$apart->apartment;
-                                        }
-                            ?>
-                        </td>
-                        <td>
-                            <?php foreach($bills as $bill)
-                            if(($bill -> user_id) == ($user -> id))
-                            {
-                               echo $bill->money_to_pay;
-                            }
-                            
-                        ?>
-                        </td>
-                        <td>
-                            <?php foreach ($bills as $bill)
-                            if(($bill -> user_id) == ($user -> id) && $bill -> paid == 0)
-                            {
-                                {?>
-                                    Chưa thanh toán &nbsp<i class="fa fa-exclamation-circle" style="font-size:20px;color:red"></i>
-                                <?php }
-                            }
-                            else if(($bill -> user_id) == ($user -> id) && $bill -> paid == 1)
-                            {
-                                {?>
-                                    Đã thanh toán &nbsp<i class="fa fa-check-square-o" style="font-size:20px;color:green"></i>
-                                <?php }
-                            }
-                            ?>
-                        </td>
-                        <td><a href="{{ route('show-BillW-detail', $user -> id)}}"><i class="fa fa-search" style="font-size:20px"></i></a></td>
-                        <td>
-                            <?php foreach ($bills as $bill)
-                            if(($bill -> user_id) == ($user -> id) && $bill -> paid == 0)
-                            {
-                                {?>
-                                    <a href="{{ route('bill-notifi', $bill->id)}}"><i class='far fa-bell' style='font-size:20px'></i></a>
-                                <?php }
-                            }
-                            ?>
-                        </td>
-                    </tr>
+                    @foreach ($customers as $customer)
+                        @foreach ($bills as $bill)
+                            @if($bill -> count() > 0)
+                                @if(($bill -> customer_id) == ($customer -> id))
+                                    <tr>
+                                        <th scope="row">{{ $customer -> id }}</th>
+                                        <td>{{ $customer -> name }}</td>
+                                        <td>
+                                            Căn hộ {{ $customer->apartmentAddress['block'].$customer->apartmentAddress['floor'].$customer->apartmentAddress['apartment']}}
+                                        </td>
+                                        <td>
+                                            {{$bill->money_to_pay}}
+                                        </td>
+                                        <td>
+                                            @if($bill -> paid == 0)
+                                                    Chưa thanh toán &nbsp<i class="fa fa-exclamation-circle" style="font-size:20px;color:red"></i>
+                                            @elseif($bill -> paid == 1)
+                                                    Đã thanh toán &nbsp<i class="fa fa-check-square-o" style="font-size:20px;color:green"></i>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('admin.show-bill-detail', [ 2, $bill->id])}}"><i class="fa fa-search" style="font-size:20px"></i></a></td>
+                                        <td>
+                                            @if($bill -> paid == 0)
+                                                <a href="{{ route('admin.create-bill-notification', $bill->id)}}"><i class='far fa-bell' style='font-size:20px'></i></a>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endif
+                        @endforeach
                     @endforeach
                 </tbody>
               </table>

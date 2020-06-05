@@ -13,6 +13,6 @@ class ConsumptionIndex extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'living_expenses_type_id', 'month_consumption', 'last_month_index', 'this_month_index'
+        'user_id', 'living_expenses_type_id', 'month_consumption','year_consumption', 'last_month_index', 'this_month_index'
     ];
 }

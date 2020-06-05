@@ -160,10 +160,18 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     Route::get('/', 'AdminHomeController@index')->name('home');
     // Bills
     //Route::delete('bills/destroy', 'BillsController@massDestroy')->name('bills.massDestroy'); // route cho các other function 
-    Route::get('/bills/show/electric', 'BillsController@showBillElectric')->name('show-bill-electric');
-    Route::get('/bills/show/water', 'BillsController@showBillWater')->name('show-bill-water');
-    Route::get('/bills/show/vehicle', 'BillsController@showBillVehicle')->name('show-bill-vehicle');
+    Route::get('/bills/show/{type}', 'BillsController@showBill')->name('show-bill');
+    
+    Route::get('/bills/exported/{status}', 'BillsController@exportedBill')->name('exported-bill');
+
+    Route::get('/bills/show/notpaid/{type}', 'BillsController@showBillNotPaid')->name('show-bill-notpaid');
+
+    Route::get('/bills/show/paid/{type}', 'BillsController@showBillPaid')->name('show-bill-paid');
+
+    Route::get('/bills/detail/{type?}/{customerID?}', 'BillsController@showBillDetail')->name('show-bill-detail');
+
     Route::get('/bills/createBill/{customerID}', 'BillsController@createBill')->name('create-bill');
+    Route::post('/bills/storeBill/{customerID}', 'BillsController@storeBill')->name('store-bill');
     Route::resource('bills', 'BillsController');
 
     // Messages
@@ -172,6 +180,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
 
     // Notifications
     //Route::delete('notifications/destroy', 'Notifications@massDestroy')->name('notifications.massDestroy');
+    Route::post('notifications/bill/sent{billID}', 'NotificationsController@sentNotificationForBill')->name('send-bill-notification');
+    Route::get('notifications/bill/{billID}', 'NotificationsController@createNotificationForBill')->name('create-bill-notification');
     Route::resource('notifications', 'NotificationsController');
 
     // Users
@@ -192,6 +202,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     Route::resource('comments', 'CommentsController');
 
     // Thống kê
+    // Thống kê theo loại phí dịch vụ ( của tất cả khách hàng) ( mặc định là từ trước đến nay - có thể tùy chọn tháng)
+    Route::get('statisticals/{type}', 'StatisticalsController@Statistical')->name('statistical');
+    
+    // Thống kê theo loại phí dịch vụ của một khách hàng nào đó ( mặc định là từ trước đến nay - có thể tùy chọn tháng)
+    Route::get('statisticals/electric/{customerId}', 'StatisticalsController@electricStatisticalCustomer')->name('statisticals-electric');
+    Route::get('statisticals/water/{customerId}', 'StatisticalsController@waterStatisticalCustomer')->name('statisticals-water');
+    Route::get('statisticals/vihicle/{customerId}', 'StatisticalsController@vehicleStatisticalCustomer')->name('statisticals-vehicle');
+
     Route::resource('statisticals', 'StatisticalsController');
 
     // SystemCalendar

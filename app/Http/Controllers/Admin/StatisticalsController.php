@@ -14,7 +14,8 @@ class StatisticalsController extends Controller
      */
     public function index()
     {
-        //
+        $result = 0;
+        return view('admin.paymentForServices.statistical', compact('result'));
     }
 
     /**

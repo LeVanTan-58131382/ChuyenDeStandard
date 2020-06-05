@@ -412,7 +412,7 @@ class AdminController extends Controller
         // nếu khách hàng đạ dc xuất hóa đơn cho tháng 5 thì không xuất nữa
         if($bills->isEmpty()){
             return view('admin.paymentForServices.billnotexported');
-        }
+        }   
         $vehicles = VehicleUser::select('*')->where('user_id', $id)->get();
         $vehicles_prices = VehiclePrice::get();
         $billCar = Bill::select('*')->where('user_id', $id)->where('payment_month', 5)->where('living_expenses_type_id', 3)->get();

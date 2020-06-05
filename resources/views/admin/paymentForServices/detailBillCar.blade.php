@@ -2,104 +2,98 @@
 
 @section('content')
 <div class="bill">
-    <br>
-        <h4 style="text-align: center">Phí dịch vụ gửi xe sử dụng trong tháng của khách hàng</h4>
-        <br>
-        <div class="bang">
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Tên loại phí</th>
-                    <th scope="col">Loại phương tiện</th>
-                    <th scope="col">Số lượng</th>
-                    <th scope="col">Quy định giá phí</th>
-                    <th scope="col">Đơn giá</th>
-                    <th scope="col">Thành tiền</th>
-                    <th>Tình trạng</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    @foreach ($vehicles as $item)
-                    <tr>
-                        <th scope="row"></th>
-                        <td>Dịch vụ gửi xe </td>
-                        <td>
-                            <?php
-                            if($item->vehicle_type_id == 1)
-                            echo 'Ô tô';
-                            elseif($item->vehicle_type_id == 2)
-                            echo 'Xe máy';
-                            elseif($item->vehicle_type_id == 3)
-                            echo 'Xe đạp';
-                            ?>
-                        </td>
-                        <td>{{$item->amount}}</td>
-                        @foreach ($billCar as $itembill)
-                    <td>
-                        <?php
-                        foreach ($price_regulation as $itemprice){
-                            if($itemprice->id == $itembill->price_regulation_id && $itemprice->living_expenses_type_id == 3){
-                            echo $itemprice->name;
-                        }}
-                        ?>
-                    </td>
-                    <td>
-                        <?php
-                        foreach ($vehicles_prices as $itemprice){
-                            if($itemprice->price_regulation_id == $itembill->price_regulation_id && $itemprice->vehicle_type_id == 1 && $item->vehicle_type_id == 1){
-                                echo $itemprice->price;
-                            }
-                            elseif($itemprice->price_regulation_id == $itembill->price_regulation_id && $itemprice->vehicle_type_id == 2 && $item->vehicle_type_id == 2){
-                                echo $itemprice->price;
-                            }
-                            elseif($itemprice->price_regulation_id == $itembill->price_regulation_id && $itemprice->vehicle_type_id == 3 && $item->vehicle_type_id == 3){
-                                echo $itemprice->price;
-                            }
-                            }
-                        ?>
-                    </td>
-                    <td>
-                        <?php
-                        foreach ($vehicles_prices as $itemprice){
-                            if($itemprice->price_regulation_id == $itembill->price_regulation_id && $itemprice->vehicle_type_id == 1 && $item->vehicle_type_id == 1){
-                                //dd($itemprice->price*$item->amount) ; // nếu là ô tô
-                                echo ($itemprice->price*$item->amount);
-                            }
-                            elseif($itemprice->price_regulation_id == $itembill->price_regulation_id && $itemprice->vehicle_type_id == 2 && $item->vehicle_type_id == 2){
-                                //dd($itemprice->price*$item->amount) ; // nếu là xe máy
-                                echo ($itemprice->price*$item->amount);
-                            }
-                            elseif($itemprice->price_regulation_id == $itembill->price_regulation_id && $itemprice->vehicle_type_id == 3 && $item->vehicle_type_id == 3){
-                                //dd($itemprice->price*$item->amount) ; // nếu là xe đạp
-                                echo ($itemprice->price*$item->amount);
-                            }
-                            }
-                        ?>
-                    </td>
-                    <td></td>
-                    @endforeach
-                @endforeach
-                @foreach ($billCar as $itembill)
-                <caption style="text-align: center; margin: 20px;"><p style="text-align:center"><b>Tổng cộng: </b>{{$itembill->money_to_pay}} VND</p></caption>
-                @endforeach
-                </tr>
+    <div class="bang">
+        <h4 style="text-align: center">Phí dịch vụ gửi xe</h4>
+        <div class="form-group">
+            <label for="">1. Họ và tên: {{ $customer->name}}</label><br>
+            <label for="">2. Địa chỉ: Block: {{ $customer->apartmentAddress['block'] }} 
+                            Tầng: {{ $customer->apartmentAddress['floor']}} 
+                            Nhà: {{ $customer->apartmentAddress['apartment']}}</label><br>
+            <label for="">3. Phí giữ xe:</label><br>
+            <br>
+        <table class="table">
+            <thead>
                 <tr>
-                    @foreach ($billCar as $item)
+                <th scope="col"></th>
+                <th scope="col">Loại phương tiện</th>
+                <th scope="col">Số lượng</th>
+                <th scope="col">Quy định giá phí</th>
+                <th scope="col">Đơn giá</th>
+                <th scope="col">Thành tiền</th>
+                <th>Tình trạng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($vehicles as $item)
+                <tr>
+                    <th scope="row"></th>
+                    <td>
+                        <?php
+                        if($item->vehicle_id == 1)
+                        echo 'Ô tô';
+                        elseif($item->vehicle_id == 2)
+                        echo 'Xe máy';
+                        elseif($item->vehicle_id == 3)
+                        echo 'Xe đạp';
+                        ?>
+                    </td>
+                    <td>{{$item->amount}}</td>
+                <td>
                     <?php
-                    if($item->paid == 0)
-                        {
-                            {?>
-                                <caption style="text-align: center; margin: 20px;"><a class="btn btn-info" href="{{route('payc', $item->user_id )}}">Khách hàng đã thanh toán</a></caption>
-                            <?php }
+                    foreach ($price_regulation as $itemprice){
+                        if($itemprice->id == $bill->price_regulation_id && $itemprice->living_expenses_type_id == 3){
+                        echo $itemprice->name;
+                    }}
+                    ?>
+                </td>
+                <td>
+                    <?php
+                    foreach ($vehicles_prices as $itemprice){
+                        if($itemprice->price_regulation_id == $bill->price_regulation_id && $itemprice->vehicle_type_id == 1 && $item->vehicle_id == 1){
+                            echo $itemprice->price;
                         }
-                    ?> 
-                    @endforeach
-                    </tr>
-                </tbody>
-              </table>
-              <br>
-        </div>
+                        elseif($itemprice->price_regulation_id == $bill->price_regulation_id && $itemprice->vehicle_type_id == 2 && $item->vehicle_id == 2){
+                            echo $itemprice->price;
+                        }
+                        elseif($itemprice->price_regulation_id == $bill->price_regulation_id && $itemprice->vehicle_type_id == 3 && $item->vehicle_id == 3){
+                            echo $itemprice->price;
+                        }
+                        }
+                    ?>
+                </td>
+                <td>
+                    <?php
+                    foreach ($vehicles_prices as $itemprice){
+                        if($itemprice->price_regulation_id == $bill->price_regulation_id && $itemprice->vehicle_type_id == 1 && $item->vehicle_id == 1){
+                            //dd($itemprice->price*$item->amount) ; // nếu là ô tô
+                            echo ($itemprice->price*$item->amount);
+                        }
+                        elseif($itemprice->price_regulation_id == $bill->price_regulation_id && $itemprice->vehicle_type_id == 2 && $item->vehicle_id == 2){
+                            //dd($itemprice->price*$item->amount) ; // nếu là xe máy
+                            echo ($itemprice->price*$item->amount);
+                        }
+                        elseif($itemprice->price_regulation_id == $bill->price_regulation_id && $itemprice->vehicle_type_id == 3 && $item->vehicle_id == 3){
+                            //dd($itemprice->price*$item->amount) ; // nếu là xe đạp
+                            echo ($itemprice->price*$item->amount);
+                        }
+                        }
+                    ?>
+                </td>
+                <td>@php
+                    if($bill->paid == 0){
+                                echo "Chưa thanh toán";
+                            }
+                    else echo "Đã thanh toán";
+                @endphp</td>
+                @endforeach
+            
+            <caption style="text-align: center; margin: 20px;"><p style="text-align:center"><b>Tổng cộng: </b>{{$bill->money_to_pay}}&nbspVND</p></caption>
+            
+            </tr>
+            </tbody>
+            </table>
+            <br>
+    </div>
 </div>
 <style>
     .bill{

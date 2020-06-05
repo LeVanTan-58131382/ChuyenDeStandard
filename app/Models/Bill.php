@@ -4,7 +4,7 @@ namespace App\Models;
 use App\Models\ConsumptionIndex;
 use Illuminate\Http\Request;
 use App\Models\UsageNormInvestors;
-use App\Models\VehicleUser;
+use App\Models\VehicleCuctomer;
 use App\Models\VehiclePrice;
 use App\Models\Comment;
 
@@ -23,7 +23,8 @@ class Bill extends Model
         'customer_id', 
         'living_expenses_type_id', 
         'price_regulation_id', 
-        'payment_month', 
+        'payment_month',
+        'payment_year', 
         'money_to_pay', 
         'usage_level_max', 
         'paid'
@@ -34,21 +35,25 @@ class Bill extends Model
         return $this->hasMany(Comment::class, 'customer_id', 'id');
     }
 
-    protected function addBill( Request $request, $id){
+    protected static function addBill( Request $request, $id){
         Bill::addBillElectric($request, $id);
         Bill::addBillWater($request, $id);
         Bill::addBillCar($request, $id);
     }
 
-    protected function addBillElectric(Request $request, $id){
+    protected static function addBillElectric(Request $request, $id){
+        $celendar = SystemCalendar::find(1);
+        $month = $celendar -> month;
+        $year = $celendar -> year;
+
         $consumptionIndex_E_old = $request -> consumptionIndex_E_old;
         $consumptionIndex_E_new = $request -> consumptionIndex_E_new;
         $price_regulation_id_E = $request -> price_regulation_id_E; // mã quy định phí điện
         // tạo bảng chỉ số tiêu thụ
         $consumptionIndex_E = new ConsumptionIndex(); 
-        $consumptionIndex_E -> user_id = $id;
+        $consumptionIndex_E -> customer_id = $id;
         $consumptionIndex_E -> living_expenses_type_id = 1;
-        $consumptionIndex_E -> month_consumption = 5;
+        $consumptionIndex_E -> month_consumption = $month;
         $consumptionIndex_E -> last_month_index = $consumptionIndex_E_old;
         $consumptionIndex_E -> this_month_index = $consumptionIndex_E_new;
         $consumptionIndex_E -> save();
@@ -84,24 +89,29 @@ class Bill extends Model
         // tạo hóa đơn
         $billElectric = new Bill();
         $billElectric -> name = 'Hóa đơn phí điện sinh hoạt';
-        $billElectric -> user_id = $id;
+        $billElectric -> customer_id = $id;
         $billElectric -> living_expenses_type_id = 1;
         $billElectric -> price_regulation_id = $price_regulation_id_E;
-        $billElectric -> payment_month = 5;
+        $billElectric -> payment_month = $month;
+        $billElectric -> payment_year = $year;
         $billElectric -> money_to_pay = $total_price_E;
         $billElectric -> usage_level_max = $e_level_max;
         $billElectric -> save();
     }
 
-    protected function addBillWater(Request $request, $id){
+    protected static function addBillWater(Request $request, $id){
+        $celendar = SystemCalendar::find(1);
+        $month = $celendar -> month;
+        $year = $celendar -> year;
+
         $consumptionIndex_W_old = $request -> consumptionIndex_W_old;
         $consumptionIndex_W_new = $request -> consumptionIndex_W_new; 
         $price_regulation_id_W = $request -> price_regulation_id_W; // mã quy định phí nước
         // tạo bảng chỉ số tiêu thụ
         $consumptionIndex_W = new ConsumptionIndex(); 
-        $consumptionIndex_W -> user_id = $id;
+        $consumptionIndex_W -> customer_id = $id;
         $consumptionIndex_W -> living_expenses_type_id = 2;
-        $consumptionIndex_W -> month_consumption = 5;
+        $consumptionIndex_W -> month_consumption = $month;
         $consumptionIndex_W -> last_month_index = $consumptionIndex_W_old;
         $consumptionIndex_W -> this_month_index = $consumptionIndex_W_new;
         $consumptionIndex_W -> save();
@@ -137,54 +147,59 @@ class Bill extends Model
         //tạo hóa đơn
         $billWater = new Bill();
         $billWater -> name = 'Hóa đơn phí nước sinh hoạt';
-        $billWater -> user_id = $id;
+        $billWater -> customer_id = $id;
         $billWater -> living_expenses_type_id = 2;
         $billWater -> price_regulation_id = $price_regulation_id_W;
-        $billWater -> payment_month = 5;
+        $billWater -> payment_month = $month;
+        $billWater -> payment_year = $year;
         $billWater -> money_to_pay = $total_price_W;
         $billWater -> usage_level_max = $w_level_max;
         $billWater -> save();
     }
 
-    protected function addBillCar( Request $request, $id){
+    protected static function addBillCar( Request $request, $id){
+        $celendar = SystemCalendar::find(1);
+        $month = $celendar -> month;
+        $year = $celendar -> year;
+
         $price_regulation_id_C = $request -> price_regulation_id_C; // mã quy định phí gửi xe
         // phương tiện
-        $vehicles = VehicleUser::select('*')->where('user_id', $id)->get(); // những phương tiện của khách hàng
+        $vehicles = VehicleCuctomer::select('*')->where('customer_id', $id)->get(); // những phương tiện của khách hàng
         $vehicle_prices = VehiclePrice::select('*')->where('price_regulation_id', $price_regulation_id_C)->get();
-
+        
         $total_price_C = 0; // tổng tiền gửi xe
         
         foreach($vehicles as $vehicle){
             foreach($vehicle_prices as $vehicle_price){
                 // nếu có phương tiện là ô tô
-                if($vehicle->vehicle_type_id == 1){
+                if($vehicle->vehicle_id == 1){
                     if($vehicle_price ->vehicle_type_id == 1){
                         $total_price_C += $vehicle->amount * $vehicle_price->price;
                     }
                 }
                 // nếu có phương tiện là mô tô
-                if($vehicle->vehicle_type_id == 2){
+                if($vehicle->vehicle_id == 2){
                     if($vehicle_price ->vehicle_type_id == 2){
                         $total_price_C += $vehicle->amount * $vehicle_price->price;
                     }
                 }
                 // nếu có phương tiện là xe đạp
-                if($vehicle->vehicle_type_id == 3){
+                if($vehicle->vehicle_id == 3){
                     if($vehicle_price ->vehicle_type_id == 3){
                         $total_price_C += $vehicle->amount * $vehicle_price->price;
                     }
                 }
             }
         }
-        // tạo hóa đơn
-        $billWater = new Bill();
-        $billWater -> name = 'Hóa đơn phí gửi xe';
-        $billWater -> user_id = $id;
-        $billWater -> living_expenses_type_id = 3;
-        $billWater -> price_regulation_id = $price_regulation_id_C;
-        $billWater -> payment_month = 5;
-        $billWater -> money_to_pay = $total_price_C;
-        $billWater -> save();
+        $billCar = new Bill();
+        $billCar -> name = 'Hóa đơn phí gửi xe';
+        $billCar -> customer_id = $id;
+        $billCar -> living_expenses_type_id = 3;
+        $billCar -> price_regulation_id = $price_regulation_id_C;
+        $billCar -> payment_month = $month;
+        $billCar -> payment_year = $year;
+        $billCar -> money_to_pay = $total_price_C;
+        $billCar -> save();
     }
 
 }

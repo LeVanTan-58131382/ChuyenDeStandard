@@ -4,7 +4,7 @@
 <div class="detail-payment">
     <h3 style="text-align: center">Chi tiết thanh toán tiền dịch vụ</h3>
     <br>
-    <form method="post" action="{{ route('store-calBill', $user_id)}}">
+    <form method="post" action="{{ route('admin.store-bill', $customer_id)}}">
         @csrf
     <div class="row">
         <div class="col-md-12">
@@ -77,32 +77,32 @@
                             <tr>
                                 <td>
                                     <b>Xe ô tô</b><br>
-                                    <b>Xe mô tô</b><br>
+                                    <b>Xe máy</b><br>
                                     <b>Xe đạp</b><br>
                                 </td>
                                 <td>
-                                    @foreach ($vehicles as $item)
+                                    @foreach ($customer->vehicles as $item)
                                         <b>
                                             <?php
-                                                if($item->vehicle_type_id == 1)
+                                                if($item->pivot->vehicle_id == 1)
                                                 {
-                                                    echo $item->amount;
+                                                    echo $item->pivot->amount;
                                                 }
                                             ?>
                                         </b>
                                         <b>
                                             <?php
-                                                if($item->vehicle_type_id == 2)
+                                                if($item->pivot->vehicle_id == 2)
                                                 {
-                                                    echo $item->amount;
+                                                    echo $item->pivot->amount;
                                                 }
                                             ?>
                                         </b>
                                         <b>
                                             <?php
-                                                if($item->vehicle_type_id == 3)
+                                                if($item->pivot->vehicle_id == 3)
                                                 {
-                                                    echo $item->amount;
+                                                    echo $item->pivot->amount;
                                                 }
                                             ?>
                                         </b><br>
