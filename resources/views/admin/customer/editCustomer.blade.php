@@ -66,7 +66,7 @@
                                             @endif
                                         </select></p>
                                     @endif
-                                </li>
+                                </li> 
                                 <li>
                                     @if($vehicle -> vehicle_id == 3)
                                         <p>Xe đạp : <input  min="0" style="margin-left: 31px" type="number" name="bike_amount" value="{{ $vehicle->amount }}">

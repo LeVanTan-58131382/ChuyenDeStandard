@@ -17,11 +17,6 @@ use App\Models\VehiclePrice;
 
 class BillsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $celendar = SystemCalendar::find(1);
@@ -37,11 +32,7 @@ class BillsController extends Controller
     {
         //
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function createBill($customerId)
     {
         $celendar = SystemCalendar::find(1);
@@ -58,12 +49,6 @@ class BillsController extends Controller
         $price_regulation_cars = PriceRegulation::select('*')->where('living_expenses_type_id', 3)->get();
         $customer_id = $customerId;
         $customer = Customer::find($customerId);
-
-        // foreach($customer->vehicles as $vehicle){
-        //     if($vehicle->pivot->vehicle_id == 1)
-        //     {echo('Số lượng xe ô tô là: '.$vehicle->pivot->amount);}
-        // }
-        // die();
         
         return view('admin.paymentForServices.detailPayment', compact('price_regulation_elects', 'price_regulation_waters', 'price_regulation_cars', 'customer', 'customer_id'));
     }
@@ -96,23 +81,11 @@ class BillsController extends Controller
         return redirect() -> route('admin.bills.index') -> with(['success'=>'Xóa hóa đơn thành công!!!']);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $celendar = SystemCalendar::find(1);
@@ -139,6 +112,7 @@ class BillsController extends Controller
                                                             ->where('living_expenses_type_id', 2)
                                                             ->get();
         $vehicles = VehicleCuctomer::select('*')->where('customer_id', $id)
+                                                ->where('using', 1)
                                                 ->where([
                                                     ['year_use', '=', $year],
                                                     ['month_start_use', '<=', $month],
@@ -228,7 +202,17 @@ class BillsController extends Controller
             return view('admin.paymentForServices.detailBillWater', compact('consumptionIndex_W', 'bill', 'price_regulation', 'usage_norm', 'customer'));
         }
         if($type == 3){
-            $vehicles = VehicleCuctomer::select('*')->where('customer_id', $customer->id)->get();
+            $vehicles = VehicleCuctomer::select('*')->where('customer_id', $customer->id)
+                                                    ->where('using', 1)
+                                                    ->where([
+                                                        ['year_use', '=', $year],
+                                                        ['month_start_use', '<=', $month],
+                                                    ])
+                                                    ->orWhere([
+                                                        ['year_use', '<', $year],
+                                                        ['month_start_use', '>=', $month],
+                                                    ])
+                                                    ->get();
             $vehicles_prices = VehiclePrice::get();
             $price_regulation = PriceRegulation::get();
             return view('admin.paymentForServices.detailBillCar', compact( 'bill', 'price_regulation', 'vehicles', 'vehicles_prices', 'customer'));
@@ -305,36 +289,16 @@ class BillsController extends Controller
         }
     }
 
-    
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

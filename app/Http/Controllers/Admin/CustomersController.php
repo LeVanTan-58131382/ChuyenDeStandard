@@ -164,7 +164,7 @@ class CustomersController extends Controller
             }
             if($vehicle->vehicle_id == 2){
                 $vehicle->amount = $moto_amount;
-                if($status_moto && $status_moto == 1)
+                if($status_moto && $status_moto == 1) 
                 {
                     $vehicle->using = 0;
                 }
