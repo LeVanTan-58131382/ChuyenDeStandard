@@ -17,7 +17,7 @@ class VehiclePrice extends Model
         'name', 'price_regulation_id','vehicle_type_id', 'price'
     ];
     
-    public function user() {
-        return $this->belongsTo('App\User');
-    }
+    // public function user() {
+    //     return $this->belongsTo('App\User');
+    // }
 }

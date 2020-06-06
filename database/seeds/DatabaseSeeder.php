@@ -14,24 +14,59 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         DB::table('customers')->insert([
-                ['id'=>	1,
+                ['id'=>	2,
                 'name'=>'Lê Văn Tân',
                 'email'=>'levantan@gmail.com',
-                'password'=>Hash::make('123456789'),
-                'phone'=> '0355796956',
-                'gender'=> 1],
-
-                ['id'=>	2,
-                'name'=>'Lê Văn Tiến',
-                'email'=>'levantien@gmail.com',
-                'password'=>Hash::make('123456789'),
+                'password'=>Hash::make('tanlv'),
                 'phone'=> '0355796956',
                 'gender'=> 1],
 
                 ['id'=>	3,
-                'name'=>'Nguyen Thi Hien',
+                'name'=>'Lê Văn Tiến',
+                'email'=>'levantien@gmail.com',
+                'password'=>Hash::make('tienlv'),
+                'phone'=> '0355796956',
+                'gender'=> 1],
+
+                ['id'=>	4,
+                'name'=>'Nguyễn Thị Hiền',
                 'email'=>'hiennguyen@gmail.com',
-                'password'=>Hash::make('123456789'),
+                'password'=>Hash::make('hiennt'),
+                'phone'=> '0355796956',
+                'gender'=> 0],
+
+                ['id'=>	5,
+                'name'=>'Nguyễn Khắc Cường',
+                'email'=>'cuongnguyen@gmail.com',
+                'password'=>Hash::make('cuongnk'),
+                'phone'=> '0355796956',
+                'gender'=> 1],
+
+                ['id'=>	6,
+                'name'=>'Nguyễn Văn Linh',
+                'email'=>'linhnguyen@gmail.com',
+                'password'=>Hash::make('linhnv'),
+                'phone'=> '0355796956',
+                'gender'=> 1],
+
+                ['id'=>	7,
+                'name'=>'Lê Thanh Hoài',
+                'email'=>'hoaile@gmail.com',
+                'password'=>Hash::make('hoailt'),
+                'phone'=> '0355796956',
+                'gender'=> 1],
+
+                ['id'=>	8,
+                'name'=>'Võ Thị Thanh Thúy',
+                'email'=>'thuyvo@gmail.com',
+                'password'=>Hash::make('thuyvtt'),
+                'phone'=> '0355796956',
+                'gender'=> 0],
+
+                ['id'=>	9,
+                'name'=>'Võ Thị Mộng Trúc',
+                'email'=>'trucvo@gmail.com',
+                'password'=>Hash::make('trucvtm'),
                 'phone'=> '0355796956',
                 'gender'=> 0],
                 
@@ -58,83 +93,82 @@ class DatabaseSeeder extends Seeder
         $manager->save();
         $manager->roles()->attach($role_manager);
 
-        // $customer = new User();
-        // $customer->name = 'Lê Văn Tân';
-        // $customer->email = 'levantan@gmail.com';
-        // $customer->password = Hash::make('123456789');
-        // $customer->phone = '0355796956';
-        // $customer->save();
-        // $customer->roles()->attach($role_customer);
+        $customer_1 = new User();
+        $customer_1->id = 2;
+        $customer_1->name = 'Lê Văn Tân';
+        $customer_1->email = 'levantan@gmail.com';
+        $customer_1->password = Hash::make('tanlv');
+        $customer_1->save();
+        $customer_1->roles()->attach($role_customer);
 
-        // $customer = new User();
-        // $customer->name = 'Lê Văn Tiến';
-        // $customer->email = 'letien@gmail.com';
-        // $customer->password = Hash::make('123456789');
-        // $customer->phone = '0355796956';
-        // $customer->save();
-        // $customer->roles()->attach($role_customer);
+        $customer_2 = new User();
+        $customer_2->id = 3;
+        $customer_2->name = 'Lê Văn Tiến';
+        $customer_2->email = 'letien@gmail.com';
+        $customer_2->password = Hash::make('tienlv');
+        $customer_2->save();
+        $customer_2->roles()->attach($role_customer);
 
-        // $customer = new User();
-        // $customer->name = 'Nguyễn Thị Hiền';
-        // $customer->email = 'hiennguyen@gmail.com';
-        // $customer->password = Hash::make('123456789');
-        // $customer->phone = '0355796956';
-        // $customer->save();
-        // $customer->roles()->attach($role_customer);
+        $customer_3 = new User();
+        $customer_3->id = 4;
+        $customer_3->name = 'Nguyễn Thị Hiền';
+        $customer_3->email = 'hiennguyen@gmail.com';
+        $customer_3->password = Hash::make('hiennt');
+        $customer_3->save();
+        $customer_3->roles()->attach($role_customer);
 
-        // $customer = new User();
-        // $customer->name = 'Lê Thanh Hoài';
-        // $customer->email = 'hoaithanh@gmail.com';
-        // $customer->password = Hash::make('123456789');
-        // $customer->phone = '0355796956';
-        // $customer->save();
-        // $customer->roles()->attach($role_customer);
+        $customer_4 = new User();
+        $customer_4->id = 5;
+        $customer_4->name = 'Nguyễn Khắc Cường';
+        $customer_4->email = 'cuongnguyen@gmail.com';
+        $customer_4->password = Hash::make('cuongnk');
+        $customer_4->save();
+        $customer_4->roles()->attach($role_customer);
 
-        // $customer = new User();
-        // $customer->name = 'Nguyễn Khắc Cường';
-        // $customer->email = 'cuongnguyen@gmail.com';
-        // $customer->password = Hash::make('123456789');
-        // $customer->phone = '0355796956';
-        // $customer->save();
-        // $customer->roles()->attach($role_customer);
+        $customer_5 = new User();
+        $customer_5->id = 6;
+        $customer_5->name = 'Nguyễn Văn Linh';
+        $customer_5->email = 'linhnguyen@gmail.com';
+        $customer_5->password = Hash::make('linhnv');
+        $customer_5->save();
+        $customer_5->roles()->attach($role_customer);
 
-        // $customer = new User();
-        // $customer->name = 'Trần Đăng Khoa';
-        // $customer->email = 'khoatran@gmail.com';
-        // $customer->password = Hash::make('123456789');
-        // $customer->phone = '0355796956';
-        // $customer->save();
-        // $customer->roles()->attach($role_customer);
+        $customer_6 = new User();
+        $customer_6->id = 7;
+        $customer_6->name = 'Lê Thanh Hoài';
+        $customer_6->email = 'hoaile@gmail.com';
+        $customer_6->password = Hash::make('hoailt');
+        $customer_6->save();
+        $customer_6->roles()->attach($role_customer);
 
-        // $customer = new User();
-        // $customer->name = 'Nguyễn Thảo Ngân';
-        // $customer->email = 'nganthao@gmail.com';
-        // $customer->password = Hash::make('123456789');
-        // $customer->phone = '0355796956';
-        // $customer->save();
-        // $customer->roles()->attach($role_customer);
+        $customer_7 = new User();
+        $customer_7->id = 8;
+        $customer_7->name = 'Võ Thị Thanh Thúy';
+        $customer_7->email = 'thuyvo@gmail.com';
+        $customer_7->password = Hash::make('thuyvtt');
+        $customer_7->save();
+        $customer_7->roles()->attach($role_customer);
 
-        // $customer = new User();
-        // $customer->name = 'Nguyễn Văn Linh';
-        // $customer->email = 'linhnguyen@gmail.com';
-        // $customer->password = Hash::make('123456789');
-        // $customer->phone = '0355796956';
-        // $customer->save();
-        // $customer->roles()->attach($role_customer);
+        $customer_8 = new User();
+        $customer_8->id = 9;
+        $customer_8->name = 'Võ Thị Mộng Trúc';
+        $customer_8->email = 'trucvo@gmail.com';
+        $customer_8->password = Hash::make('trucvtm');
+        $customer_8->save();
+        $customer_8->roles()->attach($role_customer);
 
-       
 
         // $this->call(UserSeeder::class);
         DB::table('apartment_addresses')->insert([
             ['id' => 1,  'customer_id' => 1,'block' => 1, 'floor' => 1, 'apartment' => 1, 'hired' => 1],
             ['id' => 2,  'customer_id' => 2,'block' => 1, 'floor' => 1, 'apartment' => 2, 'hired' => 1],
             ['id' => 3,  'customer_id' => 3,'block' => 1, 'floor' => 1, 'apartment' => 3, 'hired' => 1],
-            ['id' => 4,  'customer_id' => null,'block' => 1, 'floor' => 1, 'apartment' => 4, 'hired' => 1],
-            ['id' => 5,  'customer_id' => null,'block' => 1, 'floor' => 1, 'apartment' => 5, 'hired' => 1],
-            ['id' => 6,  'customer_id' => null,'block' => 1, 'floor' => 2, 'apartment' => 1, 'hired' => 1],
-            ['id' => 7,  'customer_id' => null,'block' => 1, 'floor' => 2, 'apartment' => 2, 'hired' => 1],
-            ['id' => 8,  'customer_id' => null,'block' => 1, 'floor' => 2, 'apartment' => 3, 'hired' => 1],
-            ['id' => 9,  'customer_id' => null,'block' => 1, 'floor' => 2, 'apartment' => 4, 'hired' => 0],
+            ['id' => 4,  'customer_id' => 4,'block' => 1, 'floor' => 1, 'apartment' => 4, 'hired' => 1],
+            ['id' => 5,  'customer_id' => 5,'block' => 1, 'floor' => 1, 'apartment' => 5, 'hired' => 1],
+            ['id' => 6,  'customer_id' => 6,'block' => 1, 'floor' => 2, 'apartment' => 1, 'hired' => 1],
+            ['id' => 7,  'customer_id' => 7,'block' => 1, 'floor' => 2, 'apartment' => 2, 'hired' => 1],
+            ['id' => 8,  'customer_id' => 8,'block' => 1, 'floor' => 2, 'apartment' => 3, 'hired' => 1],
+            ['id' => 9,  'customer_id' => 9,'block' => 1, 'floor' => 2, 'apartment' => 4, 'hired' => 0],
             ['id' => 10, 'customer_id' => null, 'block' => 1, 'floor' => 2, 'apartment' => 5, 'hired' => 0],
             ['id' => 11, 'customer_id' => null, 'block' => 2, 'floor' => 1, 'apartment' => 1, 'hired' => 0],
             ['id' => 12, 'customer_id' => null, 'block' => 2, 'floor' => 1, 'apartment' => 2, 'hired' => 0],
@@ -206,7 +240,27 @@ class DatabaseSeeder extends Seeder
             ['id' => 5, 'name' => 'Phí phương tiện Xe mô tô 2', 'vehicle_type_id' => 2, 'price_regulation_id' => 6, 'price' => 55000],
             ['id' => 6, 'name' => 'Phí phương tiện Xe đạp 2', 'vehicle_type_id' => 3, 'price_regulation_id' => 6, 'price' => 40000],
         ]);
-
+        
+        DB::table('customer_vehicle')->insert([
+            ['id' => 1, 'month_start_use' => 5, 'year_use' => 2020, 'amount' => 1, 'using' => 1, 'customer_id' => 2, 'vehicle_id' => 1],
+            ['id' => 2, 'month_start_use' => 5, 'year_use' => 2020, 'amount' => 2, 'using' => 1, 'customer_id' => 2, 'vehicle_id' => 2],
+            ['id' => 3, 'month_start_use' => 5, 'year_use' => 2020, 'amount' => 1, 'using' => 1, 'customer_id' => 3, 'vehicle_id' => 1],
+            ['id' => 4, 'month_start_use' => 5, 'year_use' => 2020, 'amount' => 2, 'using' => 1, 'customer_id' => 3, 'vehicle_id' => 3],
+            ['id' => 5, 'month_start_use' => 5, 'year_use' => 2020, 'amount' => 1, 'using' => 1, 'customer_id' => 4, 'vehicle_id' => 1],
+            ['id' => 6, 'month_start_use' => 5, 'year_use' => 2020, 'amount' => 2, 'using' => 1, 'customer_id' => 4, 'vehicle_id' => 2],
+            ['id' => 7, 'month_start_use' => 5, 'year_use' => 2020, 'amount' => 2, 'using' => 1, 'customer_id' => 5, 'vehicle_id' => 1],
+            ['id' => 8, 'month_start_use' => 5, 'year_use' => 2020, 'amount' => 2, 'using' => 1, 'customer_id' => 5, 'vehicle_id' => 2],
+            ['id' => 9, 'month_start_use' => 5, 'year_use' => 2020, 'amount' => 1, 'using' => 1, 'customer_id' => 6, 'vehicle_id' => 1],
+            ['id' => 10, 'month_start_use' => 5, 'year_use' => 2020, 'amount' => 2, 'using' => 1, 'customer_id' => 6, 'vehicle_id' => 3],
+            ['id' => 11, 'month_start_use' => 5, 'year_use' => 2020, 'amount' => 1, 'using' => 1, 'customer_id' => 6, 'vehicle_id' => 2],
+            ['id' => 12, 'month_start_use' => 5, 'year_use' => 2020, 'amount' => 2, 'using' => 1, 'customer_id' => 7, 'vehicle_id' => 1],
+            ['id' => 13, 'month_start_use' => 5, 'year_use' => 2020, 'amount' => 1, 'using' => 1, 'customer_id' => 7, 'vehicle_id' => 2],
+            ['id' => 14, 'month_start_use' => 5, 'year_use' => 2020, 'amount' => 2, 'using' => 1, 'customer_id' => 7, 'vehicle_id' => 3],
+            ['id' => 15, 'month_start_use' => 5, 'year_use' => 2020, 'amount' => 1, 'using' => 1, 'customer_id' => 8, 'vehicle_id' => 1],
+            ['id' => 16, 'month_start_use' => 5, 'year_use' => 2020, 'amount' => 2, 'using' => 1, 'customer_id' => 8, 'vehicle_id' => 2],
+            ['id' => 17, 'month_start_use' => 5, 'year_use' => 2020, 'amount' => 1, 'using' => 1, 'customer_id' => 8, 'vehicle_id' => 3],
+            
+        ]);
 
         // DB::table('statisticals')->insert([
         //     ['id' => 1, 'month' => 5, 'living_expenses_type_id' => 1, 'total_price' => 0 ],

@@ -33,11 +33,13 @@ class Customer extends Model
 
     public function vehicles()
     {
-        return $this->belongsToMany(Vehicle::class)->withPivot([
-            'month_use',
+        return $this->belongsToMany(Vehicle::class)->using(VehicleCuctomer::class)->withPivot([
             'amount',
             'customer_id',
-            'vehicle_id'
+            'vehicle_id',
+            'year_use',
+            'month_start_use',
+            'using'
         ]);
     }
 
@@ -148,6 +150,7 @@ class Customer extends Model
             // add vehicle
             $calendar = SystemCalendar::find(1); 
             $month = $calendar -> month;
+            $year = $calendar -> year;
             //$year = $calendar -> year;
             // Các loại phương tiện
             $typeVehicle_Car = Vehicle::where('id', 1)->first();
@@ -157,19 +160,19 @@ class Customer extends Model
             // if customer have car
             if($request -> car > 0){
                 $customer->vehicles()->attach($typeVehicle_Car, [ 'amount' => $request -> car,
-                                                'month_use' => $month,
+                                                'month_start_use' => $month, 'year_use' => $year, 'using' => 1
                                                    ]);                          
             }
             // if customer have moto
             if($request -> moto > 0){
                 $customer->vehicles()->attach($typeVehicle_Moto, [ 'amount' => $request -> moto,
-                                                    'month_use' => $month
+                                                    'month_start_use' => $month, 'year_use' => $year, 'using' => 1
                                                     ]);
             }
             // if customer have bike
             if($request -> bike > 0){
                 $customer->vehicles()->attach($typeVehicle_Bike, [ 'amount' => $request -> bike,
-                                                    'month_use' => $month
+                                                    'month_start_use' => $month, 'year_use' => $year, 'using' => 1
                                                     ]);
             }
     }

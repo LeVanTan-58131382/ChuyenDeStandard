@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ApartmentAddress;
 use App\Models\Customer;
+use App\Models\VehicleCuctomer;
 
 class CustomersController extends Controller
 {
@@ -116,7 +117,9 @@ class CustomersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $customer = Customer::with('apartmentAddress', 'familyMembers')->find($id);
+        $vehicles = VehicleCuctomer::where('customer_id', $id)->get();
+        return view('admin.customer.editCustomer', compact('customer', 'vehicles'));
     }
 
     /**
@@ -128,7 +131,52 @@ class CustomersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $customer = Customer::find($id);
+        $customer -> name = $request -> name;
+        $customer -> email = $request -> email;
+        $customer -> phone = $request -> phone;
+        $customer -> date_of_birth = $request -> date_of_birth;
+        $customer -> gender = $request -> gender;
+        $customer -> save();
+
+        // nếu có chỉnh sửa phần phương tiện về số lượng và tình trạng
+        $car_amount = $request -> car_amount;
+        $moto_amount = $request -> moto_amount;
+        $bike_amount = $request -> bike_amount;
+
+        $status_car = $request -> status_car;
+        $status_moto = $request -> status_moto;
+        $status_bike = $request -> status_bike;
+
+        $vehicles = VehicleCuctomer::where('customer_id', $id)->get();
+        foreach($vehicles as $vehicle){
+            if($vehicle->vehicle_id == 1){
+                $vehicle->amount = $car_amount;
+                if($status_car && $status_car == 1)
+                {
+                    $vehicle->using = 0;
+                }
+                $vehicle -> save();
+            }
+            if($vehicle->vehicle_id == 2){
+                $vehicle->amount = $moto_amount;
+                if($status_moto && $status_moto == 1)
+                {
+                    $vehicle->using = 0;
+                }
+                $vehicle -> save();
+            }
+            if($vehicle->vehicle_id == 3){
+                $vehicle->amount = $bike_amount;
+                if($status_bike && $status_bike == 1)
+                {
+                    $vehicle->using = 0;
+                }
+                $vehicle -> save();
+            }
+        }
+        return redirect() -> back() -> with(['success'=>'Cập nhật chủ hộ thành công!!!']);
+        
     }
 
     /**

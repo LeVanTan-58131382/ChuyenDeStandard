@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="create-customer">
-    <h3 style="text-align: center">Tạo mới Chủ hộ</h3>
+    <h3 style="text-align: center">Cập nhật thông tin Chủ hộ</h3>
     <br><br>
-    <form method="post" action="/customers/{{ $customer->id}}">
+    <form method="post" action="{{ route('admin.customers.update', $customer->id)}}">
         @csrf
         @method('PUT')
         <div class="row">
@@ -34,29 +34,63 @@
                 </div>
             </div>
             <div class="col-md-6">
-                {{-- <div class="form-group">
-                    <label for="pwd">Mật khẩu: Tự động</label>
-                    {{-- <input type="password" class="form-control" placeholder="Nhập mật khẩu" name="password">
-                </div> --}}
-                  <div class="form-group vehicle">
-                      <label for="pwd">Phương tiện:</label>
-                      <ul>
-                          <li>
-                              <p>Xe ô tô : <input min="0" style="margin-left: 30px" type="number" name="car" value="{{ $customer->name }}"></p>
-                          </li>
-                          <li>
-                              <p>Xe mô tô : <input min="0" style="margin-left: 15px" type="number" name="moto" value="{{ $customer->name }}"></p>
-                          </li>
-                          <li>
-                              <p>Xe đạp : <input min="0" style="margin-left: 31px" type="number" name="bike" value="{{ $customer->name }}"></p>
-                          </li>
-                      </ul>
+                <div class="vehicle-status">
+                    <div class="form-group vehicle">
+                        <label for="pwd">Số lượng phương tiện và tình trạng sử dụng:</label>
+                        @foreach($vehicles as $vehicle)
+                            <ul>
+                                <li>
+                                    @if($vehicle -> vehicle_id == 1)
+                                        <p>Xe ô tô : <input min="0" style="margin-left: 30px" type="number" name="car_amount" value="{{ $vehicle->amount }}">
+                                        <select name="status_car" id="">
+                                            @if($vehicle -> using == 1)
+                                            <option selected value="0">Đang sử dụng</option>
+                                            <option value="1">Không sử dụng nữa</option>
+                                            @elseif($vehicle -> using == 0)
+                                            <option selected value="1">Không sử dụng nữa</option>
+                                            <option value="0">Đang sử dụng</option>
+                                            @endif
+                                        </select></p>
+                                    @endif
+                                </li>
+                                <li>
+                                    @if($vehicle -> vehicle_id == 2)
+                                        <p>Xe mô tô : <input  min="0" style="margin-left: 15px" type="number" name="moto_amount" value="{{ $vehicle->amount }}">
+                                        <select name="status_moto" id="">
+                                            @if($vehicle -> using == 1)
+                                            <option selected value="0">Đang sử dụng</option>
+                                            <option value="1">Không sử dụng nữa</option>
+                                            @elseif($vehicle -> using == 0)
+                                            <option selected value="1">Không sử dụng nữa</option>
+                                            <option value="0">Đang sử dụng</option>
+                                            @endif
+                                        </select></p>
+                                    @endif
+                                </li>
+                                <li>
+                                    @if($vehicle -> vehicle_id == 3)
+                                        <p>Xe đạp : <input  min="0" style="margin-left: 31px" type="number" name="bike_amount" value="{{ $vehicle->amount }}">
+                                        <select name="status_bike" id="">
+                                            @if($vehicle -> using == 1)
+                                            <option selected value="0">Đang sử dụng</option>
+                                            <option value="1">Không sử dụng nữa</option>
+                                            @elseif($vehicle -> using == 0)
+                                            <option selected value="1">Không sử dụng nữa</option>
+                                            <option value="0">Đang sử dụng</option>
+                                            @endif
+                                        </select></p>
+                                    @endif
+                                </li>
+                            </ul>
+                        @endforeach
+                    </div>
                 </div>
-                <div class="form-group address">
+                {{-- <div class="form-group address">
                     <label for="pwd">Địa chỉ căn hộ:</label>
                     <ul>
                         <li><label for="pwd">Block:</label>
                             <select name="selectBlock" id="">
+                                <option selected value="{{ $customer->apartmentAddress['block'] }}">{{ $customer->apartmentAddress['block'] }}</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -66,6 +100,7 @@
                         </li>
                         <li><label for="pwd">Tầng:</label>
                             <select name="selectFloor" id="">
+                                <option selected value="{{ $customer->apartmentAddress['floor'] }}">{{ $customer->apartmentAddress['floor'] }}</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -75,6 +110,7 @@
                         </li>
                         <li><label for="pwd">Nhà:</label>
                             <select name="selectApartment" id="">
+                                <option selected value="{{ $customer->apartmentAddress['apartment'] }}">{{ $customer->apartmentAddress['apartment'] }}</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -88,22 +124,33 @@
                             </select>
                         </li>
                     </ul>
-                </div>
+                </div> --}}
             </div>
         </div>
         <br><br>
-        <button type="submit" class="btn btn-primary">Tạo mới</button>
+        <button type="submit" class="btn btn-primary">Cập nhật</button>
       </form>
 </div>
 <style>
+    .vehicle{
+        width: 500px;
+        left: 0%;
+    }
     .vehicle li{
         list-style: none;
+        margin-bottom: 20px;
     }
-
+    .vehicle select{
+        width: 170px;
+        height: 35px;
+        border-radius: 4px;
+        float: right;
+    }
     .vehicle input{
         border-radius: 4px;
         border: 1px solid gray;
-        height: 30px;
+        height: 35px;
+        padding-left: 20px;
     }
     .create-customer{
         position: relative;

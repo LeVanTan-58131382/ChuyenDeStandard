@@ -190,7 +190,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
 
     // Customers
     // Route::delete('employees/destroy', 'EmployeesController@massDestroy')->name('employees.massDestroy');
-    // Route::post('employees/media', 'EmployeesController@storeMedia')->name('employees.storeMedia');
+    // Route::post('employees/media', 'EmployeesController@storeMedia')->name('employees.storeMedia');vehicle use status
     Route::resource('customers', 'CustomersController');
 
     // Family Members
