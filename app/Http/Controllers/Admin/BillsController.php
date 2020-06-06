@@ -26,7 +26,8 @@ class BillsController extends Controller
     {
         $celendar = SystemCalendar::find(1);
         $month = $celendar -> month;
-        $bills = Bill::get();
+        $year = $celendar -> year;
+        $bills = Bill::where('payment_year', $year)->where('payment_month', $month)->get();
         $customers = Customer::paginate(10);
         $apartments = ApartmentAddress::get();
         return view('admin.paymentForServices.index', compact('bills', 'customers', 'apartments', 'month'));
@@ -45,9 +46,9 @@ class BillsController extends Controller
     {
         $celendar = SystemCalendar::find(1);
         $month = $celendar -> month;
-
+        $year = $celendar -> year;
         // nếu khách hàng đạ dc xuất hóa đơn cho tháng 5 thì không xuất nữa
-        $bills = Bill::select('*')->where('customer_id', $customerId)->where('payment_month', $month)->get();
+        $bills = Bill::select('*')->where('customer_id', $customerId)->where('payment_year', $year)->where('payment_month', $month)->get();
         if(!$bills->isEmpty()){
             return view('admin.paymentForServices.billexported');
         }
@@ -137,7 +138,16 @@ class BillsController extends Controller
                                                             ->where('month_consumption', $month)
                                                             ->where('living_expenses_type_id', 2)
                                                             ->get();
-        $vehicles = VehicleCuctomer::select('*')->where('customer_id', $id)->get();
+        $vehicles = VehicleCuctomer::select('*')->where('customer_id', $id)
+                                                ->where([
+                                                    ['year_use', '=', $year],
+                                                    ['month_start_use', '<=', $month],
+                                                ])
+                                                ->orWhere([
+                                                    ['year_use', '<', $year],
+                                                    ['month_start_use', '>=', $month],
+                                                ])
+                                                ->get();
         $vehicles_prices = VehiclePrice::get();
         $billElectric = Bill::select('*')->where('customer_id', $id)
                                         ->where('payment_year', $year)

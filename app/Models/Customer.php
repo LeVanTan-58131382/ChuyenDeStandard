@@ -33,7 +33,7 @@ class Customer extends Model
 
     public function vehicles()
     {
-        return $this->belongsToMany(Vehicle::class)->using(VehicleCuctomer::class)->withPivot([
+        return $this->belongsToMany(Vehicle::class)->withPivot([
             'amount',
             'customer_id',
             'vehicle_id',

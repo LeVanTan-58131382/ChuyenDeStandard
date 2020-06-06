@@ -166,7 +166,17 @@ class Bill extends Model
 
         $price_regulation_id_C = $request -> price_regulation_id_C; // mã quy định phí gửi xe
         // phương tiện
-        $vehicles = VehicleCuctomer::select('*')->where('customer_id', $id)->get(); // những phương tiện của khách hàng
+        $vehicles = VehicleCuctomer::select('*')->where('customer_id', $id)
+                                                ->where('using', 1)
+                                                ->where([
+                                                    ['year_use', '=', $year],
+                                                    ['month_start_use', '<=', $month],
+                                                ])
+                                                ->orWhere([
+                                                    ['year_use', '<', $year],
+                                                    ['month_start_use', '>=', $month],
+                                                ])
+                                                ->get(); // những phương tiện của khách hàng
         $vehicle_prices = VehiclePrice::select('*')->where('price_regulation_id', $price_regulation_id_C)->get();
         
         $total_price_C = 0; // tổng tiền gửi xe
@@ -193,6 +203,8 @@ class Bill extends Model
                 }
             }
         }
+        if($vehicles->count() > 0)
+        {
         $billCar = new Bill();
         $billCar -> name = 'Hóa đơn phí gửi xe';
         $billCar -> customer_id = $id;
@@ -202,6 +214,7 @@ class Bill extends Model
         $billCar -> payment_year = $year;
         $billCar -> money_to_pay = $total_price_C;
         $billCar -> save();
+        }
     }
 
 }

@@ -5,7 +5,7 @@
     <h3 style="text-align: center">Chi tiết thanh toán tiền dịch vụ</h3>
     <br>
     <form method="post" action="{{ route('admin.store-bill', $customer_id)}}">
-        @csrf
+        @csrf 
     <div class="row">
         <div class="col-md-12">
             <div class="payment-electric">
@@ -84,7 +84,7 @@
                                     @foreach ($customer->vehicles as $item)
                                         <b>
                                             <?php
-                                                if($item->pivot->vehicle_id == 1)
+                                                if($item->pivot->vehicle_id == 1 && $item->pivot->using == 1 )
                                                 {
                                                     echo $item->pivot->amount;
                                                 }
@@ -92,7 +92,7 @@
                                         </b>
                                         <b>
                                             <?php
-                                                if($item->pivot->vehicle_id == 2)
+                                                if($item->pivot->vehicle_id == 2 && $item->pivot->using == 1)
                                                 {
                                                     echo $item->pivot->amount;
                                                 }
@@ -100,7 +100,7 @@
                                         </b>
                                         <b>
                                             <?php
-                                                if($item->pivot->vehicle_id == 3)
+                                                if($item->pivot->vehicle_id == 3 && $item->pivot->using == 1)
                                                 {
                                                     echo $item->pivot->amount;
                                                 }

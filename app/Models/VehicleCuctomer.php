@@ -14,7 +14,7 @@ class VehicleCuctomer extends Model
      * @var array
      */
     protected $fillable = [
-        'customer_id', 'vehicle_id', 'amount', 'month_start_use', 'year_use', 'using'
+        'month_start_use', 'year_use', 'amount', 'using', 'customer_id', 'vehicle_id'
     ];
     
     // public function user() {

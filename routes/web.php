@@ -153,7 +153,7 @@ use Illuminate\Support\Facades\Route;
 // Route::redirect('/home', '/admin');
 // Auth::routes(['register' => false]);
 Auth::routes();
-// phần standard
+// phần standard 
 // Route Admin
 //Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], function () {

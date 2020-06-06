@@ -44,11 +44,11 @@
                                         <p>Xe ô tô : <input min="0" style="margin-left: 30px" type="number" name="car_amount" value="{{ $vehicle->amount }}">
                                         <select name="status_car" id="">
                                             @if($vehicle -> using == 1)
-                                            <option selected value="0">Đang sử dụng</option>
+                                            <option selected value="2">Đang sử dụng</option>
                                             <option value="1">Không sử dụng nữa</option>
                                             @elseif($vehicle -> using == 0)
                                             <option selected value="1">Không sử dụng nữa</option>
-                                            <option value="0">Đang sử dụng</option>
+                                            <option value="2">Đang sử dụng</option>
                                             @endif
                                         </select></p>
                                     @endif
@@ -58,11 +58,11 @@
                                         <p>Xe mô tô : <input  min="0" style="margin-left: 15px" type="number" name="moto_amount" value="{{ $vehicle->amount }}">
                                         <select name="status_moto" id="">
                                             @if($vehicle -> using == 1)
-                                            <option selected value="0">Đang sử dụng</option>
+                                            <option selected value="2">Đang sử dụng</option>
                                             <option value="1">Không sử dụng nữa</option>
                                             @elseif($vehicle -> using == 0)
                                             <option selected value="1">Không sử dụng nữa</option>
-                                            <option value="0">Đang sử dụng</option>
+                                            <option value="2">Đang sử dụng</option>
                                             @endif
                                         </select></p>
                                     @endif
@@ -72,11 +72,11 @@
                                         <p>Xe đạp : <input  min="0" style="margin-left: 31px" type="number" name="bike_amount" value="{{ $vehicle->amount }}">
                                         <select name="status_bike" id="">
                                             @if($vehicle -> using == 1)
-                                            <option selected value="0">Đang sử dụng</option>
+                                            <option selected value="2">Đang sử dụng</option>
                                             <option value="1">Không sử dụng nữa</option>
                                             @elseif($vehicle -> using == 0)
                                             <option selected value="1">Không sử dụng nữa</option>
-                                            <option value="0">Đang sử dụng</option>
+                                            <option value="2">Đang sử dụng</option>
                                             @endif
                                         </select></p>
                                     @endif

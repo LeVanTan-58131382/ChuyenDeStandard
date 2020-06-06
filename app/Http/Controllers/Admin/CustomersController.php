@@ -147,7 +147,7 @@ class CustomersController extends Controller
         $status_car = $request -> status_car;
         $status_moto = $request -> status_moto;
         $status_bike = $request -> status_bike;
-
+        //dd($status_car);
         $vehicles = VehicleCuctomer::where('customer_id', $id)->get();
         foreach($vehicles as $vehicle){
             if($vehicle->vehicle_id == 1){
@@ -155,6 +155,10 @@ class CustomersController extends Controller
                 if($status_car && $status_car == 1)
                 {
                     $vehicle->using = 0;
+                }
+                if($status_car && $status_car == 2)
+                {
+                    $vehicle->using = 1;
                 }
                 $vehicle -> save();
             }
@@ -164,6 +168,10 @@ class CustomersController extends Controller
                 {
                     $vehicle->using = 0;
                 }
+                if($status_moto && $status_moto == 2)
+                {
+                    $vehicle->using = 1;
+                }
                 $vehicle -> save();
             }
             if($vehicle->vehicle_id == 3){
@@ -172,10 +180,14 @@ class CustomersController extends Controller
                 {
                     $vehicle->using = 0;
                 }
+                if($status_bike && $status_bike == 2)
+                {
+                    $vehicle->using = 1;
+                }
                 $vehicle -> save();
             }
         }
-        return redirect() -> back() -> with(['success'=>'Cập nhật chủ hộ thành công!!!']);
+        return redirect() -> back() -> with(['success'=>'Cập nhật thông tin chủ hộ thành công!!!']);
         
     }
 

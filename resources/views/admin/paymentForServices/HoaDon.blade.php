@@ -159,6 +159,7 @@
                 </tr>
             </thead>
             <tbody>
+                @if($vehicles->count() > 0)
                 @foreach ($vehicles as $item)
                 <tr>
                     <th scope="row"></th>
@@ -223,6 +224,7 @@
                 @endphp</td>
                 @endforeach
             @endforeach
+            @endif
             @foreach ($billCar as $itembill)
             <caption style="text-align: center; margin: 20px;"><p style="text-align:center"><b>Tổng cộng: </b>{{$itembill->money_to_pay}}&nbspVND</p></caption>
             @endforeach
