@@ -3,7 +3,7 @@
 @section('content')
 <div class="create-notifi">
     <h3>Tạo thông báo</h3>
-<form action="{{ route('send-billnotifi', $bill->id)}}" method="post">
+<form action="{{ route('admin.send-bill-notification', $bill->id)}}" method="post">
   @csrf
         <div class="form-group">
             <label>Tiêu đề thông báo:</label>
@@ -15,7 +15,7 @@
         </div>
         <div class="form-group">
             <label>Người nhận thông báo:</label>
-                <b>{{$user->name}}</b>
+                <b>{{$customer->name}}</b>
             </div>
         <br><br>
     <button type="submit" class="btn btn-primary">Gửi thông báo</button>

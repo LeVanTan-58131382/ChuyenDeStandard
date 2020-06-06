@@ -180,8 +180,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
 
     // Notifications
     //Route::delete('notifications/destroy', 'Notifications@massDestroy')->name('notifications.massDestroy');
-    Route::post('notifications/bill/sent{billID}', 'NotificationsController@sentNotificationForBill')->name('send-bill-notification');
-    Route::get('notifications/bill/{billID}', 'NotificationsController@createNotificationForBill')->name('create-bill-notification');
+    Route::post('notifications/bill/sent{billId}', 'NotificationsController@sentNotificationForBill')->name('send-bill-notification');
+    Route::get('notifications/bill/{billId}', 'NotificationsController@createNotificationForBill')->name('create-bill-notification');
     Route::resource('notifications', 'NotificationsController');
 
     // Users

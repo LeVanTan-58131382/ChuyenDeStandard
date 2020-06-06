@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\Bill;
 use App\Models\Notification;
 use App\Models\NotificationCustomer;
 
@@ -34,6 +35,12 @@ class NotificationsController extends Controller
         return view('admin.notification.createNotification', compact('customers'));
     }
 
+    public function createNotificationForBill($billId){
+        $bill = Bill::find($billId);
+        $customer = Customer::find($bill->customer_id);
+        return view('admin.notification.createBillNotification', compact('bill', 'customer'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -53,10 +60,7 @@ class NotificationsController extends Controller
             $notification -> scope = 99999;
             $notification -> save();
             foreach($customers as $customer){
-                $notifiCustomer = new NotificationCustomer();
-                $notifiCustomer -> customer_id = $customer -> id;
-                $notifiCustomer -> notification_id = $notification -> id;
-                $notifiCustomer -> save();
+                $customer->notifications()->attach($notification);   
             }
         }
         else {
@@ -65,18 +69,30 @@ class NotificationsController extends Controller
             $notification -> content = $content;
             $notification -> scope = 1;
             $notification -> save();
-            foreach($customers as $customer)
-            {
-                if( $customer -> id == $selectCustomer){
-                    $notifiUser = new NotificationCustomer();
-                    $notifiUser -> customer_id = $customer -> id;
-                    $notifiUser -> notification_id = $notification -> id;
-                    $notifiUser -> save();
-                }
-            }
+            $customer = Customer::find($selectCustomer);
+            $customer->notifications()->attach($notification); 
         }
         //return view('admin.notification.createNotification', compact('customers'))-> with(['success'=>'Gửi thông báo thành công!!!']);
         return redirect() -> route('admin.notifications.index') -> with(['success'=>'Gửi thông báo thành công!!!']);
+    }
+
+    public function sentNotificationForBill($billId, Request $request)
+    {
+        $bill = Bill::find($billId);
+
+        $title = $request -> title;
+        $content = $request -> content;
+
+        $notification = new Notification();
+        $notification -> title = $title;
+        $notification -> content = $content;
+        $notification -> scope = 1;
+        $notification -> save();
+
+        $customer = Customer::find($bill -> customer_id);
+        $customer->notifications()->attach($notification, [ 'bill_id' => $bill -> id]); 
+
+        return redirect()->back()-> with(['success'=>'Gửi thông báo thành công!!!']);
     }
 
     /**

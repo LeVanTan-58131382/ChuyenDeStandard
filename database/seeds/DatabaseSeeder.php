@@ -37,27 +37,26 @@ class DatabaseSeeder extends Seeder
                 
     ]); 
 
-        // $role_customer = new Role();
-        // $role_customer->name = 'customer';
-        // $role_customer->description = 'A customer User';
-        // $role_customer->save();
+        $role_customer = new Role();
+        $role_customer->name = 'customer';
+        $role_customer->description = 'A customer User';
+        $role_customer->save();
 
-        // $role_manager = new Role();
-        // $role_manager->name = 'admin';
-        // $role_manager->description = 'A admin User';
-        // $role_manager->save();
+        $role_manager = new Role();
+        $role_manager->name = 'admin';
+        $role_manager->description = 'A admin User';
+        $role_manager->save();
 
-        // $role_customer = Role::where('name', 'customer')->first();
-        // $role_manager  = Role::where('name', 'admin')->first();
+        $role_customer = Role::where('name', 'customer')->first();
+        $role_manager  = Role::where('name', 'admin')->first();
 
-        // $manager = new User();
-        // $manager->id = 1;
-        // $manager->name = 'Admin';
-        // $manager->email = 'admin@gmail.com';
-        // $manager->password = Hash::make('123456789');
-        // $manager->phone = '0355796956';
-        // $manager->save();
-        // $manager->roles()->attach($role_manager);
+        $manager = new User();
+        $manager->id = 1;
+        $manager->name = 'Admin';
+        $manager->email = 'admin@gmail.com';
+        $manager->password = Hash::make('123456789');
+        $manager->save();
+        $manager->roles()->attach($role_manager);
 
         // $customer = new User();
         // $customer->name = 'Lê Văn Tân';

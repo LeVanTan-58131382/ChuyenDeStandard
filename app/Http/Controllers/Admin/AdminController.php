@@ -198,7 +198,7 @@ class AdminController extends Controller
             {
                 if( $user -> id == $selectUser){
                     $notifiUser = new NotificationUser();
-                    $notifiUser -> user_id = $user -> id;
+                    $notifiUser -> user_id = $user -> id; 
                     $notifiUser -> notifi_id = $notifi -> id;
                     $notifiUser -> save();
                 }

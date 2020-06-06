@@ -7,10 +7,13 @@ use App\Models\ApartmentAddress;
 use App\Models\FamilyMember;
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use App\Models\Role;
+use App\User;
 use App\Models\VehicleCuctomer;
 use App\Models\Notification;
 use App\Models\Vehicle;
 use App\Models\SystemCalendar;
+use Illuminate\Support\Facades\Hash;
 
 class Customer extends Model
 {
@@ -35,7 +38,7 @@ class Customer extends Model
             'amount',
             'customer_id',
             'vehicle_id'
-        ]);;
+        ]);
     }
 
     public function apartmentAddress()
@@ -55,7 +58,11 @@ class Customer extends Model
 
     public function notifications() // tên table
     {
-        return $this->belongsToMany(Notification::class);
+        return $this->belongsToMany(Notification::class)->withPivot([
+            'bill_id',
+            'customer_id',
+            'notification_id',
+        ]);
     }
 
     // fuction kiểm tra apartment khi thêm customer
@@ -114,6 +121,16 @@ class Customer extends Model
             $customer -> date_of_birth = $request -> date_of_birth;
             $customer -> gender = $request -> gender;
             $customer -> save();
+
+            // cấp quyền cho customer
+            $role_customer = Role::where('name', 'customer')->first();
+            $customer_roled = new User();
+            $customer_roled->id = $customer -> id;
+            $customer_roled->name = $customer -> name;
+            $customer_roled->email = $customer -> email;
+            $customer_roled->password = Hash::make($customer -> password);
+            $customer_roled->save();
+            $customer_roled->roles()->attach($role_customer);
 
             // add apartment
             $block = $request -> selectBlock;

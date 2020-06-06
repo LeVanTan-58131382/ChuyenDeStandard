@@ -190,7 +190,7 @@ class BillsController extends Controller
                                         ->get();
             return view('admin.paymentForServices.billCar', compact('bills', 'customers'));
         }
-    }
+    } 
  
     public function showBillDetail( $type, $billID){
         $celendar = SystemCalendar::find(1);
@@ -211,7 +211,7 @@ class BillsController extends Controller
         if($type == 2){
             $consumptionIndex_W = ConsumptionIndex::select('*')->where('customer_id', $customer->id)
                                                                 ->where('year_consumption', $year)
-                                                                ->where('month_consumption', 5)
+                                                                ->where('month_consumption', $month)
                                                                 ->where('living_expenses_type_id', 2)->get();
             $price_regulation = PriceRegulation::get();
             $usage_norm = UsageNormInvestors::get();

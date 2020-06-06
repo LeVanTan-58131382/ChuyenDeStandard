@@ -43,53 +43,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected function addUser(UserRequest $urequest, Request $request){
-        $user = new User();
-        $user -> name = $urequest -> name;
-        $user -> email = $urequest -> email;
-        $user -> password = Hash::make($urequest -> password);
-        $user -> phone = $urequest -> phone;
-        $user
-       ->roles()
-       ->attach(Role::where('name', 'employee')->first());
-        $user -> save();
-
-        // add vehicle
-        if($request -> car){
-            $vehicle_car = new VehicleUser;
-            $vehicle_car -> vehicle_type_id = 1;
-            $vehicle_car -> living_expenses_type_id = 3;
-            $vehicle_car -> user_id = $user -> id;
-            $vehicle_car -> amount = $request -> car;
-            $vehicle_car -> save();
-        }
-        if($request -> moto){
-            $vehicle_moto = new VehicleUser;
-            $vehicle_moto -> vehicle_type_id = 2;
-            $vehicle_moto -> living_expenses_type_id = 3;
-            $vehicle_moto -> user_id = $user -> id;
-            $vehicle_moto -> amount = $request -> moto;
-            $vehicle_moto -> save();
-        }
-        if($request -> bike){
-            $vehicle_bike = new VehicleUser;
-            $vehicle_bike -> vehicle_type_id = 3;
-            $vehicle_bike -> living_expenses_type_id = 3;
-            $vehicle_bike -> user_id = $user -> id;
-            $vehicle_bike -> amount = $request -> bike;
-            $vehicle_bike -> save();
-        }
-
-    }
-
-    public function apartment() {
-        return $this->hasOne('App\Models\ApartmentAddress');
-    }
-
-    public function vehicle() {
-        return $this->hasMany('App\Models\VehicleUser');
-    }
-
     public function roles()
     {
       return $this->belongsToMany(Role::class);

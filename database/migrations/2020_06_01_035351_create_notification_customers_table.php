@@ -13,7 +13,7 @@ class CreateNotificationCustomersTable extends Migration
      */
     public function up()
     {
-        Schema::create('notification_customers', function (Blueprint $table) {
+        Schema::create('customer_notification', function (Blueprint $table) {
         $table->id();
 
         $table->boolean('read')->default(0);

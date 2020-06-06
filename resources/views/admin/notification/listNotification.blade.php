@@ -21,9 +21,9 @@
                 <tbody>
                     @foreach ($notifications as $notifi)
                     <tr>
-                        <th scope="row">1</th>
+                        <th scope="row">{{$notifi->id}}</th>
                         <td>{{$notifi->title}}</td>
-                        <td>15/5/2020</td>
+                        <td>{{\Carbon\Carbon::createFromTimeStamp(strtotime($notifi["created_at"]))->diffForHumans()}}</td>
                         <td>
                             <?php
                                 if($notifi -> scope == 99999){

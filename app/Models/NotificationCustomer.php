@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class NotificationCustomer extends Model
 {
-    public $table = 'notification_customers';
+    public $table = 'customer_notification';
 
     protected $fillable = [
         'customer_id',

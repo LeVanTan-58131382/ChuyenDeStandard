@@ -10,7 +10,9 @@
             <label for="">2. Địa chỉ: Block: {{ $customer->apartmentAddress['block'] }} 
                             Tầng: {{ $customer->apartmentAddress['floor']}} 
                             Nhà: {{ $customer->apartmentAddress['apartment']}}</label><br>
-            <label for="">3. Chỉ số cũ: </label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label for="">Chỉ số mới: </label><br>
+            @foreach($consumptionIndex_E as $consumptionIndex)
+            <label for="">3. Chỉ số cũ: {{ $consumptionIndex->last_month_index}}</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label for="">Chỉ số mới: {{ $consumptionIndex->this_month_index}}</label><br>
+            @endforeach
             <label for="">4. Điện tiêu thụ:</label><br>
             <br>
             <table class="table">
@@ -74,7 +76,9 @@
             <label for="">2. Địa chỉ: Block: {{ $customer->apartmentAddress['block'] }} 
                             Tầng: {{ $customer->apartmentAddress['floor']}} 
                             Nhà: {{ $customer->apartmentAddress['apartment']}}</label><br>
-            <label for="">3. Chỉ số cũ: </label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label for="">Chỉ số mới: </label><br>
+            @foreach($consumptionIndex_W as $consumptionIndex)
+            <label for="">3. Chỉ số cũ: {{ $consumptionIndex->last_month_index}}</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label for="">Chỉ số mới: {{ $consumptionIndex->this_month_index}}</label><br>
+            @endforeach
             <label for="">4. Điện tiêu thụ:</label><br>
             <br>
             <table class="table">
