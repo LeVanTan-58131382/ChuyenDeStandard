@@ -123,6 +123,9 @@ class CustomersController extends Controller
 
         if($new_vehicle_type != 0)
         {
+            $this->validate($request, [
+                'add_new_vehicle_amount' => 'required'
+            ]);
             // nếu khách hàng chưa có phương tiện nào
             if($vehicles -> count() == 0){  
                 // if customer have car

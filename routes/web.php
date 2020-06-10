@@ -172,6 +172,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
 
     Route::get('/bills/createBill/{customerID}', 'BillsController@createBill')->name('create-bill');
     Route::post('/bills/storeBill/{customerID}', 'BillsController@storeBill')->name('store-bill');
+    
+    Route::get('/bills/import', 'BillsController@getloadFile')->name('getimport');
+    Route::post('/bills/import', 'BillsController@postloadFile')->name('postimport');
+
     Route::resource('bills', 'BillsController');
 
     // Messages

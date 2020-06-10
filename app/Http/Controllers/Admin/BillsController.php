@@ -14,9 +14,53 @@ use App\Models\ConsumptionIndex;
 use App\Models\VehicleCuctomer;
 use App\Models\UsageNormInvestors;
 use App\Models\VehiclePrice;
+use Importer;
 
 class BillsController extends Controller
 {
+    public function getloadFile()
+    {
+        return view('admin.paymentForServices.testExcel');
+    }
+
+    public function postloadFile(Request $request)
+    {
+        // đã đọc dc file excel
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|max:5000|mimes:xlsx,xls,csv'
+        ]);
+
+        if($validator->passes()){
+
+            $file = $request->file('file');
+            $fileName = $file->getClientOriginalName();
+            $savePath = public_path('/upload/');
+            $file->move($savePath, $fileName);
+
+            $excel = Importer::make('Excel');
+            $excel->load($savePath.$fileName);
+            $collection = $excel->getCollection();
+
+            if(sizeof($collection[1]) == 3){
+                for($row=1; $row<sizeof($collection); $row++)
+                    try{
+                        dd($collection[$row]);
+                    }catch(\Exception $e){
+                        return redirect()->back()
+                            ->with(['errors' => $e->getMessage()]);
+                    }
+            }else{
+                return redirect()->back()
+                    ->with(['errors' => [0 => 'Please provide data in file according to sample file.']]);
+            }
+        }else{
+            return redirect()->back()
+                ->with(['errors'=>$validator->errors()->all()]);
+        }
+    }
+
+
+
     public function index()
     {
         $celendar = SystemCalendar::find(1);
