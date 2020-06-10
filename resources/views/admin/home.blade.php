@@ -44,24 +44,22 @@
                     <li id="li8">Welcome</li>
                     <a href="admin/messages"><li id="li9">Tin nhắn</li></a>
                     <li id="li10">Cài đặt</li>
-                    <li id="li11">
+                    
                         <a href="{{ route('logout') }}"
 									onclick="event.preventDefault();
-													document.getElementById('logout-form').submit();">
-									<button type="submit" class="nutdangxuat"><p>Đăng xuất</p></button>
-			</a>
-				
-
+                                                    document.getElementById('logout-form').submit();">
+                    <li id="li11" style="padding: 0px">
+                                    <button type="submit" class="nutdangxuat">Đăng xuất</button>
+                    </li>
+			            </a>
 			<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 				@csrf
 			</form>
-                    </li>
-                    <li id="li12"></li>
                 </ul>
             </div>
             <div class="ad-part-content">
                 @include('inc.messages')
-                <br>
+
                 @yield('content')
             </div>
         </div>
@@ -80,6 +78,7 @@
             if( vitri >= 80){
                 $('.header').css({'top':'-80px'});
                 $('.ad-menu-right').css({'position':'fixed', 'top':'0px', 'left': '20%' });
+                $('.ad-menu-right li').css({'width':'20%' });
             }
             else{
                 $('.header').css({'top':'0px'});

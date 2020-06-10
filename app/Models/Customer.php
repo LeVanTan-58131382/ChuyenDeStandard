@@ -148,7 +148,11 @@ class Customer extends Model
             $apartment -> save();
 
             // add vehicle
-            $calendar = SystemCalendar::find(1); 
+            Customer::addVehicle($request, $customer);
+    }
+
+    public static function addVehicle(Request $request, Customer $customer){
+        $calendar = SystemCalendar::find(1); 
             $month = $calendar -> month;
             $year = $calendar -> year;
             //$year = $calendar -> year;

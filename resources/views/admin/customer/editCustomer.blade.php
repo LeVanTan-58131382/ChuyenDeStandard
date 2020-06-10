@@ -84,6 +84,26 @@
                             </ul>
                         @endforeach
                     </div>
+                    <div class="add-vehicle">
+                        <p>Thêm một loại phương tiện khác</p>
+                        <p>
+                            <select name="add_new_vehicle_type" id="">
+                                <option selected value="0">Chọn loại phương tiện</option>
+                                @foreach ($vehiclesTypes as $vehiclesType)
+                                    <option
+                                    @foreach ($vehicles as $vehicle)
+                                        @if($vehiclesType->id == $vehicle->vehicle_id)
+                                            disabled
+                                        @endif
+                                    @endforeach
+                                    value="{{$vehiclesType->id}}">{{$vehiclesType->name}}</option>
+                                @endforeach
+                            </select>
+                            <p>Số lượng
+                            <input style="width: 190px;" type="number" min="0" class="form-control" name="add_new_vehicle_amount" value="{{ $customer->name }}">
+                            </p>   
+                        </p>
+                    </div>
                 </div>
                 {{-- <div class="form-group address">
                     <label for="pwd">Địa chỉ căn hộ:</label>
@@ -146,6 +166,11 @@
         border-radius: 4px;
         float: right;
     }
+    .add-vehicle select{
+        width: 190px;
+        height: 35px;
+        border-radius: 4px;
+        }
     .vehicle input{
         border-radius: 4px;
         border: 1px solid gray;

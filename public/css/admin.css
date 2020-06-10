@@ -87,27 +87,28 @@
         font-family: 'Kaushan Script', cursive;
         font-size: 20px;
         padding: 10px;
-        background-color: #FFC107;
+        background-color: #333;
         transition: 0.5s;
         text-align: center;
-        color: black;
+        color: #b8c7ce;
         margin-bottom: 5px;
         overflow: hidden;
         cursor: pointer;
 
     }
     .ad-menu-right li{
-        width: 20%;
+        width: 25%;
         height: 60px;
         list-style: none;
         font-family: 'Kaushan Script', cursive;
         font-size: 20px;
         padding: 10px;
-        background-color: -webkit-linear-gradient(top right, DimGray, #363636);
-        background-image: -webkit-linear-gradient(right top, DimGray, #363636);
+        background-color: #333;
+        /* background-color: -webkit-linear-gradient(top right, DimGray, #363636);
+        background-image: -webkit-linear-gradient(right top, DimGray, #363636); */
         transition: 0.5s;
         text-align: center;
-        color: white;
+        color: #b8c7ce;
         float: left;
         cursor: pointer;
 
@@ -117,15 +118,14 @@
         width: 100%;
         height: 100%;
         font-size: 20px;
-        background-color: -webkit-linear-gradient(top right, DimGray, #363636);
-        background-image: -webkit-linear-gradient(right top, DimGray, #363636);
+        background-color: #333;
         border: none;
-        color: white;
+        color: #b8c7ce;
         transition: 0.5s;
     }
 
     .ad-part-content{
-        position: absolute;
+        position: relative;
         left: 0%;
         top: 60px;
         width: 100%;
@@ -133,52 +133,16 @@
         
     }
 
-    #li1:hover {
+    #li1:hover, #li2:hover, #li3:hover, #li4:hover, #li5:hover, #li6:hover , #li7:hover, #li8:hover, #li9:hover, #li10:hover, #li12:hover{
         font-size: 25px;
-        background-color: white;
-    }
-    #li2:hover {
-        font-size: 25px;
-        background-color: white;
-    }
-    #li3:hover {
-        font-size: 25px;
-        background-color: white;
-    }
-    #li4:hover {
-        font-size: 25px;
-        background-color: white;
-    }
-    #li5:hover {
-        font-size: 25px;
-        background-color: white;
-    }
-    #li6:hover {
-        font-size: 25px;
-        background-color: white;
-    }
-    #li7:hover {
-        font-size: 25px;
-        background-color: white;
+        background-color: #337ab7;
+        color: white;
+        border-left: 3px solid transparent;
     }
 
-    #li8:hover {
-        font-size: 25px;
-        background-color: white;
-    }
-    #li9:hover {
-        font-size: 25px;
-        background-color: white;
-    }
-    #li10:hover {
-        font-size: 25px;
-        background-color: white;
-    }
     #li11:hover .nutdangxuat{
         font-size: 25px;
-        background-color: white;
-    }
-    #li12:hover {
-        font-size: 25px;
-        background-color: white;
+        background-color: #337ab7;
+        color: white;
+        border-left: 3px solid transparent;
     }
