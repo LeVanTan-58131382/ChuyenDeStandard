@@ -23,7 +23,10 @@
 			<div class="trai">
             <img class="img_logo" src="{{ asset('images/logo-vcn.png')}}" alt="">
 				<a class="logo" href="#">VCN Homes</a>
-			</div>
+            </div>
+            <div class="date">
+                Tháng {{$calendar->month}} Năm {{$calendar->year}}
+            </div>
 		</div>
     </div>
     <div class="ad">
@@ -68,6 +71,10 @@
 <style>
     .ad-part-left a{
         text-decoration: none;
+    }
+    .date{
+        position: absolute;
+        right: 20px;
     }
 </style>
 

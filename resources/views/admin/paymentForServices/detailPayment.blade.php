@@ -20,8 +20,12 @@
                     </thead>
                     <tbody>
                             <tr>
-                                <td><input min="0" name="consumptionIndex_E_old" type="number" value="{{ old('consumptionIndex_E_old') }}"></td>
-                                <td><input min="0" name="consumptionIndex_E_new" type="number" value="{{ old('consumptionIndex_E_new') }}"></td>
+                                <td><input min="0" name="consumptionIndex_E_old" type="number" value=@if($consumptionIndex_E_old)
+                                                                                                        {{$consumptionIndex_E_old}}
+                                                                                                      @endif></td>
+                                <td><input min="0" name="consumptionIndex_E_new" type="number" value=@if($consumptionIndex_E_new)
+                                                                                                        {{$consumptionIndex_E_new}}
+                                                                                                      @endif></td>
                                 <td>
                                     <select name="price_regulation_id_E" id="">
                                         @foreach ($price_regulation_elects as $item)
@@ -49,8 +53,12 @@
                     </thead>
                     <tbody>
                             <tr>
-                                <td><input min="0" name="consumptionIndex_W_old" type="number" value="{{ old('consumptionIndex_W_old') }}"></td>
-                                <td><input min="0" name="consumptionIndex_W_new" type="number" value="{{ old('consumptionIndex_W_new') }}"></td>
+                                <td><input min="0" name="consumptionIndex_W_old" type="number" value=@if($consumptionIndex_W_old)
+                                                                                                        {{$consumptionIndex_W_old}}
+                                                                                                        @endif></td>
+                                <td><input min="0" name="consumptionIndex_W_new" type="number" value=@if($consumptionIndex_W_new)
+                                                                                                        {{$consumptionIndex_W_new}}
+                                                                                                        @endif></td>
                                 <td><select name="price_regulation_id_W" id="">
                                     @foreach ($price_regulation_waters as $item)
                                             <option value="{{ $item -> id}}">{{ $item -> name}}</option>

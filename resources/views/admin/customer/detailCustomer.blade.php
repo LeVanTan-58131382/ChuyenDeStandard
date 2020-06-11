@@ -22,7 +22,7 @@
         Nhà: {{ $customer->apartmentAddress['apartment']}}
     </p>
     <p><b>Số điện thoại:</b> {{ $customer -> phone}}</p>
-    <a class="btn btn-info" href="{{ url()->previous() }}">Quay về</a>
+    <a class="btn btn-info" href="{{ route('admin.customers.index') }}">Quay về</a>
 
     @if(count($customer->familyMembers) > 0)
     <h3>Thành viên gia đình</h3>

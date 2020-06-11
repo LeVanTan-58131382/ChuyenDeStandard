@@ -14,18 +14,21 @@ class CustomersController extends Controller
 {
     public function index()
     {
+        $calendar = SystemCalendar::find(1); 
         $customers = Customer::select('id', 'name', 'email', 'phone')->paginate(10);
         $apartmentAddress = ApartmentAddress::select('customer_id', 'block', 'floor', 'apartment')->get();
-        return view('admin.customer.listCustomer', compact('customers', 'apartmentAddress'));
+        return view('admin.customer.listCustomer', compact('customers', 'apartmentAddress', 'calendar'));
     }
 
     public function create()
     {
-        return view('admin.customer.createCustomer');
+        $calendar = SystemCalendar::find(1); 
+        return view('admin.customer.createCustomer', compact('calendar'));
     }
 
     public function store(Request $request)
     {
+        $calendar = SystemCalendar::find(1); 
         $block = $request -> selectBlock;
         $floor = $request -> selectFloor;
         $apartment = $request -> selectApartment;
@@ -38,16 +41,18 @@ class CustomersController extends Controller
 
     public function show($id)
     {
+        $calendar = SystemCalendar::find(1); 
         $customer = Customer::with('apartmentAddress', 'familyMembers')->find($id);
-        return view('admin.customer.detailCustomer', compact('customer'));
+        return view('admin.customer.detailCustomer', compact('customer', 'calendar'));
     }
 
     public function edit($id)
     {
+        $calendar = SystemCalendar::find(1); 
         $customer = Customer::with('apartmentAddress', 'familyMembers')->find($id);
         $vehicles = VehicleCuctomer::where('customer_id', $id)->get(); // vehicle của khách hàng
         $vehiclesTypes = Vehicle::get(); // các loại vehicle dành cho chức năng thêm vehicle
-        return view('admin.customer.editCustomer', compact('customer', 'vehicles', 'vehiclesTypes'));
+        return view('admin.customer.editCustomer', compact('customer', 'vehicles', 'vehiclesTypes', 'calendar'));
     }
 
     public function update(Request $request, $id)

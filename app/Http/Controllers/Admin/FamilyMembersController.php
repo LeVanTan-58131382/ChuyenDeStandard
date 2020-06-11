@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\FamilyMember;
+use App\Models\SystemCalendar;
 
 class FamilyMembersController extends Controller
 {
@@ -14,7 +15,8 @@ class FamilyMembersController extends Controller
     }
     public function createMember($customerId)
     {
-        return view('admin.customer.createCustomerMember', compact('customerId'));
+        $calendar = SystemCalendar::find(1);
+        return view('admin.customer.createCustomerMember', compact('customerId', 'calendar'));
     }
 
     public function saveMember(Request $request, $customerId)

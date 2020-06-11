@@ -21,6 +21,27 @@
                     <a class="btn btn-outline-secondary" href="{{route('admin.show-bill', 3)}}">Phí gửi xe</a>
                 </li>
             </ul>
+            <ul>
+                <li><form action="{{ route('admin.post-import-water')}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    Chọn file excel nước tiêu thụ
+                    <br>
+                    <input class="file btn btn-outline-success" type="file" name="file">
+                    <br>
+                    <button class="file btn btn-outline-success" type="submit">Tải lên</button>
+                    </form>
+                </li>
+                <li>&nbsp|&nbsp</li>
+                <li><form action="{{ route('admin.post-import-electric')}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    Chọn file excel điện tiêu thụ
+                    <br>
+                    <input class="file btn btn-outline-success" type="file" name="file">
+                    <br>
+                    <button class="file btn btn-outline-success" type="submit">Tải lên</button>
+                    </form>
+                </li>
+            </ul>
         </div>
         <div class="hienthi-right">
             <b>Tình trạng</b>
@@ -162,6 +183,12 @@
     </div>
 </div>
 <style>
+    .file{
+        width: 170px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
     .payment-service{
         position: relative;
         left: 0%;
@@ -176,7 +203,7 @@
     .hienthi{
         position: relative;
         width: 1000px;
-        height: 110px;
+        height: 220px;
         padding: 5px;
         margin: 10px;
         right: 0%;
