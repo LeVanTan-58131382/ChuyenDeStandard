@@ -12,19 +12,19 @@ class StatisticalsController extends Controller
 {
     public function index()
     {
-        $celendar = SystemCalendar::find(1);
+        $calendar = SystemCalendar::find(1);
         $customers = Customer::get();
         $result = 0;
         $result_processed = 0;
-        return view('admin.paymentForServices.statisticalMonth', compact('customers', 'result', 'result_processed', 'celendar'));
+        return view('admin.paymentForServices.statisticalMonth', compact('customers', 'result', 'result_processed', 'calendar'));
     }
 
     public function statisticalMonthToMonth(){
-        $celendar = SystemCalendar::find(1);
+        $calendar = SystemCalendar::find(1);
         $customers = Customer::get();
         $result = 0;
         $result_processed = 0;
-        return view('admin.paymentForServices.statisticalMonthToMonth', compact('customers', 'result', 'result_processed', 'celendar'));
+        return view('admin.paymentForServices.statisticalMonthToMonth', compact('customers', 'result', 'result_processed', 'calendar'));
     }
 
     public function statistical(Request $request)
@@ -74,7 +74,7 @@ class StatisticalsController extends Controller
         $result = 1;
         $result_processed = 1;
         $customers = Customer::get();
-        $celendar = SystemCalendar::find(1);
+        $calendar = SystemCalendar::find(1);
         if($type == 1){
             $title = 'Thống kê phí dịch vụ Điện sinh hoạt của các hộ trong tháng '.$month;
         }
@@ -89,7 +89,7 @@ class StatisticalsController extends Controller
                         ->where('payment_month', $month)
                         ->where('paid', 0)
                         ->get();
-        return view('admin.paymentForServices.statisticalMonth', compact('result', 'result_processed', 'customers', 'bills', 'title', 'celendar'));
+        return view('admin.paymentForServices.statisticalMonth', compact('result', 'result_processed', 'customers', 'bills', 'title', 'calendar'));
     } 
     
     // thống kê phí dịch vụ của một khách hàng theo một tháng đã chọn
@@ -97,7 +97,7 @@ class StatisticalsController extends Controller
     {
         $result = 1;
         $result_processed = 2;
-        $celendar = SystemCalendar::find(1);
+        $calendar = SystemCalendar::find(1);
         $customers = Customer::get();
         $customer_result = Customer::find($customer_Id);
         $name = $customer_result -> name;
@@ -117,7 +117,7 @@ class StatisticalsController extends Controller
                         ->where('payment_month', $month)
                         ->where('paid', 0)
                         ->get();
-        return view('admin.paymentForServices.statisticalMonth', compact('result', 'result_processed', 'customer_result', 'bills', 'customers', 'title', 'celendar'));
+        return view('admin.paymentForServices.statisticalMonth', compact('result', 'result_processed', 'customer_result', 'bills', 'customers', 'title', 'calendar'));
     }
 
     // thống kê phí dịch vụ của một khách hàng theo một khoảng thời gian từ tháng A đến tháng B
@@ -127,7 +127,7 @@ class StatisticalsController extends Controller
         $result_processed = 2;
         $customers = Customer::get();
         $customer_result = Customer::find($customer_Id);
-        $celendar = SystemCalendar::find(1);
+        $calendar = SystemCalendar::find(1);
         if($type == 1){
             $title = 'Thống kê phí dịch vụ Điện sinh hoạt của '. $customer_result -> name .' từ tháng '.$monthFrom.' đến tháng '.$monthTo;
         }
@@ -137,15 +137,16 @@ class StatisticalsController extends Controller
         if($type == 3){
             $title = 'Thống kê phí dịch vụ gửi xe của '. $customer_result -> name .' từ tháng '.$monthFrom.' đến tháng '.$monthTo;
         }
-        $bills = Bill::where('living_expenses_type_id', $type)
-                        ->where('customer_id', $customer_Id)
-                        ->where('payment_year', '>=' , $yearFrom)
-                        ->where('payment_year', '<=' , $yearTo)
-                        ->where('payment_month', '>=' , $monthFrom)
-                        ->where('payment_month', '<=' , $monthTo)
-                        ->where('paid', 0)
-                        ->get();
-        return view('admin.paymentForServices.statisticalMonthToMonth', compact('result', 'result_processed', 'customers', 'customer_result', 'bills', 'title', 'celendar'));
+        $bills = Bill::where([
+                                ['living_expenses_type_id', '=', $type],
+                                ['customer_id', '=', $customer_Id],
+                                ['payment_year', '>=' , $yearFrom],
+                                ['payment_year', '<=' , $yearTo],
+                                ['payment_month', '>=' , $monthFrom],
+                                ['payment_month', '<=' , $monthTo],
+                                ['paid', '=', 0]])
+                                ->get();
+        return view('admin.paymentForServices.statisticalMonthToMonth', compact('result', 'result_processed', 'customers', 'customer_result', 'bills', 'title', 'calendar'));
     }
 
     public static function statisticalByAllCustomerByMonthToMonth($type, $customer_Id, $monthFrom, $yearFrom, $monthTo, $yearTo)
@@ -153,7 +154,7 @@ class StatisticalsController extends Controller
         $result = 1;
         $result_processed = 3;
         $customers = Customer::get();
-        $celendar = SystemCalendar::find(1);
+        $calendar = SystemCalendar::find(1);
         if($type == 1){
             $title = 'Thống kê phí dịch vụ Điện sinh hoạt của các hộ từ tháng '.$monthFrom.' đến tháng '.$monthTo;
         }
@@ -163,14 +164,15 @@ class StatisticalsController extends Controller
         if($type == 3){
             $title = 'Thống kê phí dịch vụ gửi xe của các hộ từ tháng '.$monthFrom.' đến tháng '.$monthTo;
         }
-        $bills = Bill::where('living_expenses_type_id', $type)
-                        ->where('payment_year', '>=' , $yearFrom)
-                        ->where('payment_year', '<=' , $yearTo)
-                        ->where('payment_month', '>=' , $monthFrom)
-                        ->where('payment_month', '<=' , $monthTo)
-                        ->where('paid', 0)
-                        ->get();
-        return view('admin.paymentForServices.statisticalMonthToMonth', compact('result', 'result_processed', 'customers', 'bills', 'title', 'celendar'));
+        $bills = Bill::where([
+                                ['living_expenses_type_id', '=', $type],
+                                ['payment_year', '>=' , $yearFrom],
+                                ['payment_year', '<=' , $yearTo],
+                                ['payment_month', '>=' , $monthFrom],
+                                ['payment_month', '<=' , $monthTo],
+                                ['paid', '=', 0]])
+                                ->get();
+        return view('admin.paymentForServices.statisticalMonthToMonth', compact('result', 'result_processed', 'customers', 'bills', 'title', 'calendar'));
     }
 
     public function create()

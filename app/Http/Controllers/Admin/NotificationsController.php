@@ -8,27 +8,31 @@ use App\Models\Customer;
 use App\Models\Bill;
 use App\Models\Notification;
 use App\Models\NotificationCustomer;
+use App\Models\SystemCalendar;
 
 class NotificationsController extends Controller
 {
     public function index()
     {
+        $calendar = SystemCalendar::find(1);
         $customers = Customer::select('*')->where('id', '>', 1)->get();
         $notifications = Notification::get();
         $notificationCustomer = NotificationCustomer::get();
-        return view('admin.notification.listNotification', compact('customers', 'notifications', 'notificationCustomer'));
+        return view('admin.notification.listNotification', compact('customers', 'notifications', 'notificationCustomer', 'calendar'));
     }
 
     public function create()
     {
+        $calendar = SystemCalendar::find(1);
         $customers = Customer::get();
-        return view('admin.notification.createNotification', compact('customers'));
+        return view('admin.notification.createNotification', compact('customers', 'calendar'));
     }
 
     public function createNotificationForBill($billId){
+        $calendar = SystemCalendar::find(1);
         $bill = Bill::find($billId);
         $customer = Customer::find($bill->customer_id);
-        return view('admin.notification.createBillNotification', compact('bill', 'customer'));
+        return view('admin.notification.createBillNotification', compact('bill', 'customer', 'calendar'));
     }
 
     public function store(Request $request)

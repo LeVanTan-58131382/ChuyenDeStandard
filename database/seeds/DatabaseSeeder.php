@@ -179,7 +179,7 @@ class DatabaseSeeder extends Seeder
 
         //system_calendars
         DB::table('system_calendars')->insert([
-            ['id' => 1,  'month' => 5,'year' => 2020],
+            ['id' => 1,  'month' => 6,'year' => 2020],
             ]);
 
         DB::table('living_expenses_types')->insert([
@@ -230,6 +230,10 @@ class DatabaseSeeder extends Seeder
             ['id' => 2, 'name' => 'Xe mô tô'],
             ['id' => 3, 'name' => 'Xe đạp'],
         ]);
+
+        // DB::table('system_calendars')->insert([
+        //     ['id' => 1, 'month' => 6, 'year' => 2020],
+        // ]);
 
         DB::table('vehicle_prices')->insert([
             ['id' => 1, 'name' => 'Phí phương tiện Xe ô tô 1', 'vehicle_type_id' => 1, 'price_regulation_id' => 5, 'price' => 1250000],

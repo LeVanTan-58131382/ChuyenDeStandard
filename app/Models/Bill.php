@@ -53,8 +53,14 @@ class Bill extends Model
         $consumptionIndex_E = new ConsumptionIndex(); 
         $consumptionIndex_E -> customer_id = $id;
         $consumptionIndex_E -> living_expenses_type_id = 1;
-        $consumptionIndex_E -> month_consumption = $month;
-        $consumptionIndex_E -> year_consumption = $year;
+        if($month > 1){
+            $consumptionIndex_E -> month_consumption = $month-1;
+            $consumptionIndex_E -> year_consumption = $year;
+        }
+        elseif($month == 1){
+            $consumptionIndex_E -> month_consumption = 12;
+            $consumptionIndex_E -> year_consumption = $year-1;
+        }
         $consumptionIndex_E -> last_month_index = $consumptionIndex_E_old;
         $consumptionIndex_E -> this_month_index = $consumptionIndex_E_new;
         $consumptionIndex_E -> save();
@@ -93,8 +99,14 @@ class Bill extends Model
         $billElectric -> customer_id = $id;
         $billElectric -> living_expenses_type_id = 1;
         $billElectric -> price_regulation_id = $price_regulation_id_E;
-        $billElectric -> payment_month = $month;
-        $billElectric -> payment_year = $year;
+        if($month > 1){
+            $billElectric -> payment_month = $month-1;
+            $billElectric -> payment_year = $year;
+        }
+        elseif($month == 1){
+            $billElectric -> payment_month = 12;
+            $billElectric -> payment_year = $year-1;
+        }
         $billElectric -> money_to_pay = $total_price_E;
         $billElectric -> usage_level_max = $e_level_max;
         $billElectric -> save();
@@ -112,8 +124,14 @@ class Bill extends Model
         $consumptionIndex_W = new ConsumptionIndex(); 
         $consumptionIndex_W -> customer_id = $id;
         $consumptionIndex_W -> living_expenses_type_id = 2;
-        $consumptionIndex_W -> month_consumption = $month;
-        $consumptionIndex_W -> year_consumption = $year;
+        if($month > 1){
+            $consumptionIndex_W -> month_consumption = $month-1;
+            $consumptionIndex_W -> year_consumption = $year;
+        }
+        elseif($month == 1){
+            $consumptionIndex_W -> month_consumption = 12;
+            $consumptionIndex_W -> year_consumption = $year-1;
+        }
         $consumptionIndex_W -> last_month_index = $consumptionIndex_W_old;
         $consumptionIndex_W -> this_month_index = $consumptionIndex_W_new;
         $consumptionIndex_W -> save();
@@ -152,8 +170,15 @@ class Bill extends Model
         $billWater -> customer_id = $id;
         $billWater -> living_expenses_type_id = 2;
         $billWater -> price_regulation_id = $price_regulation_id_W;
-        $billWater -> payment_month = $month;
-        $billWater -> payment_year = $year;
+        if($month > 1){
+            $billWater -> payment_month = $month-1;
+            $billWater -> payment_year = $year;
+        }
+        elseif($month == 1){
+            $billWater -> payment_month = 12;
+            $billWater -> payment_year = $year-1;
+        }
+        
         $billWater -> money_to_pay = $total_price_W;
         $billWater -> usage_level_max = $w_level_max;
         $billWater -> save();
@@ -166,17 +191,35 @@ class Bill extends Model
 
         $price_regulation_id_C = $request -> price_regulation_id_C; // mã quy định phí gửi xe
         // phương tiện
-        $vehicles = VehicleCuctomer::select('*')->where('customer_id', $id)
-                                                ->where('using', 1)
-                                                ->where([
-                                                    ['year_use', '=', $year],
-                                                    ['month_start_use', '<=', $month],
-                                                ])
-                                                ->orWhere([
-                                                    ['year_use', '<', $year],
-                                                    ['month_start_use', '>=', $month],
-                                                ])
-                                                ->get(); // những phương tiện của khách hàng
+        if($month > 1)
+        {
+            $vehicles = VehicleCuctomer::where('customer_id', $id)
+                                ->where('using', 1)
+                                ->where([
+                                    ['year_use', '=', $year],
+                                    ['month_start_use', '=', $month-1],
+                                ])->get();
+        }
+        elseif($month == 1)
+        {
+            $vehicles = VehicleCuctomer::where('customer_id', $id)
+                                ->where('using', 1)
+                                ->where([
+                                    ['year_use', '=', $year-1],
+                                    ['month_start_use', '=', 12],
+                                ])->get();
+        }
+        // $vehicles = VehicleCuctomer::select('*')->where('customer_id', $id)
+        //                                         ->where('using', 1)
+        //                                         ->where([
+        //                                             ['year_use', '=', $year],
+        //                                             ['month_start_use', '<=', $month],
+        //                                         ])
+        //                                         ->orWhere([
+        //                                             ['year_use', '<', $year],
+        //                                             ['month_start_use', '>=', $month],
+        //                                         ])
+        //                                         ->get(); // những phương tiện của khách hàng
         $vehicle_prices = VehiclePrice::select('*')->where('price_regulation_id', $price_regulation_id_C)->get();
         
         $total_price_C = 0; // tổng tiền gửi xe
@@ -210,8 +253,14 @@ class Bill extends Model
         $billCar -> customer_id = $id;
         $billCar -> living_expenses_type_id = 3;
         $billCar -> price_regulation_id = $price_regulation_id_C;
-        $billCar -> payment_month = $month;
-        $billCar -> payment_year = $year;
+        if($month > 1){
+            $billCar -> payment_month = $month-1;
+            $billCar -> payment_year = $year;
+        }
+        elseif($month == 1){
+            $billCar -> payment_month = 12;
+            $billCar -> payment_year = $year-1;
+        }
         $billCar -> money_to_pay = $total_price_C;
         $billCar -> save();
         }

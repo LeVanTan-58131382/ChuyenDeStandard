@@ -56,7 +56,7 @@
                 </select>
                 <b>Năm</b>
                 <select style="width: 70px" name="yearFrom" id="">
-                    <option selected value="{{ $celendar -> year}}">{{ $celendar -> year}}</option>
+                    <option selected value="{{ $calendar -> year}}">{{ $calendar -> year}}</option>
                     <option value="2019">2019</option>
                     <option value="2020">2020</option>
                     <option value="2021">2021</option>
@@ -67,7 +67,11 @@
             <div class="timeTo">
                 <b>Đến tháng</b>
                 <select style="width: 70px" name="monthTo" id="">
-                    <option selected value="{{ $celendar -> month}}">{{ $celendar -> month}}</option>
+                    @if($calendar->month > 1)
+                    <option selected value="{{ ($calendar->month)-1}}">{{ ($calendar->month)-1}}</option>
+                    @elseif($calendar->month == 1)
+                    <option selected value="12">12</option>
+                    @endif
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -83,7 +87,11 @@
                 </select>
                 <b>Năm</b>
                 <select style="width: 70px" name="yearTo" id="">
-                    <option selected value="{{ $celendar -> year}}">{{ $celendar -> year}}</option>
+                    @if($calendar->month > 1)
+                    <option selected value="{{ $calendar->year}}">{{ $calendar->year}}</option>
+                    @elseif($calendar->month == 1)
+                    <option selected value="{{ ($calendar->year)-1}}">{{ ($calendar->year)-1}}</option>
+                    @endif
                     <option value="2019">2019</option>
                     <option value="2020">2020</option>
                     <option value="2021">2021</option>

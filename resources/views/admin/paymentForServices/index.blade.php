@@ -21,21 +21,20 @@
                     <a class="btn btn-outline-secondary" href="{{route('admin.show-bill', 3)}}">Phí gửi xe</a>
                 </li>
             </ul>
+            <br>
             <ul>
                 <li><form action="{{ route('admin.post-import-water')}}" method="post" enctype="multipart/form-data">
                     @csrf
-                    Chọn file excel nước tiêu thụ
-                    <br>
+                   <p>Chọn file excel nước tiêu thụ</p> 
                     <input class="file btn btn-outline-success" type="file" name="file">
                     <br>
                     <button class="file btn btn-outline-success" type="submit">Tải lên</button>
                     </form>
                 </li>
-                <li>&nbsp|&nbsp</li>
+                <li>&nbsp&nbsp|&nbsp&nbsp</li>
                 <li><form action="{{ route('admin.post-import-electric')}}" method="post" enctype="multipart/form-data">
                     @csrf
-                    Chọn file excel điện tiêu thụ
-                    <br>
+                    <p>Chọn file excel điện tiêu thụ</p>   
                     <input class="file btn btn-outline-success" type="file" name="file">
                     <br>
                     <button class="file btn btn-outline-success" type="submit">Tải lên</button>
@@ -79,19 +78,16 @@
                                     ?>
                         </td>
                         <td>
-                            <?php foreach($bills as $bill)
-                                if((($bill -> customer_id) == ($customer -> id)) && ($bill -> living_expenses_type_id == 1) && ($bill -> payment_month == $month))
-                            {
-                                {?>
+                           @foreach($bills as $bill)
+                                @if((($bill -> customer_id) == ($customer -> id)) && ($bill -> living_expenses_type_id == 1) && ($bill -> payment_month == $month-1))
                                 <a style="text-decoration: none;" href="{{ route('admin.create-bill', $customer -> id)}}">Đã xuất hóa đơn</a>&nbsp <i class="fa fa-check-square-o" style="font-size:20px;color:green"></i>
                                 <script>
                                     jQuery(document).ready(function($) {
                                         $('#chamthang{{$customer -> id}}').css({'opacity':'0'},{'visibility':'hidden'});
                                     });
                                 </script>
-                                <?php }
-                            }
-                            ?>
+                                @endif
+                            @endforeach
                             <a id="chamthang{{$customer->id}}" style="text-decoration: none;" href="{{ route('admin.create-bill', $customer -> id)}}">Chưa xuất hóa đơn&nbsp<i class="fa fa-exclamation-circle" style="font-size:20px;color:red"></i></a>
                         </td>
                         <td><a href="{{ route('admin.bills.show', $customer -> id)}}"><i class="fa fa-search" style="font-size:20px"></i></a></td>
@@ -203,7 +199,7 @@
     .hienthi{
         position: relative;
         width: 1000px;
-        height: 220px;
+        height: 240px;
         padding: 5px;
         margin: 10px;
         right: 0%;
