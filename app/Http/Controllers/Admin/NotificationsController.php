@@ -9,6 +9,7 @@ use App\Models\Bill;
 use App\Models\Notification;
 use App\Models\NotificationCustomer;
 use App\Models\SystemCalendar;
+use Illuminate\Support\Facades\DB;
 
 class NotificationsController extends Controller
 {
@@ -100,6 +101,12 @@ class NotificationsController extends Controller
 
     public function destroy($id)
     {
-        //
+        $notification = Notification::find($id);
+        $notification->delete();
+
+        //$notificationCustomer = NotificationCustomer::where(['notification_id', '=', $notification->id])->delete();
+        // Xóa record trong bảng customer_notification
+        DB::connection('mysql')->delete("delete from customer_notification where notification_id = ?", [$notification->id]);
+        return redirect()->back()->with('success', 'Xóa thông báo thành công!');
     }
 }

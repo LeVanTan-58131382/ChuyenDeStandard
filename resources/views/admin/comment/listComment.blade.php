@@ -6,22 +6,22 @@
     <h3 style="text-align: center">Danh sách comment</h3>
     <br>
     @foreach ($comments as $cmt)
-    <a href="{{ route('read-cmt-ad', $cmt->id)}}"><div class="row">
+    <a href="{{ route('admin.comment-read', $cmt->id)}}"><div class="row">
         <div class="col-md-12">
             <div class="mes">
                 <div class="header-mes">
                     <div class="header-left">
                         <p>Bình luận từ:
                             @php
-                                if($cmt->user_id == 1){
+                                if($cmt->customer_id == 1){
                                         echo "Quản trị viên";
                                     }
                             @endphp
-                            @foreach ($users as $user)
+                            @foreach ($customers as $customer)
                                 @php
-                                    if($user->id == $cmt->user_id)
+                                    if($customer->id == $cmt->customer_id)
                                     {
-                                        echo $user->name;
+                                        echo $customer->name;
                                     }
                                 @endphp
                             @endforeach   
@@ -33,7 +33,15 @@
                         {{$cmt->title}}
                     </div>
                     <div class="status">
-                        <p>20/5 &nbsp&nbsp Đã xem</p>
+                        <p>
+                           @php
+                               echo \Carbon\Carbon::createFromTimeStamp(strtotime($cmt["created_at"]))->diffForHumans();
+                           @endphp 
+                            @if($cmt->read == 0)
+                                &nbsp Chưa xem
+                            @else &nbsp Đã xem
+                            @endif
+                        </p>
                     </div>
                 </div>
             </div>

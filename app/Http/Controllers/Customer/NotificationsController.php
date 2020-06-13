@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Customer;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
@@ -10,79 +10,25 @@ use App\Models\NotificationCustomer;
 
 class NotificationsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    
+    public function allNotifications($customerId)
     {
-       
+        $notifications = Notification::get();
+        $notificationUser = NotificationCustomer::where('customer_id', $customerId)->orderBy('created_at', 'DESC')->get();
+        return view('customer.notification.notification', compact('notifications', 'notificationUser'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function readNotifications($notificationId){
+        $notification = Notification::find($notificationId);
+        $notificationUser = NotificationCustomer::where([['notification_id', '=', $notificationId],
+                                                         ['customer_id', '=', Auth::id()]])->get();
+        $customers = Customer::get();
+
+        foreach($notificationUser as $notifiu){
+            $notifiu -> read = true;
+            $notifiu -> save();
+        }
+        return view('customer.notification.readNotification', compact('notification', 'customers', 'notificationUser'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

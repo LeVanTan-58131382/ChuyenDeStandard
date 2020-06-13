@@ -168,7 +168,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
 
     Route::get('/bills/show/paid/{type}', 'BillsController@showBillPaid')->name('show-bill-paid');
 
-    Route::get('/bills/detail/{type?}/{customerID?}', 'BillsController@showBillDetail')->name('show-bill-detail');
+    Route::get('/bills/detail/{type?}/{billID?}', 'BillsController@showBillDetail')->name('show-bill-detail');
 
     Route::get('/bills/createBill/{customerID}', 'BillsController@createBill')->name('create-bill');
     Route::post('/bills/storeBill/{customerID}', 'BillsController@storeBill')->name('store-bill');
@@ -204,7 +204,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     Route::resource('familyMembers', 'FamilyMembersController');
 
     // Comment
-    Route::resource('comments', 'CommentsController');
+    Route::get('comments/list', 'CommentsController@comments')->name('comment-list');
+    Route::get('comments/create/{id}', 'CommentsController@create_comment')->name('comment-create');
+    Route::post('comments/send/{id}', 'CommentsController@send_comment')->name('comment-send');
+    Route::get('comments/read/{id}', 'CommentsController@read_comment')->name('comment-read');
+    Route::get('comments/delete/{id}', 'CustomerController@destroy-comment')->name('comment-delete');
 
     // Thống kê
     // Thống kê theo loại phí dịch vụ ( của tất cả khách hàng) ( mặc định là từ trước đến nay - có thể tùy chọn tháng)
@@ -228,31 +232,27 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
 
 // Route Customer
 Route::group(['prefix' => 'customer', 'as' => 'customer.', 'namespace' => 'Customer', 'middleware' => ['auth']], function () {
-    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/', 'CustomerHomeController@index')->name('home');
     // Bills
     //Route::delete('bills/destroy', 'BillsController@massDestroy')->name('bills.massDestroy'); // route cho các other function 
-    Route::resource('bills', 'BillsController');
+    Route::get('allbills/{customerId}', 'BillsController@allBills')->name('customer-bills-index');
 
     // Messages
     //Route::delete('messages/destroy', 'MessagesController@massDestroy')->name('messages.massDestroy'); // route cho các other function
-    Route::resource('messages', 'MessagesController');
+    Route::get('messages/{customerId}', 'MessagesController@allMessages')->name('customer-messages-index');
 
     // Notifications
-    //Route::delete('notifications/destroy', 'Notifications@massDestroy')->name('notifications.massDestroy');
-    Route::resource('notifications', 'NotificationsController');
-
+    Route::get('notifications/{customerId}', 'NotificationsController@allNotifications')->name('customer-notifications-index');
+    Route::get('notification/read/{notificationId}', 'NotificationsController@readNotifications')->name('customer-notifications-read');
     // Users
     //Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
     Route::resource('users', 'UsersController');
 
     // Customers
-    // Route::delete('employees/destroy', 'EmployeesController@massDestroy')->name('employees.massDestroy');
-    // Route::post('employees/media', 'EmployeesController@storeMedia')->name('employees.storeMedia');
-    Route::resource('customers', 'CustomersController');
+    Route::get('info/{customerId}', 'CustomerController@showInfo')->name('customer-info');
 
-    // Clients
-    Route::delete('clients/destroy', 'ClientsController@massDestroy')->name('clients.massDestroy');
-    Route::resource('clients', 'ClientsController');
+    //Comment
+    Route::post('createcomment/{customerId?}/{idBillE?}/{idBillW?}', 'CommentsController@createComment')->name('create-cmt');
 
     // SystemCalendar
     // Route::delete('appointments/destroy', 'AppointmentsController@massDestroy')->name('appointments.massDestroy');

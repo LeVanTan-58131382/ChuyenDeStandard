@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="read">
-    @if ($user)
-        Người bình luận: {{ $user->name }}
+    @if ($customer)
+        Người bình luận: {{ $customer->name }}
         <br>
-        Email: {{ $user->email }}
+        Email: {{ $customer->email }}
         <br>
         <hr>
         Tiêu đề: {{ $comment->title }}
@@ -14,16 +14,18 @@
         <br><br>
         {{$comment->content }}
         <hr>
-        <a href="{{ route('show-Bill', $user -> id)}}">Xem Hóa đơn của khách hàng</a>
+        <a href="{{ route('admin.show-bill-detail', [1 , $idBillE ])}}">Xem Hóa đơn Tiền điện của khách hàng</a>
         <hr>
-        @if($comment->user_id != 1)
-            <a href="{{ route('create-cmt-ad', $comment->id) }}" class="btn btn-primary">Trả lời</a>
+        <a href="{{ route('admin.show-bill-detail', [2 , $idBillW ])}}">Xem Hóa đơn Tiền nước của khách hàng</a>
+        <hr>
+        @if($comment->customer_id != 1)
+            <a href="{{ route('admin.comment-create', $comment->id) }}" class="btn btn-primary">Trả lời</a>
         @endif
         
-        <a href="{{ route('destroy-cmt-ad', $comment->id) }}" class="btn btn-danger float-right">Xóa</a>
+        <a href="{{ route('admin.comment-delete', $comment->id) }}" class="btn btn-danger float-right">Xóa</a>
         <br><br>
     @endif
-    @if(!$user)
+    @if(!$customer)
         Người bình luận: Quản trị viên
         <br>
         <hr>

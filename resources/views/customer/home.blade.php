@@ -12,13 +12,16 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="{{ asset("/css/animate.css")}}">
+    <link rel="stylesheet" href="{{ asset("/css/customer.css")}}">
 	<script src="{{ asset("/js/wow.min.js")}}"></script>
-	<script src="js/wow.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/customer.js"></script>
               <script>
               new WOW().init();
               </script>
 </head>
 <body>
+    
     <div class="row">
         <div class="col-md-12">
             <div class="header">
@@ -61,11 +64,11 @@
                 </div>
                 <div class="menu-sub">
                     <ul>
-                        <a href="{{route('show-info-cus', Auth::user()->id)}}"><li id="li1" style="margin-right: 2%; margin-left: 1%">Hồ sơ khách hàng</li></a>
-                        <a href="{{route('show-bill-cus', Auth::user()->id)}}"><li id="li2" style="margin-right: 2%">Tiền dịch vụ</li></a>
+                        <a href="{{route('customer.customer-info', Auth::user()->id)}}"><li id="li1" style="margin-right: 2%; margin-left: 1%">Hồ sơ khách hàng</li></a>
+                        <a href="{{route('customer.customer-bills-index', Auth::user()->id)}}"><li id="li2" style="margin-right: 2%">Tiền dịch vụ</li></a>
                         <a href=""><li id="li3" style="margin-right: 2%">Lịch sử nộp tiền</li></a>
-                        <a href="{{route('list-mes-cus', Auth::user()->id)}}"><li id="li4" style="margin-right: 2%">Tin nhắn</li></a>
-                        <a href="{{route('list-notifi-cus', Auth::user()->id)}}"><li id="li5" style="margin-right: 1%">Thông báo</li></a>
+                        <a href="{{route('customer.customer-messages-index', Auth::user()->id)}}"><li id="li4" style="margin-right: 2%">Tin nhắn</li></a>
+                        <a href="{{route('customer.customer-notifications-index', Auth::user()->id)}}"><li id="li5" style="margin-right: 1%">Thông báo</li></a>
                     </ul>
                 </div>
             </div>
@@ -81,7 +84,6 @@
                         <div class="info-content">
                             <p>Mã khách hàng: {{Auth::user()->id}}</p>
                             <p>Họ tên: {{ Auth::user()->name }}</p>   
-                            <p>SĐT: {{ Auth::user()->phone }}</p>
                             <p>Email: {{ Auth::user()->email }}</p>
                         </div>
                     </div>

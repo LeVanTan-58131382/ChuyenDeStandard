@@ -1,20 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Customer;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\ConsumptionIndex;
-use App\Models\VehicleUser;
 use App\Models\VehiclePrice;
 use App\Models\Bill;
 use App\Models\NotificationUser;
 use App\Models\Notification;
 use App\Models\Comment;
+use App\Models\Customer;
 use App\Models\Message;
 use App\User;
 use App\Models\PriceRegulation;
 use App\Models\UsageNormInvestors;
+use App\Models\SystemCalendar;
+use App\Models\VehicleCuctomer;
+use App\Models\Vehicle;
 
 
 class CustomerController extends Controller
@@ -28,9 +32,10 @@ class CustomerController extends Controller
 
     public function customer(Request $request)
     {
+        $customer = Customer::find(Auth::id());
         if($request->user()->authorizeRoles(['customer', 'admin']))
         {
-            return view('customer.home');
+            return view('customer.home', compact('customer'));
         }
         else {
             return view('home');
@@ -38,9 +43,11 @@ class CustomerController extends Controller
     }
 
     public function showInfo($id){
-        $user = User::findOrFail($id);
-        $apartment = User::find($id)->apartment;
-        return view('customer.profile.profile')->with('user', $user)->with('apartment', $apartment);
+        $calendar = SystemCalendar::find(1); 
+        $customer = Customer::with('apartmentAddress', 'familyMembers')->find($id);
+        $vehicles = VehicleCuctomer::where('customer_id', $id)->get(); // vehicle của khách hàng
+        return view('customer.profile.profile', compact('customer', 'vehicles', 'calendar'));
+
     }
 
     public function showBill($id)

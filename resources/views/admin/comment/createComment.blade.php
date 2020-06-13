@@ -3,7 +3,7 @@
 @section('content')
 <div class="create-mes">
     <h3>Tạo comment trả lời</h3>
-    <form action="{{ route('send-cmt-ad', $comment->id)}}" method="post">
+    <form action="{{ route('admin.comment-send', $comment->id)}}" method="post">
       @csrf
         <div class="form-group">
             <label for="">Tiêu đề comment:</label>

@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
+use App\Models\Customer;
+use App\Models\SystemCalendar;
 
 class CommentsController extends Controller
 {
@@ -12,74 +15,50 @@ class CommentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function read_comment($id){
+        $calendar = SystemCalendar::find(1);
+        $comment = Comment::find($id);
+        $comment -> read = true;
+        $comment -> save();
+        $idBill = explode('-', $comment -> bill_id);
+        foreach($idBill as $key => $idbill){
+            $idBillE = $idBill[0];
+            $idBillW = $idBill[1];
+        }
+        $customer = Customer::find($comment->customer_id);
+        return view('admin.comment.readComment', compact('comment', 'customer', 'calendar', 'idBillE', 'idBillW'));
     }
+    public function create_comment($id){
+        $calendar = SystemCalendar::find(1);
+        
+        $comment = Comment::find($id); // trường hợp trả lời tin nhắn
+        
+        $titleNew = 'Trả lời: ' . $comment->title;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('admin.comment.createComment', compact('comment','titleNew', 'calendar'));
     }
+    public function send_comment($id, Request $request){
+        $calendar = SystemCalendar::find(1);
+        $this->validate($request, [
+            'title' => 'required',
+            'content' => 'required'
+        ]);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        $comment = Comment::find($id);
+        $idBill = $comment->bill_id;
+        $commentRep = new Comment();
+        $commentRep->customer_id = 1;
+        $commentRep->bill_id = $idBill;
+        $commentRep->title = $request->title;
+        $commentRep->content = $request->content;
+        $commentRep->save();
+
+        return redirect()->back()->with('success', 'Trả lời bình luận thành công!');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function comments(){
+        $calendar = SystemCalendar::find(1);
+        $customers = Customer::get();
+        $comments = Comment::select('*')->orderByDesc('created_at', )->get();
+        return view('admin.comment.listComment', compact('comments', 'customers', 'calendar'));
     }
 }

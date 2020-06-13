@@ -3,8 +3,8 @@
 @section('content')
 @foreach ($notificationUser as $notifiu)
         <div class="read wow fadeInRight">
-            @foreach ($users as $user)
-                @if($notifiu->user_id == $user->id)
+            @foreach ($customers as $customer)
+                @if($notifiu->customer_id == $customer->id)
                     Người gửi: Quản trị viên
                     {{-- Người nhận: {{ $user->name }} --}}
                     <br>

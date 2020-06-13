@@ -8,7 +8,7 @@ use App\Models\Bill;
 
 class Comment extends Model
 {
-    protected $table = 'bills';
+    protected $table = 'comments';
     /**
      * The attributes that are mass assignable.
      *

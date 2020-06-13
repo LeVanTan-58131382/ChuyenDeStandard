@@ -37,7 +37,7 @@
                 <a href="{{ route('admin.bills.index')}}"><li id="li3">Thanh Toán Dịch Vụ</li></a>
                 <a href="{{ route('admin.notifications.index')}}"><li id="li4">Thông Báo</li></a>
                 <a href="{{ route('admin.statisticals.index')}}"><li id="li5">Thống kê</li></a>
-                <a href="{{ route('admin.comments.index')}}"><li id="li5">Bình luận</li></a>
+                <a href="{{ route('admin.comment-list')}}"><li id="li5">Bình luận</li></a>
                 <li id="li7">Chức Năng Khác</li>
             </ul>
         </div>
