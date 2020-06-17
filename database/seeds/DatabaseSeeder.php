@@ -231,6 +231,10 @@ class DatabaseSeeder extends Seeder
             ['id' => 3, 'name' => 'Xe đạp'],
         ]);
 
+        DB::table('setting_indexs')->insert([
+            ['id' => 1, 'highest_number_of_cars' => 1, 'highest_number_of_motos' => 3, 'highest_number_of_bikes' => 3]
+        ]);
+
         // DB::table('system_calendars')->insert([
         //     ['id' => 1, 'month' => 6, 'year' => 2020],
         // ]);

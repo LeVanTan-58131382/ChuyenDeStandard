@@ -14,6 +14,7 @@ use App\Models\Notification;
 use App\Models\Vehicle;
 use App\Models\SystemCalendar;
 use Illuminate\Support\Facades\Hash;
+use App\Models\LicensePlates;
 
 class Customer extends Model
 {
@@ -165,13 +166,18 @@ class Customer extends Model
             if($request -> car > 0){
                 $customer->vehicles()->attach($typeVehicle_Car, [ 'amount' => $request -> car,
                                                 'month_start_use' => $month, 'year_use' => $year, 'using' => 1
-                                                   ]);                          
+                                                   ]);  
+                // lấy record vừa tạo
+                $customer_id = VehicleCuctomer::orderBy('created_at', 'desc')->first()->customer_id;
+                LicensePlates::carLicensePlates($request, $customer_id);
             }
             // if customer have moto
             if($request -> moto > 0){
                 $customer->vehicles()->attach($typeVehicle_Moto, [ 'amount' => $request -> moto,
                                                     'month_start_use' => $month, 'year_use' => $year, 'using' => 1
                                                     ]);
+                $customer_id = VehicleCuctomer::orderBy('created_at', 'desc')->first()->customer_id;
+                LicensePlates::motoLicensePlates($request, $customer_id);
             }
             // if customer have bike
             if($request -> bike > 0){

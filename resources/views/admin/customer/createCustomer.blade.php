@@ -1,6 +1,39 @@
 @extends('admin.home')
 
 @section('content')
+<script type="text/javascript">
+    $(document).ready(function(){
+        // var a = '{{$calendar->month}}'; cách chèn code php vào javascript
+        // console.log(a);
+        i = 1;
+        $("#btn_insert").click(function(){
+            var max = document.getElementById("carSoLuong").value;
+            if(max > 0)
+            {
+                $("#insert").append("<input min='0' required style='padding-left: 10px; margin-top: 5px; margin-left: 93px;' type='text' name='license_plates_car_"+i+"' placeholder='Nhập BKS xe thứ "+i+" '>");
+                if(i == max)
+                {
+                    document.getElementById("btn_insert").disabled = true;
+                }
+                i++;
+                }
+        });
+
+        j = 1;
+        $("#btn_insert_2").click(function(){
+            var max_2 = document.getElementById("motoSoLuong").value;
+            if(max_2 > 0)
+            {
+                $("#insert_2").append("<input min='0' required style='padding-left: 10px; margin-top: 5px; margin-left: 93px;' type='text' name='license_plates_moto_"+j+"' placeholder='Nhập BKS xe thứ "+j+" '>");
+                if(j == max_2)
+                {
+                    document.getElementById("btn_insert_2").disabled = true;
+                }
+                j++;
+                }
+        });
+	});
+</script>
 <div class="create-customer">
     <h3 style="text-align: center">Tạo mới Chủ hộ</h3>
     <br><br>
@@ -36,15 +69,31 @@
                   <div class="form-group vehicle">
                       <label for="pwd">Phương tiện:</label>
                       <ul>
-                          <li>
-                              <p>Xe ô tô : <input min="0" style="margin-left: 30px" type="number" name="car" placeholder="Số lượng"></p>
-                          </li>
-                          <li>
-                              <p>Xe mô tô : <input min="0" style="margin-left: 15px" type="number" name="moto" placeholder="Số lượng"></p>
-                          </li>
-                          <li>
-                              <p>Xe đạp : <input min="0" style="margin-left: 31px" type="number" name="bike" placeholder="Số lượng"></p>
-                          </li>
+                            <li>
+                                <p>Xe ô tô : <input id="carSoLuong" min="0" max="{{$setting_indexs->highest_number_of_cars}}" style="padding-left: 10px; margin-left: 30px; width: 200px" type="number" name="car" placeholder="Số lượng"></p>
+                            </li>
+                            <li>
+                                <p>
+                                        <input id="btn_insert" name="btn_insert" type="button"
+                                        style="width: 83px; padding: 5px;
+                                        " class="btn btn-primary" value="Thêm BKS"> 
+                                </p>
+                                <p id="insert"></p>
+                            </li>
+                            <li>
+                                <p>Xe mô tô : <input id="motoSoLuong" min="0" max="{{$setting_indexs->highest_number_of_motos}}" style=" padding-left: 10px;margin-left: 15px; width: 200px" type="number" name="moto" placeholder="Số lượng"></p>
+                            </li>
+                            <li>
+                                <p>
+                                        <input id="btn_insert_2" name="btn_insert" type="button"
+                                        style="width: 83px; padding: 5px;
+                                        " class="btn btn-primary" value="Thêm BKS">
+                                </p>
+                                <p id="insert_2"></p>
+                            </li>
+                            <li>
+                                <p>Xe đạp : <input min="0" max="{{$setting_indexs->highest_number_of_bikes}}" style="padding-left: 10px; margin-left: 31px; width: 200px" type="number" name="bike" placeholder="Số lượng"></p>
+                            </li>
                       </ul>
                 </div>
                 <div class="form-group address">
@@ -123,4 +172,5 @@
     }
     
 </style>
+
 @endsection

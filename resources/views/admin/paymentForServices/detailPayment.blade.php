@@ -148,6 +148,8 @@
     .detail-payment select, input{
         width: 300px;
         height: 35px;
+        border: 1px solid gray;
+        padding-left: 25px;
         border-radius: 4px;
     }
 

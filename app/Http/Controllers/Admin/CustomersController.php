@@ -9,6 +9,7 @@ use App\Models\Customer;
 use App\Models\Vehicle;
 use App\Models\VehicleCuctomer;
 use App\Models\SystemCalendar;
+use App\Models\Setting;
 
 class CustomersController extends Controller
 {
@@ -23,12 +24,12 @@ class CustomersController extends Controller
     public function create()
     {
         $calendar = SystemCalendar::find(1); 
-        return view('admin.customer.createCustomer', compact('calendar'));
+        $setting_indexs = Setting::find(1);
+        return view('admin.customer.createCustomer', compact('calendar', 'setting_indexs'));
     }
 
     public function store(Request $request)
     {
-        $calendar = SystemCalendar::find(1); 
         $block = $request -> selectBlock;
         $floor = $request -> selectFloor;
         $apartment = $request -> selectApartment;
