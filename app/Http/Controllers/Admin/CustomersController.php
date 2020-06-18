@@ -13,8 +13,10 @@ use App\Models\Setting;
 
 class CustomersController extends Controller
 {
-    public function index()
+
+    public function index(Request $request)
     {
+        $request->user()->authorizeRoles(['admin']);
         $calendar = SystemCalendar::find(1); 
         $customers = Customer::select('id', 'name', 'email', 'phone')->paginate(10);
         $apartmentAddress = ApartmentAddress::select('customer_id', 'block', 'floor', 'apartment')->get();

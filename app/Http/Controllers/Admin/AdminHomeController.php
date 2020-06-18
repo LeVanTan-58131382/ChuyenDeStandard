@@ -8,9 +8,14 @@ use App\Models\SystemCalendar;
 
 class AdminHomeController extends Controller
 {
-    public function index()
+    public function __construct()
+    { 
+        $this->middleware('auth');
+    }
+    public function index(Request $request)
     {
-        $celendar = SystemCalendar::find(1);
-        return view('admin.home', compact('celendar'));
+        $request->user()->authorizeRoles(['admin']);
+        $calendar = SystemCalendar::find(1);
+        return view('admin.home', compact('calendar')); 
     }
 }

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="create-notifi">
-    <h3>Tạo thông báo</h3>
+    <h3 class="text-center">Tạo thông báo</h3>
 <form action="{{ route('admin.notifications.store')}}" method="post">
   @csrf
         <div class="form-group">
@@ -23,7 +23,7 @@
           </select>
         </div>
         <br><br>
-    <button type="submit" class="btn btn-primary">Gửi thông báo</button>
+    <button type="submit" class="btn btn-primary guitb">Gửi thông báo</button>
   </form>
 </div>
 <style>
@@ -41,6 +41,10 @@
         width: 250px;
         height: 35px;
         border-radius: 4px;
+    }
+    .guitb{
+      position: absolute;
+      left: 500px;
     }
 </style>
 @endsection

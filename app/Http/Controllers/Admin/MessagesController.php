@@ -11,7 +11,9 @@ use App\Models\SystemCalendar;
 
 class MessagesController extends Controller
 {
-    public function messages(){
+
+    public function messages(Request $request){
+        $request->user()->authorizeRoles(['admin']);
         $calendar = SystemCalendar::find(1);
         $customers = Customer::get();
         $messages = Message::with('userFrom')->notDeleted()->get();

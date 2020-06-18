@@ -38,7 +38,7 @@
                 <a href="{{ route('admin.notifications.index')}}"><li id="li4">Thông Báo</li></a>
                 <a href="{{ route('admin.statisticals.index')}}"><li id="li5">Thống kê</li></a>
                 <a href="{{ route('admin.comment-list')}}"><li id="li5">Bình luận</li></a>
-                <li id="li7">Chức Năng Khác</li>
+                {{-- <li id="li7">Chức Năng Khác</li> --}}
             </ul>
         </div>
         <div class="ad-part-right">

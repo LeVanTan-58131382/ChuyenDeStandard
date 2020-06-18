@@ -5,6 +5,23 @@
     <br>
     <div class="bang">
         <h4 style="text-align: center">Hóa Đơn Tiền Điện</h4>
+        <div class="capnhattinhtrang">
+            @foreach ($billElectric as $itembill)
+                <form action="{{ route('admin.update-status-paid', [$itembill->id, 1])}}" method="POST">
+                    @csrf
+                    <select name="updatePaidE" id="">
+                        @if($itembill->paid == 0)
+                            <option selected value="0">Chưa Thanh Toán</option>
+                            <option value="1">Đã Thanh Toán</option>
+                        @elseif($itembill->paid == 1)
+                            <option value="0">Chưa Thanh Toán</option>
+                            <option selected value="1">Đã Thanh Toán</option>
+                        @endif
+                    </select>
+                    <input type="submit" class="capnhat" value="Cập nhật">
+                </form>
+            @endforeach
+        </div>
         <div class="form-group">
             <label for="">1. Họ và tên: {{ $customer->name}}</label><br>
             <label for="">2. Địa chỉ: Block: {{ $customer->apartmentAddress['block'] }} 
@@ -71,6 +88,23 @@
     </div>
     <div class="bang">
         <h4 style="text-align: center">Hóa Đơn Tiền Nước</h4>
+        <div class="capnhattinhtrang">
+            @foreach ($billWater as $itembill)
+                <form action="{{ route('admin.update-status-paid', [$itembill->id, 2])}}" method="POST">
+                    @csrf
+                        <select name="updatePaidW" id="">
+                            @if($itembill->paid == 0)
+                                <option selected value="0">Chưa Thanh Toán</option>
+                                <option value="1">Đã Thanh Toán</option>
+                            @elseif($itembill->paid == 1)
+                                <option value="0">Chưa Thanh Toán</option>
+                                <option selected value="1">Đã Thanh Toán</option>
+                            @endif
+                        </select>
+                        <input type="submit" class="capnhat" value="Cập nhật">
+                </form>
+            @endforeach
+        </div>
         <div class="form-group">
             <label for="">1. Họ và tên: {{ $customer->name}}</label><br>
             <label for="">2. Địa chỉ: Block: {{ $customer->apartmentAddress['block'] }} 
@@ -139,6 +173,23 @@
     <br>
     <div class="bang">
         <h4 style="text-align: center">Phí dịch vụ gửi xe</h4>
+        <div class="capnhattinhtrang">
+            @foreach ($billCar as $itembill)
+                <form action="{{ route('admin.update-status-paid', [$itembill->id, 3])}}" method="POST">
+                    @csrf
+                        <select name="updatePaidC" id="">
+                            @if($itembill->paid == 0)
+                                <option selected value="0">Chưa Thanh Toán</option>
+                                <option value="1">Đã Thanh Toán</option>
+                            @elseif($itembill->paid == 1)
+                                <option value="0">Chưa Thanh Toán</option>
+                                <option selected value="1">Đã Thanh Toán</option>
+                            @endif
+                        </select>
+                        <input type="submit" class="capnhat" value="Cập nhật">
+                </form>
+            @endforeach
+        </div>
         <div class="form-group">
             <label for="">1. Họ và tên: {{ $customer->name}}</label><br>
             <label for="">2. Địa chỉ: Block: {{ $customer->apartmentAddress['block'] }} 
@@ -252,6 +303,7 @@
         padding: 30px;
     }
     .bang{
+        position: relative;
         border: 1px solid gray;
         border-radius: 9px;
         padding: 15px;
@@ -265,6 +317,25 @@
         padding: 15px;
         margin-bottom: 20px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .capnhattinhtrang{
+        position: absolute;
+        width: 300px;
+        height: 60px;
+        top: 60px;
+        right: 100px;
+        padding-top: 10px;
+    }
+    select{
+        width: 150px;
+        height: 40px;
+        border-radius: 4px;
+    }
+    .capnhat{
+        width: 100px;
+        height: 40px;
+        border-radius: 5px;
+        background-color: aqua;
     }
 </style>
 @endsection

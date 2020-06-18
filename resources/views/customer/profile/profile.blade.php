@@ -2,7 +2,7 @@
 @extends('customer.home')
 
 @section('content')
-<div class="detail-customer">
+<div class="detail-customer wow fadeInRight">
     <h3>Chi tiết Chủ hộ</h3>
     <br>
     <p><b>Mã Chủ hộ:</b> {{ $customer -> id}}</p>
@@ -59,7 +59,7 @@
     }
     .member{
         position: relative;
-        border: 1px solid black;
+        border: 1px solid white;
         border-radius: 5px;
         padding: 10px;
         margin-bottom: 10px;

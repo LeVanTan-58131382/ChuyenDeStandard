@@ -59,7 +59,7 @@
             </div>
         </div>
         <br>
-        <input type="submit" class="btn btn-success submit" value="Cập nhật" name="" id="">
+        <input type="submit" class="btn btn-primary submit" value="Cập nhật" name="" id="">
     </form>
 </div>
 <style>

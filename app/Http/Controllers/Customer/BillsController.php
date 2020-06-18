@@ -107,7 +107,7 @@ class BillsController extends Controller
         }
         // nếu khách hàng chưa dc xuất hóa đơn cho tháng 5 thì hiển thị thông báo
         if($bills->isEmpty()){
-            return view('admin.paymentForServices.billnotexported', compact('calendar'));
+            return view('customer.bill.billnotexported', compact('calendar'));
         }
         $vehicles_prices = VehiclePrice::get();
         $price_regulation = PriceRegulation::get();

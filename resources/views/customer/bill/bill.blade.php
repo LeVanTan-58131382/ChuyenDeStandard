@@ -268,13 +268,14 @@
         <div class="col-md-12">
             @if($cmt->customer_id == 1)
             <p style='float:right'>Quản trị viên</p>
+            <br>
             @endif
-            @if($cmt->customer_id != 1)
+            @if($cmt->customer_id > 1)
             <p>Khách hàng</p>
             @endif
             <div class="comment-item" 
             @if($cmt->customer_id == 1)
-                style='float:right'
+                style='float:right; right:-90px'
             @endif
             >
                 <b>{{ $cmt->title}}</b>

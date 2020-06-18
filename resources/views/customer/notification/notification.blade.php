@@ -8,7 +8,7 @@
             <div class="col-md-12">
                 <div class="notifi wow fadeInRight">
                     <div class="notifi-header">
-                        <h4>{{ $notifi->title }}</h4>
+                        <b>{{ $notifi->title }}</b>
                     </div>
                     <div class="notifi-content">
                         <p class="notifi-title">Bấm vào thông báo để xem nội dung</p>
@@ -71,7 +71,7 @@
         position: absolute;
         left: 0%;
         top: 0%;
-        width: 80%;
+        width: 70%;
         height: 100%;
         padding: 20px 0px 0px 15px;
     }
@@ -80,7 +80,7 @@
         position: absolute;
         right: 0%;
         top: 0%;
-        width: 20%;
+        width: 30%;
         height: 100%;
         padding: 20px 0px 0px 5px;
     }

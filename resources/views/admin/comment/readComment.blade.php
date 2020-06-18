@@ -2,10 +2,11 @@
 
 @section('content')
 <div class="read">
+    <h3 style="text-align: center">Chi tiết bình luận</h3>
     @if ($customer)
-        Người bình luận: {{ $customer->name }}
+        Người bình luận: <b>{{ $customer->name }}</b>
         <br>
-        Email: {{ $customer->email }}
+        Email: <b>{{ $customer->email }}</b>
         <br>
         <hr>
         Tiêu đề: {{ $comment->title }}
@@ -26,7 +27,7 @@
         <br><br>
     @endif
     @if(!$customer)
-        Người bình luận: Quản trị viên
+        Người bình luận: <b>Quản trị viên</b>  
         <br>
         <hr>
         Tiêu đề: {{ $comment->title }}
@@ -35,7 +36,7 @@
         <br><br>
         {{$comment->content }}
         <hr>
-        <a href="{{ route('destroy-cmt-ad', $comment->id) }}" class="btn btn-danger float-right">Xóa</a>
+        <a href="{{ route('admin.comment-delete', $comment->id) }}" class="btn btn-danger float-right">Xóa</a>
         <br><br>
     @endif
 </div>

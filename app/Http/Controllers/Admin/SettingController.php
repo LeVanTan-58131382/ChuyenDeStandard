@@ -9,7 +9,9 @@ use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
-    public function getSetting(){ 
+
+    public function getSetting(Request $request){ 
+        $request->user()->authorizeRoles(['admin']);
         $calendar = SystemCalendar::find(1);
         $setting_indexs = Setting::find(1);
         return view('admin.setting', compact('calendar', 'setting_indexs'));

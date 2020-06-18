@@ -94,7 +94,7 @@
                             <th scope="col">Tên khách hàng</th>
                             <th scope="col">Địa chỉ</th>
                             <th scope="col">Tháng thanh toán</th>
-                            <th scope="col">Tiền đã thanh toán</th>
+                            <th scope="col">Tiền đã thanh toán (VND)</th>
                           </tr>
                         </thead>
                         <tbody>

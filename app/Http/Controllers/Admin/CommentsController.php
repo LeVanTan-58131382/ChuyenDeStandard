@@ -55,7 +55,8 @@ class CommentsController extends Controller
 
         return redirect()->back()->with('success', 'Trả lời bình luận thành công!');
     }
-    public function comments(){
+    public function comments(Request $request){
+        $request->user()->authorizeRoles(['admin']);
         $calendar = SystemCalendar::find(1);
         $customers = Customer::get();
         $comments = Comment::select('*')->orderByDesc('created_at', )->get();

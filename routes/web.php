@@ -3,38 +3,18 @@
 use Illuminate\Support\Facades\Route;
 
 
-//     Route::group(['prefix'=>'messages'], function()
-// 		{	
-// 			Route::get('edit/{id}', 'AdminController@editMessages')->name('edit-mes');
-// 			Route::post('updat/{id}', 'AdminController@updateMessages')->name('update-mes');
-// 			Route::get('destroy/{id}', 'AdminController@destroy_message')->name('destroy-mes');
-// 			Route::get('list', 'AdminController@messages')->name('list-mes');
-// 			Route::get('create/{id?}/{title?}', 'AdminController@create_message')->name('create-mes');
-//             Route::post('send', 'AdminController@send_message')->name('send-mes');
-//             Route::get('read/{id}', 'AdminController@read_message')->name('read-mes');
-// 	});
-	
-	
-// 			Route::get('edit/{id}', 'CustomerController@editMessages')->name('edit-mes-cus');
-// 			Route::post('update/{id}', 'CustomerController@updateMessages')->name('update-mes-cus');
-// 			Route::get('destroy/{id}', 'CustomerController@destroyMessages')->name('destroy-mes-cus');
-// 			Route::get('list/{id}', 'CustomerController@listMessages')->name('list-mes-cus');
-// 			Route::get('create/{id?}/{title?}', 'CustomerController@createMessages')->name('create-mes-cus');
-//             Route::post('send', 'CustomerController@sendMessages')->name('send-mes-cus');
-//             Route::get('read/{id}', 'CustomerController@readMessages')->name('read-mes-cus');
-//     });
- 
-// });
-
-// Route::redirect('/', '/login');
-// Route::redirect('/home', '/admin');
+Route::redirect('/', '/login')->name('login');
+Route::get('/home', function(){
+    return view('home');
+});
+//Route::redirect('/home', '/admin');
 // Auth::routes(['register' => false]);
 Auth::routes();
 // phần standard 
 // Route Admin
 //Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], function () {
-    Route::get('/', 'AdminHomeController@index')->name('home');
+    Route::get('/home', 'AdminHomeController@index')->name('home');
 
     // Setting
     Route::get('/setting', 'SettingController@getSetting')->name('get-setting');
@@ -58,6 +38,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     //Route::get('/bills/importElectric', 'BillsController@getloadFile')->name('getimport');
     Route::post('/bills/importWater', 'BillsController@postloadFileWater')->name('post-import-water');
     Route::post('/bills/importElectric', 'BillsController@postloadFileElectric')->name('post-import-electric');
+
+    Route::post('/bills/updateStatusPaid/{billId?}/{typeBill?}', 'BillsController@updateStatusPaid')->name('update-status-paid');
 
     Route::resource('bills', 'BillsController');
 
@@ -110,9 +92,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
 
 // Route Customer
 Route::group(['prefix' => 'customer', 'as' => 'customer.', 'namespace' => 'Customer', 'middleware' => ['auth']], function () {
-    Route::get('/', 'CustomerHomeController@index')->name('home');
+    Route::get('/home', 'CustomerHomeController@index')->name('home');
     // Bills
-    Route::get('allbills/{customerId}', 'BillsController@allBills')->name('customer-bills-index');
+    Route::get('allbills/{customerId}', 'BillsController@allBills')->name('list-bills');
 
     // Messages
     Route::get('messages/{id}', 'MessagesController@messages')->name('list-messages');

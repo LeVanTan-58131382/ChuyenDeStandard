@@ -1,6 +1,17 @@
 @extends('admin.home')
 
 @section('content')
+<script >
+    $(document).ready(function(){
+        $('.addfiles1').on('click', function() { 
+            $('#nutimport1').click();
+            return false;});
+        $('.addfiles2').on('click', function() { 
+            $('#nutimport2').click();
+            return false;});
+});
+    
+</script>
 <div class="payment-service">
     <h3 style="text-align: center">Danh sách khách hàng và Tình trạng thanh toán</h3>
     <div class="hienthi">
@@ -21,23 +32,25 @@
                     <a class="btn btn-outline-secondary" href="{{route('admin.show-bill', 3)}}">Phí gửi xe</a>
                 </li>
             </ul>
-            <br>
+            <br><br>
             <ul>
                 <li><form action="{{ route('admin.post-import-water')}}" method="post" enctype="multipart/form-data">
                     @csrf
-                   <p>Chọn file excel nước tiêu thụ</p> 
-                    <input class="file btn " style="background-color: #337ab7;" type="file" name="file">
+                    <p>Chọn file excel <b>nước</b> tiêu thụ</p> 
+                    <button class="addfiles1 btn nutimport1">Bấm để chọn file</button>
+                    <input id="nutimport1" class="file btn" type="file" name="file" style='display: none;' multiple>
                     <br>
-                    <button class="file btn " style="background-color: #337ab7;" type="submit">Tải lên</button>
+                    <button class="file btn nutimport" type="submit">Tải lên</button>
                     </form>
                 </li>
                 <li>&nbsp&nbsp|&nbsp&nbsp</li>
                 <li><form action="{{ route('admin.post-import-electric')}}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <p>Chọn file excel điện tiêu thụ</p>   
-                    <input class="file btn " style="background-color: #337ab7;" type="file" name="file">
+                    <p>Chọn file excel <b>điện</b> tiêu thụ</p> 
+                    <button class="addfiles2 btn nutimport2">Bấm để chọn file</button>  
+                    <input id="nutimport2" class="file btn" type="file" name="file" style='display: none;' multiple>
                     <br>
-                    <button class="file btn " style="background-color: #337ab7;" type="submit">Tải lên</button>
+                    <button class="file btn nutimport" type="submit">Tải lên</button>
                     </form>
                 </li>
             </ul>
@@ -199,7 +212,7 @@
     .hienthi{
         position: relative;
         width: 1000px;
-        height: 240px;
+        height: 265px;
         padding: 5px;
         margin: 10px;
         right: 0%;
@@ -226,6 +239,17 @@
         width: 40%;
         height: 100%;
         padding: 10px;
+    }
+    .nutimport, .nutimport1, .nutimport2{
+        width: 200px;
+        background-color: #337ab7;
+        margin-bottom: 8px;
+        color: white;
+    }
+    
+    .nutimport:hover, .nutimport1:hover, .nutimport2:hover{
+        background-color:lightseagreen;
+        color: white;
     }
 </style>
 @endsection

@@ -246,14 +246,14 @@
 								</div>
 		<div class="phai">
 			@if(Auth::user())
-			<div class="welcome">
+			<div class="welcome"> 
 				<h4><b>Chào: </b>{{ Auth::user()->name }}</h4>
 			</div>
 			<div class="gotocutomerpage">
 			@if(Auth::id() == 1)
-				<a href="{{ route('admin-page')}}"><button class="btn goto"><b>Đến trang admin</b></button></a>
+				<a href="{{ route('admin.home')}}"><button class="btn goto"><b>Đến trang admin</b></button></a>
 			@elseif(Auth::id() != 99999)
-				<a href="{{ route('customer-page')}}"><button class="btn goto"><b>Đến trang khách hàng</b></button></a>
+				<a href="{{ route('customer.home')}}"><button class="btn goto"><b>Đến trang khách hàng</b></button></a>
 			@endif
 			</div>
 			<div class="status">

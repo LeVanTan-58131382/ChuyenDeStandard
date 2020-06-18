@@ -15,7 +15,7 @@ class MessagesController extends Controller
         $customer = Customer::find(Auth::id());
 
         $messages = Message::select('*')->where('user_id_to', '=', Auth::id())
-                                        ->orWhere('user_id_to', '=', Auth::id())
+                                        ->orWhere('user_id_from', '=', Auth::id())
                                         ->notDeleted()->orderBy('created_at', 'DESC')->get();
         return view('customer.message.listMessages', compact('customer', 'messages'));
         

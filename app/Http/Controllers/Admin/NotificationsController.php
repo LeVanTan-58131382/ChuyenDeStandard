@@ -13,8 +13,10 @@ use Illuminate\Support\Facades\DB;
 
 class NotificationsController extends Controller
 {
-    public function index()
+
+    public function index(Request $request)
     {
+        $request->user()->authorizeRoles(['admin']);
         $calendar = SystemCalendar::find(1);
         $customers = Customer::select('*')->where('id', '>', 1)->get();
         $notifications = Notification::get();

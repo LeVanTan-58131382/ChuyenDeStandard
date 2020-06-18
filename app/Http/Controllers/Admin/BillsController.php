@@ -93,8 +93,9 @@ class BillsController extends Controller
         }
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->authorizeRoles(['admin']);
         $calendar = SystemCalendar::find(1);
         $month = $calendar -> month;
         $year = $calendar -> year;
@@ -110,11 +111,6 @@ class BillsController extends Controller
         $customers = Customer::paginate(10);
         $apartments = ApartmentAddress::get();
         return view('admin.paymentForServices.index', compact('bills', 'customers', 'apartments', 'month', 'calendar'));
-    }
-
-    public function create()
-    {
-        //
     }
     
     public function createBill($customerId)
@@ -631,6 +627,47 @@ class BillsController extends Controller
             }
             return view('admin.paymentForServices.billCar', compact('bills', 'customers', 'calendar'));
         }
+    }
+
+    public function updateStatusPaid(Request $request, $billId, $typeBill){
+        $bill = Bill::find($billId);
+        if($typeBill == 1){
+            if($request->updatePaidE == 1)
+            {
+                $bill->paid=1;
+                $bill->save();
+            }
+            elseif($request->updatePaidE == 0)
+            {
+                $bill->paid=0;
+                $bill->save();
+            }
+        }
+        if($typeBill == 2){
+            if($request->updatePaidW == 1)
+            {
+                $bill->paid=1;
+                $bill->save();
+            }
+            elseif($request->updatePaidW == 0)
+            {
+                $bill->paid=0;
+                $bill->save();
+            }
+        }
+        if($typeBill == 3){
+            if($request->updatePaidC == 1)
+            {
+                $bill->paid=1;
+                $bill->save();
+            }
+            elseif($request->updatePaidC == 0)
+            {
+                $bill->paid=0;
+                $bill->save();
+            }
+        }
+        return redirect()->back()->with(['success'=>'Cập nhật tình trạng thanh toán thành công!']);
     }
 
     public function edit($id)

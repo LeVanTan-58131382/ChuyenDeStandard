@@ -10,8 +10,9 @@ use App\Models\SystemCalendar;
 
 class StatisticalsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->authorizeRoles(['admin']);
         $calendar = SystemCalendar::find(1);
         $customers = Customer::get();
         $result = 0;

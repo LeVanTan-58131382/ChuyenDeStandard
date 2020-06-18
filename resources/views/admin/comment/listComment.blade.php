@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="list-mes">
-    <h3 style="text-align: center">Danh sách comment</h3>
+    <h3 style="text-align: center">Danh sách bình luận</h3>
     <br>
     @foreach ($comments as $cmt)
     <a href="{{ route('admin.comment-read', $cmt->id)}}"><div class="row">

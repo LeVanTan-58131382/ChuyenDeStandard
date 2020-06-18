@@ -36,7 +36,7 @@
             </div>
         </div>
         <br><br>
-        <button type="submit" class="btn btn-primary">Tạo mới</button>
+        <button type="submit" class="btn btn-primary text-center taomoi">Tạo mới</button>
       </form>
       {{-- <a href="customers/{{$customerId}}">Quay về</a></td> --}}
 </div>
@@ -70,6 +70,10 @@
         width: 70px;
         height: 35px;
         border-radius: 4px;
+    }
+    .taomoi{
+        position: relative;
+        left: 500px;
     }
     
 </style>
