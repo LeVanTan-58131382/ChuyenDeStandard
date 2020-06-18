@@ -7,12 +7,26 @@ use App\Models\Customer;
 
 class Message extends Model
 {
+    public $table = 'messages';
+
+    protected $fillable = [
+        'user_id_from',
+        'user_id_to',
+        'title',
+        'content',
+        'read',
+        'deleted',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     public function userFrom() {
-        return $this->belongsTo(Customer::class, 'customer_id_from');
+        return $this->belongsTo(Customer::class, 'user_id_from');
     }
 
     public function userTo() {
-        return $this->belongsTo(Customer::class, 'customer_id_to');
+        return $this->belongsTo(Customer::class, 'user_id_to');
     }
 
     public function scopeNotDeleted($query) {

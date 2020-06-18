@@ -45,7 +45,7 @@
             <div class="ad-menu-right">
                 <ul>
                     <li id="li8">Welcome</li>
-                    <a href="admin/messages"><li id="li9">Tin nhắn</li></a>
+                    <a href="{{ route('admin.list-messages')}}"><li id="li9">Tin nhắn</li></a>
                     <a href="{{ route('admin.get-setting')}}"><li id="li10">Cài đặt</li></a>
                     
                         <a href="{{ route('logout') }}"

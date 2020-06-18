@@ -15,8 +15,8 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->integer('customer_id_from');
-            $table->integer('customer_id_to');
+            $table->integer('user_id_from');
+            $table->integer('user_id_to');
             $table->text('title');
             $table->longText('content');
             $table->boolean('read')->default(0);

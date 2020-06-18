@@ -3,7 +3,7 @@
 @section('content')
 <div class="create-mes">
     <h3>Tạo tin nhắn</h3>
-    <form action="{{ route('send-mes')}}" method="post">
+    <form action="{{ route('admin.send-messages')}}" method="post">
       @csrf
         <div class="form-group">
             <label for="">Tiêu đề tin nhắn:</label>
@@ -16,8 +16,8 @@
         <div class="form-group">
           <label for="pwd">Người nhận tin nhắn:</label>
           <select style="width: 400px" name="to" id="">
-            @foreach($users as $user)
-              <option value="{{ $user->id }}">{{ $user->name }}, {{ $user->email }}</option>
+            @foreach($customers as $customer)
+              <option value="{{ $customer->id }}">{{ $customer->name }}, {{ $customer->email }}</option>
             @endforeach
           </select>
         </div>

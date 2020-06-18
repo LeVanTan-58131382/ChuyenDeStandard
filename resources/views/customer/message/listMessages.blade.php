@@ -4,10 +4,10 @@
 @section('content')
 <div class="list-mes wow fadeInRight">
     <h3 style="text-align: center; color:white">Danh sách tin nhắn</h3>
-    <a class="btn nuttaotinnhan" href="{{ route('create-mes-cus')}}">Tạo tin nhắn mới</a>
+    <a class="btn nuttaotinnhan" href="{{ route('customer.create-messages')}}">Tạo tin nhắn mới</a>
     <br>
     @foreach ($messages as $mes)
-    <a href="{{ route('read-mes-cus', $mes->id)}}"><div class="row">
+    <a href="{{ route('customer.read-messages', $mes->id)}}"><div class="row">
         <div class="col-md-12">
             <div class="mes">
                 <div class="header-mes">
@@ -17,11 +17,11 @@
                     <div class="header-right">
                         <p>Đến:
                             @php
-                                if($user->id == $mes->user_id_to && $user->id != 1)
+                                if($customer->id == $mes->user_id_to && $customer->id > 1)
                                 {
-                                    echo $user->name;
+                                    echo $customer->name;
                                 }
-                                elseif($user->id == $mes->user_id_to && $user->id == 1){
+                                elseif($mes->user_id_to == 1){
                                     echo "Quản trị viên";
                                 }
                             @endphp

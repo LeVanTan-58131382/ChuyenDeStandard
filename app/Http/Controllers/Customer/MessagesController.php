@@ -3,83 +3,61 @@
 namespace App\Http\Controllers\Customer;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
+use App\Models\Message;
+use App\Models\SystemCalendar;
 
 class MessagesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function messages(){
+        $customer = Customer::find(Auth::id());
+
+        $messages = Message::select('*')->where('user_id_to', '=', Auth::id())
+                                        ->orWhere('user_id_to', '=', Auth::id())
+                                        ->notDeleted()->orderBy('created_at', 'DESC')->get();
+        return view('customer.message.listMessages', compact('customer', 'messages'));
+        
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function create_message(String $title = '') {
+        if ($title !== '') $title =  $title;
+        return view('customer.message.createMessages', compact('title'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function send_message(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+
+        $message = new Message();
+        $message->user_id_from = Auth::id();
+        $message->user_id_to = 1; // gửi cho ad
+        $message->title = $request->title;
+        $message->content = $request->content;
+        $message->save();
+
+        return redirect()->route('customer.list-messages', Auth::id())->with('success', 'Gửi tin nhắn thành công!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function read_message($id)
     {
-        //
+        $message = Message::find($id);
+        $message->read = true;
+        $message->save();
+
+        return view('customer.message.readMessages')->with('message', $message);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function destroy_message($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $message = Message::find($id);
+        $message->deleted = true;
+        $message->save();
+        
+        return redirect()->route('customer.list-messages', Auth::id())->with('success', 'Xóa tin nhắn thành công!');
     }
 }

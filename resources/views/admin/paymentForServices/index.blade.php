@@ -26,18 +26,18 @@
                 <li><form action="{{ route('admin.post-import-water')}}" method="post" enctype="multipart/form-data">
                     @csrf
                    <p>Chọn file excel nước tiêu thụ</p> 
-                    <input class="file btn btn-outline-success" type="file" name="file">
+                    <input class="file btn " style="background-color: #337ab7;" type="file" name="file">
                     <br>
-                    <button class="file btn btn-outline-success" type="submit">Tải lên</button>
+                    <button class="file btn " style="background-color: #337ab7;" type="submit">Tải lên</button>
                     </form>
                 </li>
                 <li>&nbsp&nbsp|&nbsp&nbsp</li>
                 <li><form action="{{ route('admin.post-import-electric')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <p>Chọn file excel điện tiêu thụ</p>   
-                    <input class="file btn btn-outline-success" type="file" name="file">
+                    <input class="file btn " style="background-color: #337ab7;" type="file" name="file">
                     <br>
-                    <button class="file btn btn-outline-success" type="submit">Tải lên</button>
+                    <button class="file btn " style="background-color: #337ab7;" type="submit">Tải lên</button>
                     </form>
                 </li>
             </ul>

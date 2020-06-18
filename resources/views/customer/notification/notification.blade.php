@@ -4,7 +4,7 @@
 @foreach ($notificationUser as $notifiu)
     @foreach ($notifications as $notifi)
         @if($notifiu->notification_id == $notifi->id)
-        <a href="{{ route('customer.customer-notifications-read', $notifi->id)}}"><div class="row">
+        <a href="{{ route('customer.read-notifications', $notifi->id)}}"><div class="row">
             <div class="col-md-12">
                 <div class="notifi wow fadeInRight">
                     <div class="notifi-header">

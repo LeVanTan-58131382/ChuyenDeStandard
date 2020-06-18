@@ -3,7 +3,7 @@
 @section('content')
 <div class="create-mes wow fadeInRight">
     <h3>Tạo tin nhắn</h3>
-    <form action="{{ route('send-mes-cus')}}" method="post">
+    <form action="{{ route('customer.send-messages')}}" method="post">
       @csrf
         <div class="form-group">
             <label for="">Tiêu đề tin nhắn:</label>

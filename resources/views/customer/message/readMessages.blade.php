@@ -2,9 +2,24 @@
 
 @section('content')
 <div class="read wow fadeInRight">
-    Người gửi: {{ $message->userFrom->name }}
-    <br>
-    Email: {{ $message->userFrom->email }}
+    Người gửi: 
+    @if($message->user_id_from > 1)
+    <b>
+    {{ $message->userFrom->name }}
+
+     - Email: {{ $message->userFrom->email }}</b>
+    @elseif($message->user_id_from == 1)
+    <b>Quản trị viên</b>   
+    @endif
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspNgười nhận:
+    @if($message->user_id_to > 1)
+    <b>
+    {{ $message->userTo->name }}
+    
+     - Email: {{ $message->userTo->email }}</b>
+    @elseif($message->user_id_to == 1)
+    <b>Quản trị viên</b>   
+    @endif
     <br>
     <hr>
     Tiêu đề: {{ $message->title }}
@@ -14,10 +29,10 @@
     {{$message->content }}
     <hr>
     @if($message->user_id_from == 1)
-    <a href="{{ route('create-mes-cus', [$message->userFrom->id, $message->title]) }}" class="btn btn-primary">Trả lời</a>
+    <a href="{{ route('customer.create-messages', $message->title) }}" class="btn btn-primary">Trả lời</a>
     @endif
     
-    <a href="{{ route('destroy-mes-cus', $message->id) }}" class="btn btn-danger float-right">Xóa</a>
+    <a href="{{ route('customer.destroy-messages', $message->id) }}" class="btn btn-danger float-right">Xóa</a>
     <br><br>
 </div>
 <style>

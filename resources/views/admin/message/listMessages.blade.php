@@ -4,41 +4,45 @@
 @section('content')
 <div class="list-mes">
     <h3 style="text-align: center">Danh sách tin nhắn</h3>
-    <a class="btn btn-dark" href="{{ route('create-mes')}}">Tạo tin nhắn mới</a>
+    <a class="btn btn-dark" href="{{ route('admin.create-messages')}}">Tạo tin nhắn mới</a>
     <br>
     @foreach ($messages as $mes)
-    <a href="{{ route('read-mes', $mes->id)}}"><div class="row">
+    <a href="{{ route('admin.read-messages', $mes->id)}}"><div class="row">
         <div class="col-md-12">
             <div class="mes">
                 <div class="header-mes">
                     <div class="header-left">
                         <p>Tin nhắn từ:
-                            @foreach ($users as $user)
-                                @php
-                                    if($user->id == $mes->user_id_from && $user->id != 1)
-                                    {
-                                        echo $user->name;
-                                    }
-                                    elseif($user->id == $mes->user_id_from && $user->id == 1){
-                                        echo "Quản trị viên";
-                                    }
-                                @endphp
-                            @endforeach   
+                            @php
+                            foreach ($customers as $customer)
+                            {
+                                if($customer->id == $mes->user_id_from)
+                                {
+                                    echo $customer->name;
+                                }
+                                elseif($mes->user_id_from == 1){
+                                    echo "Quản trị viên";
+                                    break;
+                                }
+                            }
+                            @endphp 
                         </p>
                     </div>
                     <div class="header-right">
                         <p>Đến:
-                            @foreach ($users as $user)
                             @php
-                                if($user->id == $mes->user_id_to && $user->id != 1)
+                            foreach ($customers as $customer)
+                            {
+                                if($customer->id == $mes->user_id_to)
                                 {
-                                    echo $user->name;
+                                    echo $customer->name;
                                 }
-                                elseif($user->id == $mes->user_id_to && $user->id == 1){
+                                elseif($mes->user_id_to == 1){
                                     echo "Quản trị viên";
+                                    break;
                                 }
-                            @endphp
-                        @endforeach  
+                            }
+                            @endphp  
                         </p> 
                     </div>
                 </div>
@@ -48,10 +52,10 @@
                     </div>
                     <div class="status">
                         @if($mes->read == 1)
-                            <p>20/5 &nbsp&nbsp Đã xem</p>
+                            <p>&nbsp&nbsp Đã xem</p>
                         @endif
                         @if($mes->read == 0)
-                            <p>20/5 &nbsp&nbsp Chưa xem</p>
+                            <p>&nbsp&nbsp Chưa xem</p>
                         @endif
                     </div>
                 </div>
