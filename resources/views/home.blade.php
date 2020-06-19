@@ -85,7 +85,7 @@
 		.banner{
 			position: relative;
 			width: 100%;
-			height: 700px;
+			height: 800px;
 			top: 0%;
 			left: 0%;
 		}
@@ -252,7 +252,7 @@
 			<div class="gotocutomerpage">
 			@if(Auth::id() == 1)
 				<a href="{{ route('admin.home')}}"><button class="btn goto"><b>Đến trang admin</b></button></a>
-			@elseif(Auth::id() != 99999)
+			@elseif(Auth::id() > 1)
 				<a href="{{ route('customer.home')}}"><button class="btn goto"><b>Đến trang khách hàng</b></button></a>
 			@endif
 			</div>

@@ -25,7 +25,8 @@
 		.noidung{
 			position: fixed;
 			width: 40%;
-			background-color: rgba(0, 160, 255, 0.7);
+			/* background-color: rgba(0, 160, 255, 0.7); */
+			background-color: #3061F5;
 			top: 25%;
 			left: 30%;
 			border-radius: 15px;
@@ -42,7 +43,7 @@
 
 		.noidung h3, .noidung h4{
 			color: #343a40;
-			text-shadow: 1px 1px 5px rgba(0, 255, 255, 1);
+			/* text-shadow: 1px 1px 5px rgba(0, 255, 255, 1); */
 		}
 
 		.noidung.noidunghienra{
@@ -85,7 +86,7 @@
 		.banner{
 			position: relative;
 			width: 100%;
-			height: 700px;
+			height: 730px;
 			top: 0%;
 			left: 0%;
 		}
@@ -252,7 +253,7 @@
 			<div class="gotocutomerpage">
 			@if(Auth::id() == 1)
 				<a href="{{ route('admin-page')}}"><button class="btn goto"><b>Đến trang admin</b></button></a>
-			@elseif(Auth::id() != 99999)
+			@elseif(Auth::id() > 1)
 				<a href="{{ route('customer-page')}}"><button class="btn goto"><b>Đến trang khách hàng</b></button></a>
 			@endif
 			</div>

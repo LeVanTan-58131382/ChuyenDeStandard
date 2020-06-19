@@ -191,35 +191,39 @@ class Bill extends Model
 
         $price_regulation_id_C = $request -> price_regulation_id_C; // mã quy định phí gửi xe
         // phương tiện
-        if($month > 1)
-        {
-            $vehicles = VehicleCuctomer::where('customer_id', $id)
-                                ->where('using', 1)
-                                ->where([
-                                    ['year_use', '=', $year],
-                                    ['month_start_use', '=', $month-1],
-                                ])->get();
-        }
-        elseif($month == 1)
-        {
-            $vehicles = VehicleCuctomer::where('customer_id', $id)
-                                ->where('using', 1)
-                                ->where([
-                                    ['year_use', '=', $year-1],
-                                    ['month_start_use', '=', 12],
-                                ])->get();
-        }
-        // $vehicles = VehicleCuctomer::select('*')->where('customer_id', $id)
-        //                                         ->where('using', 1)
-        //                                         ->where([
-        //                                             ['year_use', '=', $year],
-        //                                             ['month_start_use', '<=', $month],
-        //                                         ])
-        //                                         ->orWhere([
-        //                                             ['year_use', '<', $year],
-        //                                             ['month_start_use', '>=', $month],
-        //                                         ])
-        //                                         ->get(); // những phương tiện của khách hàng
+        // if($month > 1)
+        // {
+        //     $vehicles = VehicleCuctomer::where('customer_id', $id)
+        //                         ->where('using', 1)
+        //                         ->where([
+        //                             ['year_use', '=', $year],
+        //                             ['month_start_use', '=', $month-1],
+        //                         ])->get();
+        // }
+        // elseif($month == 1)
+        // {
+        //     $vehicles = VehicleCuctomer::where('customer_id', $id)
+        //                         ->where('using', 1)
+        //                         ->where([
+        //                             ['year_use', '=', $year-1],
+        //                             ['month_start_use', '=', 12],
+        //                         ])->get();
+        // }
+        $vehicles = VehicleCuctomer::select('*')->where([['customer_id', '=', $id],
+                                                         ['using', '=', 1]])
+                                                ->where([
+                                                    ['year_use', '=', $year],
+                                                    ['month_start_use', '<', $month],
+                                                ])
+                                                ->orWhere([
+                                                    ['year_use', '=', $year-1],
+                                                    ['month_start_use', '>=', $month],
+                                                ])
+                                                ->orWhere([
+                                                    ['year_use', '=', $year-1],
+                                                    ['month_start_use', '<', $month],
+                                                ])
+                                                ->get(); // những phương tiện của khách hàng
         $vehicle_prices = VehiclePrice::select('*')->where('price_regulation_id', $price_regulation_id_C)->get();
         
         $total_price_C = 0; // tổng tiền gửi xe

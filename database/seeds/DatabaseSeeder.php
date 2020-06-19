@@ -89,7 +89,7 @@ class DatabaseSeeder extends Seeder
         $manager->id = 1;
         $manager->name = 'Admin';
         $manager->email = 'admin@gmail.com';
-        $manager->password = Hash::make('123456789');
+        $manager->password = Hash::make('123');
         $manager->save();
         $manager->roles()->attach($role_manager);
 

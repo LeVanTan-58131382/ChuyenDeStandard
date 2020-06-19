@@ -4,6 +4,13 @@
 <div class="detail-payment">
     <h3 style="text-align: center">Chi tiết thanh toán tiền dịch vụ</h3>
     <br>
+    <div class="chuho">
+        <label for="">1. Họ và tên: {{ $customer->name}}</label><br>
+        <label for="">2. Địa chỉ: Block: {{ $customer->apartmentAddress['block'] }} 
+                            Tầng: {{ $customer->apartmentAddress['floor']}} 
+                            Nhà: {{ $customer->apartmentAddress['apartment']}}</label><br>
+    </div>
+    <br>
     <form method="post" action="{{ route('admin.store-bill', $customer_id)}}">
         @csrf 
     <div class="row">
@@ -129,7 +136,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <button type="submit" class="btn btn-success text-center">Xuất hóa đơn</button>
+            <button type="submit" class="btn btn-primary text-center xuat">Xuất hóa đơn</button>
         </div>
     </div>
 </form>
@@ -145,6 +152,18 @@
         border-radius: 5px;
         padding: 30px;
     }
+
+    .chuho{
+        position: relative;
+        left: 0%;
+        top: 0%;
+        width: 100%;
+        height: auto;
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 30px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
     .detail-payment select, input{
         width: 300px;
         height: 35px;
@@ -159,6 +178,11 @@
         padding: 15px;
         margin-bottom: 20px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .xuat{
+        position: relative;
+        left: 500px;
     }
 </style>
 @endsection

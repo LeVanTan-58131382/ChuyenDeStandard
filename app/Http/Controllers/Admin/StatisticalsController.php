@@ -88,7 +88,7 @@ class StatisticalsController extends Controller
         $bills = Bill::where('living_expenses_type_id', $type)
                         ->where('payment_year', $year)
                         ->where('payment_month', $month)
-                        ->where('paid', 0)
+                        ->where('paid', 1)
                         ->get();
         return view('admin.paymentForServices.statisticalMonth', compact('result', 'result_processed', 'customers', 'bills', 'title', 'calendar'));
     } 
@@ -116,7 +116,7 @@ class StatisticalsController extends Controller
                         ->where('customer_id', $customer_Id)
                         ->where('payment_year', $year)
                         ->where('payment_month', $month)
-                        ->where('paid', 0)
+                        ->where('paid', 1)
                         ->get();
         return view('admin.paymentForServices.statisticalMonth', compact('result', 'result_processed', 'customer_result', 'bills', 'customers', 'title', 'calendar'));
     }
@@ -145,7 +145,7 @@ class StatisticalsController extends Controller
                                 ['payment_year', '<=' , $yearTo],
                                 ['payment_month', '>=' , $monthFrom],
                                 ['payment_month', '<=' , $monthTo],
-                                ['paid', '=', 0]])
+                                ['paid', '=', 1]])
                                 ->get();
         return view('admin.paymentForServices.statisticalMonthToMonth', compact('result', 'result_processed', 'customers', 'customer_result', 'bills', 'title', 'calendar'));
     }
@@ -171,7 +171,7 @@ class StatisticalsController extends Controller
                                 ['payment_year', '<=' , $yearTo],
                                 ['payment_month', '>=' , $monthFrom],
                                 ['payment_month', '<=' , $monthTo],
-                                ['paid', '=', 0]])
+                                ['paid', '=', 1]])
                                 ->get();
         return view('admin.paymentForServices.statisticalMonthToMonth', compact('result', 'result_processed', 'customers', 'bills', 'title', 'calendar'));
     }
