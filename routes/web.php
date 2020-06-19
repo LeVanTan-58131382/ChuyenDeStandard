@@ -112,7 +112,7 @@ Route::group(['prefix' => 'customer', 'as' => 'customer.', 'namespace' => 'Custo
     Route::resource('users', 'UsersController');
 
     // Customers
-    Route::get('info/{customerId}', 'CustomerController@showInfo')->name('customer-info');
+    Route::get('info/{customerId}', 'CustomerHomeController@showInfo')->name('customer-info');
 
     //Comment
     Route::post('createcomment/{customerId?}/{idBillE?}/{idBillW?}', 'CommentsController@createComment')->name('create-cmt');

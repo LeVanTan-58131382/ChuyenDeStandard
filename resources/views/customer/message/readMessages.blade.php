@@ -42,7 +42,7 @@
         top: 0%;
         width: 100%;
         height: auto;
-        background-color: #343a40;
+        background-color: #007bff;
         border: 1px solid white;
         color: white;
         border-radius: 5px;

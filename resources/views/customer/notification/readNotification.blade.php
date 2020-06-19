@@ -30,13 +30,16 @@
         top: 0%;
         width: 100%;
         height: auto;
-        background-color: #343a40;
+        background-color: #0a79e7;
         border: 1px solid white;
         color: white;
         border-radius: 5px;
         padding: 30px;
         margin: 20px;
         margin-top: 0px;
+    }
+    hr{
+        background-color: aliceblue;
     }
 </style>
 @endsection

@@ -63,12 +63,12 @@ class BillsController extends Controller
                                         ['payment_month', $month-1],
                                         ['living_expenses_type_id', 3]])                 
                                         ->get();
-            $vehicles = VehicleCuctomer::where([
-                                        ['customer_id', $customerId],
-                                        ['using', '=', 1],
-                                        ['year_use', '=', $year],
-                                        ['month_start_use', '=', $month-1]])
-                                        ->get();
+            // $vehicles = VehicleCuctomer::where([
+            //                             ['customer_id', $customerId],
+            //                             ['using', '=', 1],
+            //                             ['year_use', '=', $year],
+            //                             ['month_start_use', '=', $month-1]])
+            //                             ->get();
         }
         elseif($month == 1)
         {
@@ -98,17 +98,32 @@ class BillsController extends Controller
                                         ['payment_month', 12],
                                         ['living_expenses_type_id', 3]])                 
                                         ->get();
-            $vehicles = VehicleCuctomer::where([
-                                        ['customer_id', $customerId],
-                                        ['using', '=', 1],
-                                        ['year_use', '=', $year-1],
-                                        ['month_start_use', '=', 12]])
-                                        ->get();
+            // $vehicles = VehicleCuctomer::where([
+            //                             ['customer_id', $customerId],
+            //                             ['using', '=', 1],
+            //                             ['year_use', '=', $year-1],
+            //                             ['month_start_use', '=', 12]])
+            //                             ->get();
         }
         // nếu khách hàng chưa dc xuất hóa đơn cho tháng 5 thì hiển thị thông báo
         if($bills->isEmpty()){
             return view('customer.bill.billnotexported', compact('calendar'));
         }
+        $vehicles = VehicleCuctomer::select('*')->where([['customer_id', '=', $customerId],
+                                                         ['using', '=', 1]])
+                                                ->where([
+                                                    ['year_use', '=', $year],
+                                                    ['month_start_use', '<', $month],
+                                                ])
+                                                ->orWhere([
+                                                    ['year_use', '=', $year-1],
+                                                    ['month_start_use', '>=', $month],
+                                                ])
+                                                ->orWhere([
+                                                    ['year_use', '=', $year-1],
+                                                    ['month_start_use', '<', $month],
+                                                ])
+                                                ->get(); // những phương tiện của khách hàng
         $vehicles_prices = VehiclePrice::get();
         $price_regulation = PriceRegulation::get();
         $usage_norm = UsageNormInvestors::get();

@@ -14,7 +14,6 @@
                         <p class="notifi-title">Bấm vào thông báo để xem nội dung</p>
                         <p class="read">
                             @php
-                            echo \Carbon\Carbon::createFromTimeStamp(strtotime($notifiu["created_at"]))->diffForHumans();
                             if($notifiu->read == 0){
                                 echo "&nbsp Chưa xem";
                             }
@@ -36,7 +35,7 @@
         left: 15%;
         height: 130px;
         margin: 20px;
-        background-color: #343a40;
+        background-color: #0a79e7;
         color: white;
         border-radius: 5px;
         overflow: hidden;

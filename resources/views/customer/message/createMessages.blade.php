@@ -14,7 +14,7 @@
           <textarea class="form-control" id="" rows="3" name="content"></textarea>
         </div>
         <br><br>
-    <button type="submit" class="btn btn-primary">Gửi tin nhắn</button>
+    <button id="nutgui" type="submit" class="btn btn-light">Gửi tin nhắn</button>
   </form>
 </div>
 <style>
@@ -24,7 +24,7 @@
         top: 0%;
         width: 100%;
         height: auto;
-        background-color: #343a40;
+        background-color: #007bff;
         border: 1px solid white;
         color: white;
         border-radius: 5px;
@@ -36,6 +36,9 @@
         width: 250px;
         height: 35px;
         border-radius: 4px;
+    }
+    #nutgui:hover{ 
+        box-shadow: 0 4px 8px 0 rgba(0, 255, 255, 0.8), 0 6px 20px 0 rgba(0, 255, 255, 0.8);
     }
 </style>
 @endsection

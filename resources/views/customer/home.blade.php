@@ -188,7 +188,8 @@
         width: 25%;
         height: 400px;
         border: 1px solid white;
-        background-color: #343a40;
+        background-color: #007bff;
+        font-family: 'Kaushan Script', cursive;
         color: white;
         left: 0%;
         top: 0%;

@@ -6,22 +6,22 @@
     <a class="btn btn-dark" href="{{ route('admin.family-member-create', $customer -> id)}}">Thêm thành viên gia đình</a>
     <h3>Chi tiết Chủ hộ</h3>
     <br>
-    <p><b>Mã Chủ hộ:</b> {{ $customer -> id}}</p>
-    <p><b>Họ tên:</b> {{ $customer -> name}}</p>
-    <p><b>Email:</b> {{ $customer -> email}}</p>
-    <p><b>Ngày sinh:</b> {{ $customer -> date_of_birth}}</p>
-    <p><b>Giới tính:</b>
+    <p><b>Mã Chủ hộ:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ $customer -> id}}</p>
+    <p><b>Họ tên:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ $customer -> name}}</p>
+    <p><b>Email:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ $customer -> email}}</p>
+    <p><b>Ngày sinh:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b> {{ $customer -> date_of_birth}}</p>
+    <p><b>Giới tính:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
         @if($customer -> gender == true)
         Nam
         @else
         Nữ
         @endif
     </p>
-    <p><b>Địa chỉ:</b> Block: {{ $customer->apartmentAddress['block'] }} 
+    <p><b>Địa chỉ:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b> Block: {{ $customer->apartmentAddress['block'] }} 
         Tầng: {{ $customer->apartmentAddress['floor']}} 
         Nhà: {{ $customer->apartmentAddress['apartment']}}
     </p>
-    <p><b>Số điện thoại:</b> {{ $customer -> phone}}</p>
+    <p><b>Số điện thoại:&nbsp;&nbsp;&nbsp;&nbsp;</b> {{ $customer -> phone}}</p>
     <a class="btn btn-info" href="{{ route('admin.customers.index') }}">Quay về</a>
 
     @if(count($customer->familyMembers) > 0)

@@ -12,7 +12,17 @@
             <div class="mes">
                 <div class="header-mes">
                     <div class="header-left">
-                    <p>Tin nhắn từ: {{ "Quản trị viên" }}</p>
+                    <p>Tin nhắn từ: 
+                        @php
+                                if($customer->id == $mes->user_id_from && $customer->id > 1)
+                                {
+                                    echo $customer->name;
+                                }
+                                elseif($mes->user_id_from == 1){
+                                    echo "Quản trị viên";
+                                }
+                        @endphp
+                    </p>
                     </div>
                     <div class="header-right">
                         <p>Đến:
@@ -70,7 +80,7 @@
         position: absolute;
         left: 20px;
         top: 0px;
-        background-color: #343a40;
+        background-color: #007bff;
         color: white;
         transition: 0.5s;
         border: 1px solid white;
@@ -87,7 +97,7 @@
         height: 120px;
         margin: auto;
         margin-bottom: 20px;
-        background-color: #343a40;
+        background-color: #007bff;
         color: white;
         border-radius: 4px;
         padding: 10px;
@@ -111,7 +121,7 @@
         height: 70%;
         bottom: 0%;
         left: 0%;
-        background-color: #343a40;
+        background-color: #007bff;
     }
 
     .apart-content{

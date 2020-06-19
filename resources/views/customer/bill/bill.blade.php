@@ -17,7 +17,10 @@
             @foreach($consumptionIndex_E as $consumptionIndex)
             <label for="">3. Chỉ số cũ: {{ $consumptionIndex->last_month_index}}</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label for="">Chỉ số mới: {{ $consumptionIndex->this_month_index}}</label><br>
             @endforeach
-            <label for="">4. Điện tiêu thụ:</label><br>
+            @foreach ($billElectric as $itembill)
+                <label for="">4. Tháng tiêu thụ: {{$itembill->payment_month}}/{{$itembill->payment_year}}</label><br>
+            @endforeach
+            <label for="">5. Điện tiêu thụ:</label><br>
             <br>
             <table class="table">
                 <thead>
@@ -84,7 +87,10 @@
             @foreach($consumptionIndex_W as $consumptionIndex)
             <label for="">3. Chỉ số cũ: {{ $consumptionIndex->last_month_index}}</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label for="">Chỉ số mới: {{ $consumptionIndex->this_month_index}}</label><br>
             @endforeach
-            <label for="">4. Điện tiêu thụ:</label><br>
+            @foreach ($billWater as $itembill)
+                <label for="">4. Tháng tiêu thụ: {{$itembill->payment_month}}/{{$itembill->payment_year}}</label><br>
+            @endforeach
+            <label for="">5. Nước tiêu thụ:</label><br>
             <br>
             <table class="table">
                 <thead>
@@ -150,6 +156,9 @@
             <label for="">2. Địa chỉ: Block: {{ $customer->apartmentAddress['block'] }} 
                             Tầng: {{ $customer->apartmentAddress['floor']}} 
                             Nhà: {{ $customer->apartmentAddress['apartment']}}</label><br>
+            @foreach ($billCar as $itembill)
+                <label for="">3. Tháng sử dụng dịch vụ: {{$itembill->payment_month}}/{{$itembill->payment_year}}</label><br>
+            @endforeach
             <label for="">3. Phí giữ xe:</label><br>
             <br>
         <table class="table">
@@ -255,7 +264,7 @@
             <textarea required class="form-control" name="content" rows="3"></textarea>
             </div>
             <div class="form-group">
-                <input class="btn btn-outline-primary nutgui" type="submit" value="Gửi">
+                <input id="nutgui" class="btn btn-outline-primary" type="submit" value="Gửi">
             </div>
     </form>
         </div>
@@ -310,7 +319,9 @@
         top: 0%;
         width: 95%;
         height: auto;
-        background-color: #343a40;
+        /* background-color: -webkit-linear-gradient(top right, #00d8c2, #0068b7);
+        background-image: -webkit-linear-gradient(right top, rgb(0, 216, 194), rgb(0, 104, 183)); */
+        background-color: #007bff;
         border: 1px solid white;
         color: white;
         border-radius: 5px;
@@ -318,7 +329,7 @@
     }
     .bang{
         background-color: white;
-        border: 1px solid black;
+        border: 1px solid grey;
         color: #343a40;
         border-radius: 9px;
         padding: 15px;
@@ -328,7 +339,7 @@
 
     .chitietdien, .chitietnuoc{
         background-color: white;
-        border: 1px solid black;
+        border: 1px solid grey;
         color: #343a40;
         border-radius: 9px;
         padding: 15px;
@@ -343,13 +354,20 @@
         width: 100%;
         height: auto;
         border: 1px solid gray;
+        background-color: lightslategrey;
+        color: black;
         border-radius: 9px;
         padding: 15px;
         margin-bottom: 20px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 
-    .nutgui:hover{
+    #nutgui{
+        position: absolute;
+        width: 100px;
+        left: 400px;
+    }
+    #nutgui:hover{ 
         box-shadow: 0 4px 8px 0 rgba(0, 255, 255, 0.8), 0 6px 20px 0 rgba(0, 255, 255, 0.8);
     }
 </style>

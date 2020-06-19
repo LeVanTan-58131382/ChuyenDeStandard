@@ -119,7 +119,7 @@
             @foreach ($billWater as $itembill)
                 <label for="">4. Tháng tiêu thụ: {{$itembill->payment_month}}/{{$itembill->payment_year}}</label><br>
             @endforeach
-            <label for="">5. Điện tiêu thụ:</label><br>
+            <label for="">5. Nước tiêu thụ:</label><br>
             <br>
             <table class="table">
                 <thead>
