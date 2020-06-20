@@ -18,7 +18,7 @@
                 <b>{{$customer->name}}</b>
             </div>
         <br><br>
-    <button type="submit" class="btn btn-primary">Gửi thông báo</button>
+    <button type="submit" class="btn btn-primary nutgui">Gửi thông báo</button>
   </form>
 </div>
 <style>
@@ -36,6 +36,10 @@
         width: 250px;
         height: 35px;
         border-radius: 4px;
+    }
+    .nutgui{
+      position: absolute;
+      left: 500px;
     }
 </style>
 @endsection

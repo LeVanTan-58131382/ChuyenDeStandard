@@ -62,4 +62,10 @@ class CommentsController extends Controller
         $comments = Comment::select('*')->orderByDesc('created_at', )->get();
         return view('admin.comment.listComment', compact('comments', 'customers', 'calendar'));
     }
+
+    public function destroy_comment($id){
+        $comment = Comment::find($id);
+        $comment->delete();
+        return redirect()->route('admin.comment-list')->with('success', 'Xóa bình luận thành công!');
+    }
 }

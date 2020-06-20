@@ -113,8 +113,8 @@
                     <table class="table table-hover">
                         <thead>
                           <tr>
-                            <th scope="col">Mã khách hàng</th>
-                            <th scope="col">Tên khách hàng</th>
+                            <th scope="col">Mã chủ hộ</th>
+                            <th scope="col">Tên chủ hộ</th>
                             <th scope="col">Địa chỉ</th>
                             <th scope="col">Tháng thanh toán</th>
                             <th scope="col">Tiền đã thanh toán</th>
@@ -149,8 +149,8 @@
                     <table class="table table-hover">
                         <thead>
                           <tr>
-                            <th scope="col">Mã khách hàng</th>
-                            <th scope="col">Tên khách hàng</th>
+                            <th scope="col">Mã chủ hộ</th>
+                            <th scope="col">Tên chủ hộ</th>
                             <th scope="col">Địa chỉ</th>
                             <th scope="col">Tháng thanh toán</th>
                             <th scope="col">Tiền đã thanh toán</th>

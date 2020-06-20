@@ -264,7 +264,7 @@
             <textarea required class="form-control" name="content" rows="3"></textarea>
             </div>
             <div class="form-group">
-                <input id="nutgui" class="btn btn-outline-primary" type="submit" value="Gửi">
+                <input id="nutgui" class="btn btn-outline-light" type="submit" value="Gửi">
             </div>
     </form>
         </div>
@@ -276,11 +276,11 @@
     <div class="row">
         <div class="col-md-12">
             @if($cmt->customer_id == 1)
-            <p style='float:right'>Quản trị viên</p>
+            <p style='float:right; color: white'>Quản trị viên</p>
             <br>
             @endif
             @if($cmt->customer_id > 1)
-            <p>Khách hàng</p>
+            <p style=" color: white">Khách hàng</p>
             @endif
             <div class="comment-item" 
             @if($cmt->customer_id == 1)

@@ -74,7 +74,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     Route::get('comments/create/{id}', 'CommentsController@create_comment')->name('comment-create');
     Route::post('comments/send/{id}', 'CommentsController@send_comment')->name('comment-send');
     Route::get('comments/read/{id}', 'CommentsController@read_comment')->name('comment-read');
-    Route::get('comments/delete/{id}', 'CustomerController@destroy-comment')->name('comment-delete');
+    Route::get('comments/delete/{id}', 'CommentsController@destroy_comment')->name('comment-delete');
 
     // Thống kê
     // Thống kê theo loại phí dịch vụ ( của tất cả khách hàng) ( mặc định là từ trước đến nay - có thể tùy chọn tháng)
