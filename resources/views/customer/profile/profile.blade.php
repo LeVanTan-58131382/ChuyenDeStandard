@@ -4,7 +4,7 @@
 @section('content')
 <div class="detail-customer wow fadeInRight">
 <div class="bang">
-    <h3>Chi tiết Chủ hộ</h3>
+    <h3>Hồ sơ Chủ hộ</h3>
     <br>
     <p><b>Mã Chủ hộ:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ $customer -> id}}</p>
     <p><b>Họ tên:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ $customer -> name}}</p>

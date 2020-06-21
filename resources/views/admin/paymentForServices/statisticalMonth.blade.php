@@ -95,6 +95,7 @@
                             <th scope="col">Địa chỉ</th>
                             <th scope="col">Tháng thanh toán</th>
                             <th scope="col">Tiền đã thanh toán (VND)</th>
+                            <th scope="col">Tra cứu</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -111,6 +112,15 @@
                                                 <td>{{$bill->payment_month}}</td>
                                                 <td>
                                                     {{$bill->money_to_pay}}
+                                                </td>
+                                                <td>
+                                                    @if($bill->living_expenses_type_id == 1)
+                                                    <a href="{{ route('admin.show-bill-detail', [ 1, $bill->id])}}"><i class="fa fa-search" style="font-size:20px"></i></a></td>     
+                                                    @elseif($bill->living_expenses_type_id == 2)
+                                                    <a href="{{ route('admin.show-bill-detail', [ 2, $bill->id])}}"><i class="fa fa-search" style="font-size:20px"></i></a></td>
+                                                    @elseif($bill->living_expenses_type_id == 3)
+                                                    <a href="{{ route('admin.show-bill-detail', [ 3, $bill->id])}}"><i class="fa fa-search" style="font-size:20px"></i></a></td>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endif
@@ -133,6 +143,7 @@
                             <th scope="col">Địa chỉ</th>
                             <th scope="col">Tháng thanh toán</th>
                             <th scope="col">Tiền đã thanh toán</th>
+                            <th scope="col">Tra cứu</th>
                           </tr>
                         </thead>
                         <tbody>
