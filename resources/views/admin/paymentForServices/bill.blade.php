@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="bill">
-    <h4 style="text-align: center">Phí sinh hoạt sử dụng trong tháng của khách hàng</h4>
+    <h4 style="text-align: center">Phí sinh hoạt sử dụng trong tháng của chủ hộ</h4>
     <br>
     <div class="bang">
         <table class="table">

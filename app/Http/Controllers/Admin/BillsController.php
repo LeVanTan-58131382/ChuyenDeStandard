@@ -265,7 +265,7 @@ class BillsController extends Controller
             $consumptionIndex_W = ConsumptionIndex::where([ ['customer_id', '=', $id], 
                                                             ['year_consumption', '=', $year], 
                                                             ['month_consumption', '=', $month-1],
-                                                            ['living_expenses_type_id', '=', 1] ])
+                                                            ['living_expenses_type_id', '=', 2] ])
                                                             ->get();
             $billElectric = Bill::where([   ['customer_id', $id],
                                             ['payment_year', $year],
@@ -300,7 +300,7 @@ class BillsController extends Controller
             $consumptionIndex_W = ConsumptionIndex::where([ ['customer_id', '=', $id], 
                                                             ['year_consumption', '=', $year-1], 
                                                             ['month_consumption', '=', 12],
-                                                            ['living_expenses_type_id', '=', 1] ])
+                                                            ['living_expenses_type_id', '=', 2] ])
                                                             ->get();
             $billElectric = Bill::where([   ['customer_id', $id],
                                             ['payment_year', $year-1],

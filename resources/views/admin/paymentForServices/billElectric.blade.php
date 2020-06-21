@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="payment-service">
-    <h3 style="text-align: center">Danh sách khách hàng và Tình trạng thanh toán Phí điện sinh hoạt</h3>
+    <h3 style="text-align: center">Danh sách chủ hộ và Tình trạng thanh toán Phí điện sinh hoạt</h3>
     <div class="hienthi">
         <div class="hienthi-left">
             <b>Hiển thị theo loại phí</b>
@@ -37,8 +37,8 @@
             <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">Mã khách hàng</th>
-                    <th scope="col">Tên khách hàng</th>
+                    <th scope="col">Mã chủ hộ</th>
+                    <th scope="col">Tên chủ hộ</th>
                     <th scope="col">Địa chỉ</th>
                     <th scope="col">Tiền phải thanh toán</th>
                     <th scope="col">Trạng thái thanh toán</th>

@@ -116,6 +116,7 @@
             @foreach($consumptionIndex_W as $consumptionIndex)
             <label for="">3. Chỉ số cũ: {{ $consumptionIndex->last_month_index}}</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label for="">Chỉ số mới: {{ $consumptionIndex->this_month_index}}</label><br>
             @endforeach
+            
             @foreach ($billWater as $itembill)
                 <label for="">4. Tháng tiêu thụ: {{$itembill->payment_month}}/{{$itembill->payment_year}}</label><br>
             @endforeach
