@@ -19,7 +19,8 @@ class CreateMessagesTable extends Migration
             $table->integer('user_id_to');
             $table->text('title');
             $table->longText('content');
-            $table->boolean('read')->default(0);
+            $table->boolean('read_customer')->default(0);
+            $table->boolean('read_admin')->default(0);
             $table->boolean('deleted')->default(0);
 
             $table->timestamps();

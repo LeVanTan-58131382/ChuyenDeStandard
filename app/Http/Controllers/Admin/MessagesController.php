@@ -60,7 +60,7 @@ class MessagesController extends Controller
     {
         $calendar = SystemCalendar::find(1);
         $message = Message::with('userFrom')->find($id);
-        $message->read = true;
+        $message->read_admin = true;
         $message->save();
         return view('admin.message.readMessages', compact('calendar', 'message'));
     }
@@ -70,8 +70,6 @@ class MessagesController extends Controller
         $message = Message::find($id);
         $message->deleted = true;
         $message->save();
-        $customers = Customer::get();
-        $messages = Message::with('userFrom')->notDeleted()->get();
         return redirect()->route('admin.list-messages')->with('success', 'Xóa tin nhắn thành công!');
     }
 }

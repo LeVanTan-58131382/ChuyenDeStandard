@@ -51,11 +51,15 @@
                         {{$mes->title}}
                     </div>
                     <div class="status">
-                        @if($mes->read == 1)
-                            <p>&nbsp&nbsp Đã xem</p>
+                        @php
+                             echo \Carbon\Carbon::createFromTimeStamp(strtotime($mes["created_at"]))->diffForHumans();
+                        @endphp
+                        
+                        @if($mes->read_admin == 1)
+                            &nbsp&nbsp Đã xem
                         @endif
-                        @if($mes->read == 0)
-                            <p>&nbsp&nbsp Chưa xem</p>
+                        @if($mes->read_admin == 0)
+                            &nbsp&nbsp Chưa xem
                         @endif
                     </div>
                 </div>
@@ -119,7 +123,7 @@
 
     .status{
         position: absolute;
-        width: 20%;
+        width: 30%;
         height: 30%;
         right: 2%;
         top: 30%;

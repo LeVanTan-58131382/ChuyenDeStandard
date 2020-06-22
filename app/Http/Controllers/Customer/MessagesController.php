@@ -46,7 +46,7 @@ class MessagesController extends Controller
     public function read_message($id)
     {
         $message = Message::find($id);
-        $message->read = true;
+        $message->read_customer = true;
         $message->save();
 
         return view('customer.message.readMessages')->with('message', $message);

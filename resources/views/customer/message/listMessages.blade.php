@@ -46,7 +46,7 @@
                         <p>
                             @php
                                 echo \Carbon\Carbon::createFromTimeStamp(strtotime($mes["created_at"]))->diffForHumans();
-                                if($mes->read == 0){
+                                if($mes->read_customer == 0){
                                     echo "&nbsp Chưa xem";
                                 }
                                 else echo "&nbsp Đã xem";
