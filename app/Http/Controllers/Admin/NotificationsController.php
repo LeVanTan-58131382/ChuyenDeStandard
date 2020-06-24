@@ -10,6 +10,8 @@ use App\Models\Notification;
 use App\Models\NotificationCustomer;
 use App\Models\SystemCalendar;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMail;
 
 class NotificationsController extends Controller
 {
@@ -83,7 +85,16 @@ class NotificationsController extends Controller
         $customer = Customer::find($bill -> customer_id);
         $customer->notifications()->attach($notification, [ 'bill_id' => $bill -> id]); 
 
-        return redirect()->back()-> with(['success'=>'Gửi thông báo thành công!!!']);
+        // Phần gửi mail
+        
+        //SendMail::build($title, $content);
+        $data = [
+            'title' => $title,
+            'content' => $content
+        ];
+        Mail::to('levantanstudy@gmail.com')->send(new SendMail($data));
+
+        return redirect()->back()-> with(['success'=>'Gửi thông báo và email thành công!!!']);
     }
 
     public function show($id)
@@ -111,4 +122,16 @@ class NotificationsController extends Controller
         DB::connection('mysql')->delete("delete from customer_notification where notification_id = ?", [$notification->id]);
         return redirect()->back()->with('success', 'Xóa thông báo thành công!');
     }
+
+    // public static function sendMail($emailAddress, $title, $content)
+    // {
+    //     $data = [
+    //         'title' => $title,
+    //         'content' => $content
+    //     ];
+    //     Mail::send('admin.sendmail', $data, function($message){
+
+	//         $message->to('levantanstudy@gmail.com', 'Chủ hộ')->subject('Thông Báo Từ BQL Thu Phí Dịch Vụ Chung Cư VCN!');
+	//     });
+    // }
 }
