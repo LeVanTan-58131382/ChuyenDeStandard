@@ -21,6 +21,7 @@ class ApartmentAddress extends Model
         'block', 
         'floor', 
         'apartment', 
+        'acreage',
         'hired'
     ];
 

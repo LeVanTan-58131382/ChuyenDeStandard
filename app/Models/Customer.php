@@ -138,6 +138,7 @@ class Customer extends Model
             // add apartment
             $block = $request -> selectBlock;
             $floor = $request -> selectFloor;
+            $acreage = $request ->acreage;
             $apartmentInput = $request -> selectApartment;
 
             $apartment = new ApartmentAddress();
@@ -145,6 +146,8 @@ class Customer extends Model
             $apartment -> block = $block;
             $apartment -> floor = $floor;
             $apartment -> apartment = $apartmentInput; // để tên giống sẽ bị báo lỗi đệ quy
+            $apartment -> acreage = $acreage;
+
             $apartment -> hired = 1;
             $apartment -> save();
 

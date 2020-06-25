@@ -7,6 +7,7 @@ use App\Models\UsageNormInvestors;
 use App\Models\VehicleCuctomer;
 use App\Models\VehiclePrice;
 use App\Models\Comment;
+use App\Models\OperationManagementFee;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -39,6 +40,7 @@ class Bill extends Model
         Bill::addBillElectric($request, $id);
         Bill::addBillWater($request, $id);
         Bill::addBillCar($request, $id);
+        Bill::addBillServices($request, $id);
     }
 
     protected static function addBillElectric(Request $request, $id){
@@ -69,7 +71,7 @@ class Bill extends Model
         $total_price_E = 0; // tổng tiền điện
         $e_level_max = 0;
         // tìm record mức sử dụng cao nhất
-        $usage_E_level_max = UsageNormInvestors::select('*')->where('living_expenses_type_id', 1)
+        $usage_E_level_max = UsageNormInvestors::where('living_expenses_type_id', 1)
                                                     ->where('price_regulation_id', $price_regulation_id_E)
                                                     ->where('usage_index_from', '<=', $consumptionIndex_E_final)
                                                     ->where('usage_index_to', '>=', $consumptionIndex_E_final)
@@ -83,7 +85,7 @@ class Bill extends Model
         }//
         for($i = $e_level_max-1; $i > 0; $i--){
             
-            $usage_E_level = UsageNormInvestors::select('*')->where('living_expenses_type_id', 1)
+            $usage_E_level = UsageNormInvestors::where('living_expenses_type_id', 1)
                                                     ->where('price_regulation_id', $price_regulation_id_E)
                                                     ->where('level', $i)
                                                     ->get();
@@ -140,7 +142,7 @@ class Bill extends Model
         $total_price_W = 0; // tổng tiền nước
         $w_level_max = 0;
         // tìm record mức sử dụng cao nhất
-        $usage_W_level_max = UsageNormInvestors::select('*')->where('living_expenses_type_id', 2)
+        $usage_W_level_max = UsageNormInvestors::where('living_expenses_type_id', 2)
                                                     ->where('price_regulation_id', $price_regulation_id_W)
                                                     ->where('usage_index_from', '<=', $consumptionIndex_W_final)
                                                     ->where('usage_index_to', '>=', $consumptionIndex_W_final)
@@ -154,7 +156,7 @@ class Bill extends Model
         }//
         for($i = $w_level_max-1; $i > 0; $i--){
             
-            $usage_W_level = UsageNormInvestors::select('*')->where('living_expenses_type_id', 2)
+            $usage_W_level = UsageNormInvestors::where('living_expenses_type_id', 2)
                                                     ->where('price_regulation_id', $price_regulation_id_W)
                                                     ->where('level', $i)
                                                     ->get();
@@ -209,7 +211,7 @@ class Bill extends Model
         //                             ['month_start_use', '=', 12],
         //                         ])->get();
         // }
-        $vehicles = VehicleCuctomer::select('*')->where([['customer_id', '=', $id],
+        $vehicles = VehicleCuctomer::where([['customer_id', '=', $id],
                                                          ['using', '=', 1]])
                                                 ->where([
                                                     ['year_use', '=', $year],
@@ -224,7 +226,7 @@ class Bill extends Model
                                                     ['month_start_use', '<', $month],
                                                 ])
                                                 ->get(); // những phương tiện của khách hàng
-        $vehicle_prices = VehiclePrice::select('*')->where('price_regulation_id', $price_regulation_id_C)->get();
+        $vehicle_prices = VehiclePrice::where('price_regulation_id', $price_regulation_id_C)->get();
         
         $total_price_C = 0; // tổng tiền gửi xe
         
@@ -268,6 +270,37 @@ class Bill extends Model
         $billCar -> money_to_pay = $total_price_C;
         $billCar -> save();
         }
+    }
+
+    public static function addBillServices(Request $request, $id)
+    {
+        $celendar = SystemCalendar::find(1);
+        $month = $celendar -> month;
+        $year = $celendar -> year;
+
+        $price_regulation_id_S = $request -> price_regulation_id_S; // mã quy định phí quản lý vận hành
+        $services_prices = OperationManagementFee::where('price_regulation_id', $price_regulation_id_S)->get();
+
+        //tạo hóa đơn
+        $billServices = new Bill();
+        $billServices -> name = 'Hóa đơn phí nước sinh hoạt';
+        $billServices -> customer_id = $id;
+        $billServices -> living_expenses_type_id = 4;
+        $billServices -> price_regulation_id = $price_regulation_id_S;
+        if($month > 1){
+            $billServices -> payment_month = $month-1;
+            $billServices -> payment_year = $year;
+        }
+        elseif($month == 1){
+            $billServices -> payment_month = 12;
+            $billServices -> payment_year = $year-1;
+        }
+        foreach($services_prices as $sp)
+        {
+            $billServices -> money_to_pay = $sp -> price;
+        }
+        
+        $billServices -> save();
     }
 
 }

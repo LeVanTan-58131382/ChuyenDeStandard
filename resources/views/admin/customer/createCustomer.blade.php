@@ -133,6 +133,13 @@
                         </li>
                     </ul>
                 </div>
+                <br><br>
+                <div class="dientich">
+                    <div class="form-group">
+                        <label for="">Diện tích căn hộ:</label>
+                        <input style="width: 395px; border: 1px solid gray;" required type="number" min="0" class="form-control" placeholder="Nhập diện tích căn hộ" name="acreage" value=70>
+                    </div>
+                </div>
             </div>
         </div>
         <br><br>

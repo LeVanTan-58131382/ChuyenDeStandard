@@ -10,8 +10,8 @@
               <tr>
                 <th scope="col"></th>
                 <th scope="col">Tên loại phí</th>
-                <th scope="col">Chỉ số tháng trước</th>
-                <th scope="col">Chỉ số tháng này</th>
+                <th scope="col">Chỉ số cũ</th>
+                <th scope="col">Chỉ số mới</th>
                 <th scope="col">Lượng đã dùng</th>
                 <th scope="col">Quy định giá phí</th>
                 <th scope="col">Thành tiền</th>

@@ -99,7 +99,11 @@ class NotificationsController extends Controller
 
     public function show($id)
     {
-        //
+        $calendar = SystemCalendar::find(1);
+        $notification = Notification::find($id);
+        $notifications = NotificationCustomer::get();
+        $customers = Customer::get();
+        return view('admin.notification.detailNotification', compact('notifications', 'notification', 'calendar', 'customers'));
     }
 
     public function edit($id)

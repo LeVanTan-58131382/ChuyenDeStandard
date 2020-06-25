@@ -121,6 +121,8 @@ class BillsController extends Controller
         $price_regulation_elects = PriceRegulation::where('living_expenses_type_id', 1)->get();
         $price_regulation_waters = PriceRegulation::where('living_expenses_type_id', 2)->get();
         $price_regulation_cars = PriceRegulation::where('living_expenses_type_id', 3)->get();
+        $price_regulation_services = PriceRegulation::where('living_expenses_type_id', 4)->get();
+
         $customer_id = $customerId;
         $customer = Customer::find($customerId);
         $consumptionIndex_E_old = 0;
@@ -200,7 +202,8 @@ class BillsController extends Controller
         
         return view('admin.paymentForServices.detailPayment', compact('price_regulation_elects', 
                                                                         'price_regulation_waters', 
-                                                                        'price_regulation_cars', 
+                                                                        'price_regulation_cars',
+                                                                        'price_regulation_services', 
                                                                         'customer', 
                                                                         'customer_id', 
                                                                         'calendar',
@@ -288,6 +291,11 @@ class BillsController extends Controller
             //                             ['year_use', '=', $year],
             //                             ['month_start_use', '=', $month-1]])
             //                             ->get();
+            $billServices = Bill::where([  ['customer_id', $id],
+                                        ['payment_year', $year],
+                                        ['payment_month', $month-1],
+                                        ['living_expenses_type_id', 4]])                 
+                                        ->get();
         }
         elseif($month == 1)
         {
@@ -323,6 +331,11 @@ class BillsController extends Controller
             //                             ['year_use', '=', $year-1],
             //                             ['month_start_use', '=', 12]])
             //                             ->get();
+            $billServices = Bill::where([  ['customer_id', $id],
+                                        ['payment_year', $year-1],
+                                        ['payment_month', 12],
+                                        ['living_expenses_type_id', 4]])                 
+                                        ->get();
         }
         // nếu khách hàng chưa dc xuất hóa đơn cho tháng 5 thì hiển thị thông báo
         if($bills->isEmpty()){
@@ -359,7 +372,7 @@ class BillsController extends Controller
         
         $price_regulation = PriceRegulation::get();
         $usage_norm = UsageNormInvestors::get();
-        return view('admin.paymentForServices.HoaDon', compact('customer', 'consumptionIndex_E', 'consumptionIndex_W', 'billElectric', 'billWater', 'billCar', 'price_regulation', 'vehicles', 'vehicles_prices', 'usage_norm', 'calendar'));
+        return view('admin.paymentForServices.HoaDon', compact('customer', 'consumptionIndex_E', 'consumptionIndex_W', 'billElectric', 'billWater', 'billCar', 'billServices', 'price_regulation', 'vehicles', 'vehicles_prices', 'usage_norm', 'calendar'));
     }
 
     public function showBill($type)

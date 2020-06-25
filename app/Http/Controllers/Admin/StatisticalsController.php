@@ -150,6 +150,7 @@ class StatisticalsController extends Controller
         return view('admin.paymentForServices.statisticalMonthToMonth', compact('result', 'result_processed', 'customers', 'customer_result', 'bills', 'title', 'calendar'));
     }
 
+    //thống kê tất cả khách hàng trong khoảng thời gian từ tháng A đến tháng B
     public static function statisticalByAllCustomerByMonthToMonth($type, $customer_Id, $monthFrom, $yearFrom, $monthTo, $yearTo)
     {
         $result = 1;

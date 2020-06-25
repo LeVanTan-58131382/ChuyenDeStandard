@@ -19,6 +19,7 @@ class CreateApartmentAddressesTable extends Migration
             $table->integer('block');
             $table->integer('floor');
             $table->integer('apartment');
+            $table->integer('acreage');// diện tích
             $table->boolean('hired')->default(0);
             $table->timestamps();
             $table->softDeletes();

@@ -21,7 +21,8 @@ class CreateUsageNormInvestorsTable extends Migration
             $table->integer('living_expenses_type_id'); // mã loại phí
             $table->double('usage_index_from'); // chỉ số sử dụng từ
             $table->double('usage_index_to'); // chỉ số sử dụng đến
-            $table->decimal('price',15, 2); // giá tiền
+            $table->integer('price');
+            //$table->decimal('price',15, 2); // giá tiền
 
             $table->timestamps();
             $table->softDeletes();

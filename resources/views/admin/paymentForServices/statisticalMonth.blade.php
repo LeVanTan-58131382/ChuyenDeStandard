@@ -20,7 +20,8 @@
             <b>Thống kê theo loại phí</b>
             <br><br>
             <select style="width: 170px" name="type" id="">
-                <option selected value="1">Phí điện sinh hoạt</option>
+                <option selected value="0">Tất cả loại phí</option>
+                <option value="1">Phí điện sinh hoạt</option>
                 <option value="2">Phí nước sinh hoạt</option>
                 <option value="3">Phí gửi xe</option>
             </select>

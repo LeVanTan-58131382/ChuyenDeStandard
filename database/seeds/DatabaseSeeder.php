@@ -160,21 +160,21 @@ class DatabaseSeeder extends Seeder
 
         // $this->call(UserSeeder::class);
         DB::table('apartment_addresses')->insert([
-            ['id' => 1,  'customer_id' => 1,'block' => 1, 'floor' => 1, 'apartment' => 1, 'hired' => 1],
-            ['id' => 2,  'customer_id' => 2,'block' => 1, 'floor' => 1, 'apartment' => 2, 'hired' => 1],
-            ['id' => 3,  'customer_id' => 3,'block' => 1, 'floor' => 1, 'apartment' => 3, 'hired' => 1],
-            ['id' => 4,  'customer_id' => 4,'block' => 1, 'floor' => 1, 'apartment' => 4, 'hired' => 1],
-            ['id' => 5,  'customer_id' => 5,'block' => 1, 'floor' => 1, 'apartment' => 5, 'hired' => 1],
-            ['id' => 6,  'customer_id' => 6,'block' => 1, 'floor' => 2, 'apartment' => 1, 'hired' => 1],
-            ['id' => 7,  'customer_id' => 7,'block' => 1, 'floor' => 2, 'apartment' => 2, 'hired' => 1],
-            ['id' => 8,  'customer_id' => 8,'block' => 1, 'floor' => 2, 'apartment' => 3, 'hired' => 1],
-            ['id' => 9,  'customer_id' => 9,'block' => 1, 'floor' => 2, 'apartment' => 4, 'hired' => 0],
-            ['id' => 10, 'customer_id' => null, 'block' => 1, 'floor' => 2, 'apartment' => 5, 'hired' => 0],
-            ['id' => 11, 'customer_id' => null, 'block' => 2, 'floor' => 1, 'apartment' => 1, 'hired' => 0],
-            ['id' => 12, 'customer_id' => null, 'block' => 2, 'floor' => 1, 'apartment' => 2, 'hired' => 0],
-            ['id' => 13, 'customer_id' => null, 'block' => 2, 'floor' => 1, 'apartment' => 3, 'hired' => 0],
-            ['id' => 14, 'customer_id' => null, 'block' => 2, 'floor' => 1, 'apartment' => 4, 'hired' => 0],
-            ['id' => 15, 'customer_id' => null, 'block' => 2, 'floor' => 1, 'apartment' => 5, 'hired' => 0],
+            ['id' => 1,  'customer_id' => 1,'block' => 1, 'floor' => 1, 'apartment' => 1, 'acreage' => 80, 'hired' => 1],
+            ['id' => 2,  'customer_id' => 2,'block' => 1, 'floor' => 1, 'apartment' => 2, 'acreage' => 80, 'hired' => 1],
+            ['id' => 3,  'customer_id' => 3,'block' => 1, 'floor' => 1, 'apartment' => 3, 'acreage' => 80, 'hired' => 1],
+            ['id' => 4,  'customer_id' => 4,'block' => 1, 'floor' => 1, 'apartment' => 4, 'acreage' => 80, 'hired' => 1],
+            ['id' => 5,  'customer_id' => 5,'block' => 1, 'floor' => 1, 'apartment' => 5, 'acreage' => 80, 'hired' => 1],
+            ['id' => 6,  'customer_id' => 6,'block' => 1, 'floor' => 2, 'apartment' => 1, 'acreage' => 90, 'hired' => 1],
+            ['id' => 7,  'customer_id' => 7,'block' => 1, 'floor' => 2, 'apartment' => 2, 'acreage' => 90, 'hired' => 1],
+            ['id' => 8,  'customer_id' => 8,'block' => 1, 'floor' => 2, 'apartment' => 3, 'acreage' => 90, 'hired' => 1],
+            ['id' => 9,  'customer_id' => 9,'block' => 1, 'floor' => 2, 'apartment' => 4, 'acreage' => 90, 'hired' => 0],
+            ['id' => 10, 'customer_id' => null, 'block' => 1, 'floor' => 2, 'apartment' => 5, 'acreage' => 85, 'hired' => 0],
+            ['id' => 11, 'customer_id' => null, 'block' => 2, 'floor' => 1, 'apartment' => 1, 'acreage' => 85, 'hired' => 0],
+            ['id' => 12, 'customer_id' => null, 'block' => 2, 'floor' => 1, 'apartment' => 2, 'acreage' => 85, 'hired' => 0],
+            ['id' => 13, 'customer_id' => null, 'block' => 2, 'floor' => 1, 'apartment' => 3, 'acreage' => 85, 'hired' => 0],
+            ['id' => 14, 'customer_id' => null, 'block' => 2, 'floor' => 1, 'apartment' => 4, 'acreage' => 85, 'hired' => 0],
+            ['id' => 15, 'customer_id' => null, 'block' => 2, 'floor' => 1, 'apartment' => 5, 'acreage' => 85, 'hired' => 0],
         ]);
 
         //system_calendars
@@ -186,6 +186,7 @@ class DatabaseSeeder extends Seeder
             ['id' => 1, 'name' => 'Điện'],
             ['id' => 2, 'name' => 'Nước'],
             ['id' => 3, 'name' => 'Gửi xe'],
+            ['id' => 4, 'name' => 'Phí quản lý vận hành'],
         ]); 
         
         DB::table('price_regulations')->insert([
@@ -197,6 +198,9 @@ class DatabaseSeeder extends Seeder
             
             ['id' => 5, 'name' => 'QĐ phí gửi xe 1', 'living_expenses_type_id' => 3, 'month_start_of_use' =>1],
             ['id' => 6, 'name' => 'QĐ phí gửi xe 2', 'living_expenses_type_id' => 3, 'month_start_of_use' =>2],
+
+            ['id' => 7, 'name' => 'QĐ phí quản lý vận hành 1', 'living_expenses_type_id' => 4, 'month_start_of_use' =>1],
+            ['id' => 8, 'name' => 'QĐ phí quản lý vận hành 2', 'living_expenses_type_id' => 4, 'month_start_of_use' =>2],
             
         ]); 
 
@@ -249,6 +253,13 @@ class DatabaseSeeder extends Seeder
             ['id' => 6, 'name' => 'Phí phương tiện Xe đạp 2', 'vehicle_type_id' => 3, 'price_regulation_id' => 6, 'price' => 40000],
         ]);
         
+        
+        DB::table('operation_management_fees')->insert([
+            ['id' => 1, 'name' => 'Phí quản lý vận hành 1', 'price_regulation_id' => 7, 'price' => 250000],
+            ['id' => 2, 'name' => 'Phí quản lý vận hành 2', 'price_regulation_id' => 8, 'price' => 350000],
+            
+        ]);
+
         DB::table('customer_vehicle')->insert([
             ['id' => 1, 'month_start_use' => 5, 'year_use' => 2020, 'amount' => 1, 'using' => 1, 'customer_id' => 2, 'vehicle_id' => 1],
             ['id' => 2, 'month_start_use' => 5, 'year_use' => 2020, 'amount' => 2, 'using' => 1, 'customer_id' => 2, 'vehicle_id' => 2],

@@ -28,7 +28,7 @@
                         <td>
                             <?php
                                 if($notifi -> scope == 99999){
-                                    echo 'Tất cả khách hàng';
+                                    echo 'Tất cả Chủ hộ';
                                 }
                                 else{
                                     foreach ($notificationCustomer as $notifiCustomer){
@@ -59,7 +59,7 @@
                             }
                             ?>
                         </td>
-                        <td><a href="">Chi tiết</a></td>
+                        <td><a href="{{ route('admin.notifications.show', $notifi->id)}}">Chi tiết</a></td>
                         <td>
                             <i style='cursor:pointer' class="fas fa-trash-alt" data-toggle="modal"
                           data-target="#exampleModal{{$notifi->id}}" ></i>

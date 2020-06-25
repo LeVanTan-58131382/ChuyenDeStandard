@@ -17,7 +17,8 @@ class CreateStatisticalsTable extends Migration
             $table->id();
             $table->integer('month');
             $table->integer('living_expenses_type_id'); // mã loại phí
-            $table->decimal('total_price',15, 2);
+            $table->integer('total_price');
+            //$table->decimal('total_price',15, 2);
 
             $table->timestamps();
             $table->softDeletes();

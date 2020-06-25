@@ -2,6 +2,110 @@
 
 @section('content')
 <div class="bill">
+    @php
+        function convert_number_to_words($number) {
+        $hyphen      = ' ';
+        $conjunction = '  ';
+        $separator   = ' ';
+        $negative    = 'âm ';
+        $decimal     = ' phẩy ';
+        $dictionary  = array(
+        0                   => 'không',
+        1                   => 'một',
+        2                   => 'hai',
+        3                   => 'ba',
+        4                   => 'bốn',
+        5                   => 'năm',
+        6                   => 'sáu',
+        7                   => 'bảy',
+        8                   => 'tám',
+        9                   => 'chín',
+        10                  => 'mười',
+        11                  => 'mười một',
+        12                  => 'mười hai',
+        13                  => 'mười ba',
+        14                  => 'mười bốn',
+        15                  => 'mười năm',
+        16                  => 'mười sáu',
+        17                  => 'mười bảy',
+        18                  => 'mười tám',
+        19                  => 'mười chín',
+        20                  => 'hai mươi',
+        30                  => 'ba mươi',
+        40                  => 'bốn mươi',
+        50                  => 'năm mươi',
+        60                  => 'sáu mươi',
+        70                  => 'bảy mươi',
+        80                  => 'tám mươi',
+        90                  => 'chín mươi',
+        100                 => 'trăm',
+        1000                => 'nghìn',
+        1000000             => 'triệu',
+        1000000000          => 'tỷ',
+        1000000000000       => 'nghìn tỷ',
+        1000000000000000    => 'nghìn triệu triệu',
+        1000000000000000000 => 'tỷ tỷ'
+        );
+    if (!is_numeric($number)) {
+        return false;
+    }
+    if (($number >= 0 && (int) $number < 0) || (int) $number < 0 - PHP_INT_MAX) {
+        // overflow
+        trigger_error(
+        'convert_number_to_words only accepts numbers between -' . PHP_INT_MAX . ' and ' . PHP_INT_MAX,
+        E_USER_WARNING
+        );
+        return false;
+    }
+    if ($number < 0) {
+        return $negative . convert_number_to_words(abs($number));
+    }
+    $string = $fraction = null;
+        if (strpos($number, '.') !== false) {
+        list($number, $fraction) = explode('.', $number);
+    }
+    switch (true) {
+    case $number < 21:
+        $string = $dictionary[$number];
+    break;
+    case $number < 100:
+        $tens   = ((int) ($number / 10)) * 10;
+        $units  = $number % 10;
+        $string = $dictionary[$tens];
+        if ($units) {
+            $string .= $hyphen . $dictionary[$units];
+        }
+    break;
+    case $number < 1000:
+        $hundreds  = $number / 100;
+        $remainder = $number % 100;
+        $string = $dictionary[$hundreds] . ' ' . $dictionary[100];
+        if ($remainder) {
+            $string .= $conjunction .convert_number_to_words($remainder);
+        }
+    break;
+    default:
+        $baseUnit = pow(1000, floor(log($number, 1000)));
+        $numBaseUnits = (int) ($number / $baseUnit);
+        $remainder = $number % $baseUnit;
+        $string = convert_number_to_words($numBaseUnits) . ' ' . $dictionary[$baseUnit];
+        if ($remainder) {
+            $string .= $remainder < 100 ? $conjunction : $separator;
+            $string .= convert_number_to_words($remainder);
+        }
+        break;
+    }
+    if (null !== $fraction && is_numeric($fraction)) {
+        $string .= $decimal;
+        $words = array();
+        foreach (str_split((string) $fraction) as $number) {
+            $words[] = $dictionary[$number];
+        }
+        $string .= implode(' ', $words);
+    }
+        return $string;
+}
+    @endphp
     <br>
     <div class="bang">
         <h4 style="text-align: center">Hóa Đơn Tiền Điện</h4>
@@ -82,7 +186,9 @@
                         }
                         }
                         {?>
-                            <caption style="text-align: center; margin: 20px;"><p><b>Tổng tiền điện: </b>{{$price_total}} &nbspVND</p></caption>
+                            <caption style="text-align: center; margin: 20px; color:#353232"><p><b>Tổng tiền điện: </b>{{$price_total}} &nbspVND</p>
+                                                                                <p><b>Thành chữ: </b>{{convert_number_to_words($price_total)}} &nbspVND</p>
+                            </caption>
                         <?php }
                     ?>
                 </tbody>
@@ -169,7 +275,9 @@
                         }
                         }
                         {?>
-                            <caption style="text-align: center; margin: 20px;"><p><b>Tổng tiền nước: </b>{{$price_total}} &nbspVND</p></caption>
+                            <caption style="text-align: center; margin: 20px; color:#353232"><p><b>Tổng tiền nước: </b>{{$price_total}} &nbspVND</p>
+                                                            <p><b>Thành chữ: </b>{{convert_number_to_words($price_total)}} &nbspVND</p>
+                            </caption>
                         <?php }
                     ?>
                 </tbody>
@@ -282,12 +390,56 @@
                                 echo "Chưa thanh toán";
                             }
                     else echo "Đã thanh toán";
-                @endphp</td>
+                @endphp</td> 
                 @endforeach
             @endforeach
             @endif
             @foreach ($billCar as $itembill)
-            <caption style="text-align: center; margin: 20px;"><p style="text-align:center"><b>Tổng cộng: </b>{{$itembill->money_to_pay}}&nbspVND</p></caption>
+            <caption style="text-align: center; margin: 20px; color:#353232"><p style="text-align:center"><b>Tổng cộng: </b>{{$itembill->money_to_pay}}&nbspVND</p>
+                <p><b>Thành chữ: </b>{{convert_number_to_words($price_total)}} &nbspVND</p>
+            </caption>
+            @endforeach
+            </tr>
+            </tbody>
+            </table>
+            <br>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="bang">
+        <h4 style="text-align: center">Phí Quản lý vận hành chung cư</h4>
+        <div class="capnhattinhtrang">
+            @foreach ($billServices as $itembill)
+                <form action="{{ route('admin.update-status-paid', [$itembill->id, 4])}}" method="POST">
+                    @csrf
+                        <select name="updatePaidS" id="">
+                            @if($itembill->paid == 0)
+                                <option selected value="0">Chưa Thanh Toán</option>
+                                <option value="1">Đã Thanh Toán</option>
+                            @elseif($itembill->paid == 1)
+                                <option value="0">Chưa Thanh Toán</option>
+                                <option selected value="1">Đã Thanh Toán</option>
+                            @endif
+                        </select>
+                        <input type="submit" class="capnhat" value="Cập nhật">
+                </form>
+            @endforeach
+        </div>
+        <div class="form-group">
+            <label for="">1. Họ và tên: {{ $customer->name}}</label><br>
+            <label for="">2. Địa chỉ: Block: {{ $customer->apartmentAddress['block'] }} 
+                            Tầng: {{ $customer->apartmentAddress['floor']}} 
+                            Nhà: {{ $customer->apartmentAddress['apartment']}}</label><br>
+            @foreach ($billServices as $itembill)
+                <label for="">3. Tháng sử dụng dịch vụ: {{$itembill->payment_month}}/{{$itembill->payment_year}}</label><br>
+            @endforeach
+            <label for="">4. Phí Quản lý vận hành chung cư:</label><br>
+            
+            @foreach ($billServices as $itembill)
+                <p style="text-align:center; color:#353232"><b>Tổng cộng: </b>{{$itembill->money_to_pay}}&nbspVND</p>
+                <p style="text-align:center; color:#353232"><b>Thành chữ: </b>{{convert_number_to_words($itembill->money_to_pay)}} &nbspVND</p>
+            </caption>
             @endforeach
             </tr>
             </tbody>
@@ -307,7 +459,7 @@
         left: 0%;
         top: 0%;
         width: 100%;
-        height: 2000px;
+        height: auto;
         border: 1px solid black;
         border-radius: 5px;
         padding: 30px;

@@ -21,6 +21,7 @@
         Tầng: {{ $customer->apartmentAddress['floor']}} 
         Nhà: {{ $customer->apartmentAddress['apartment']}}
     </p>
+    <p><b>Diện tích căn hộ:&nbsp</b>{{ $customer->apartmentAddress['acreage']}} mét vuông</p>
     <p><b>Số điện thoại:&nbsp;&nbsp;&nbsp;&nbsp;</b> {{ $customer -> phone}}</p>
     <a class="btn btn-info" href="{{ route('admin.customers.index') }}">Quay về</a>
 

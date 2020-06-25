@@ -20,8 +20,8 @@
                 <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th scope="col">Chỉ số tháng trước</th>
-                        <th scope="col">Chỉ số tháng này</th>
+                        <th scope="col">Chỉ số cũ</th>
+                        <th scope="col">Chỉ số mới</th>
                         <th scope="col">Quy định giá phí</th>
                       </tr>
                     </thead>
@@ -53,8 +53,8 @@
                 <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th scope="col">Chỉ số tháng trước</th>
-                        <th scope="col">Chỉ số tháng này</th>
+                        <th scope="col">Chỉ số cũ</th>
+                        <th scope="col">Chỉ số mới</th>
                         <th scope="col">Quy định giá phí</th>
                       </tr>
                     </thead>
@@ -86,6 +86,7 @@
                       <tr>
                         <th scope="col">Loại xe</th>
                         <th scope="col">Số lượng xe</th>
+                        <th scope="col">Quy định giá phí</th>
                       </tr>
                     </thead> 
                     <tbody>
@@ -131,6 +132,19 @@
                             </tr>
                     </tbody>
                   </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="payment-car">
+                <h4>Phí Quản lý vận hành chung cư</h4>
+                <label for="">Chọn quy định giá phí vận hành chung cư</label>
+                <select name="price_regulation_id_S" style=" position: relative;left: 110px;">
+                    @foreach ($price_regulation_services as $item)
+                        <option value="{{ $item -> id}}">{{ $item -> name}}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
     </div>
