@@ -701,6 +701,18 @@ class BillsController extends Controller
                 $bill->save();
             }
         }
+        if($typeBill == 4){
+            if($request->updatePaidS == 1)
+            {
+                $bill->paid=1;
+                $bill->save();
+            }
+            elseif($request->updatePaidS == 0)
+            {
+                $bill->paid=0;
+                $bill->save();
+            }
+        }
         return redirect()->back()->with(['success'=>'Cập nhật tình trạng thanh toán thành công!']);
     }
 

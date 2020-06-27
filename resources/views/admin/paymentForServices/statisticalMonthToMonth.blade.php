@@ -1,6 +1,85 @@
 @extends('admin.home')
 
 @section('content')
+<style>
+    .statistical{
+        position: relative;
+        left: 0%;
+        top: 0%;
+        width: 100%;
+        height: auto;
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 30px;
+    }
+    .result{
+        position: relative;
+        width: 100%;
+        height: auto;
+        margin-top: 20px;
+    }
+    .menuTime{
+        position: relative;
+    }
+    .menuTime li{
+        list-style: none;
+        float: left;
+        margin-right: 5px;
+    }
+    .hienthi{
+        position: relative;
+        width: 100%;
+        height: 170px;
+        margin-top: 65px;
+        padding: 5px;
+        right: 0%;
+        border: 1px solid gray;
+        border-radius: 5px;
+    }
+    .hienthi-left{
+        position: absolute;
+        left: 0%;
+        top: 0%;
+        width: 20%;
+        height: 100%;
+        padding: 13px;
+    }
+    .hienthi-center{
+        position: absolute;
+        left: 20%;
+        top: 0%;
+        width: 20%;
+        height: 100%;
+        padding: 13px;
+    }
+    .hienthi-right-center{
+        position: absolute;
+        left: 40%;
+        top: 0%;
+        width: 20%;
+        height: 100%;
+        padding: 13px;
+    }
+    .hienthi-right{
+        position: absolute;
+        left: 60%;
+        top: 0%;
+        width: 30%;
+        height: 100%;
+        padding: 13px;
+    }
+    .nutsubmit{
+        position: absolute;
+        right: 2%;
+        top: 36%;
+        width: 10%;
+        height: 20%;
+    }
+    select{
+        height: 35px;
+        border-radius: 4px;
+    }
+</style>
 <div class="statistical">
     {{-- <h3 style="text-align: center">Thống Kê Phí Dịch Vụ</h3> --}}
     <div class="menuTime">
@@ -13,7 +92,7 @@
             </li>
         </ul>
     </div>
-    <form action="{{ route('admin.statistical')}}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('admin.statistical', 2)}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="hienthi">
         <div class="hienthi-left">
@@ -24,16 +103,51 @@
                 <option value="1">Phí điện sinh hoạt</option>
                 <option value="2">Phí nước sinh hoạt</option>
                 <option value="3">Phí gửi xe</option>
+                <option value="4">Phí Quản lý vận hành</option>
             </select>
         </div>
-        <div class="hienthi-left-center">
-            <b>Thống kê theo chủ hộ</b>
+        <div class="hienthi-center">
+            <b>Thống kê theo Block</b>
             <br><br>
-            <select style="width: 170px" name="customer" id="">
+            <select style="width: 170px" name="block" id="">
                 <option selected value="0">Tất cả</option>
-                @foreach ($customers as $customer)
-                    <option value="{{ $customer->id }}">{{ $customer->name }}</option>
-                @endforeach
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+        <div class="hienthi-right-center">
+            <b>Thống kê theo Tầng</b>
+            <br><br>
+            <select style="width: 170px" name="floor" id="">
+                <option selected value="0">Tất cả</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
             </select>
         </div>
         <div class="hienthi-right">
@@ -105,173 +219,193 @@
         </div>
     </div>
 </form>
-    @if($result == 1)
-        <div class="result">
-            @if($result_processed == 2)
-            <b style="margin:auto" >{{$title}}:</b>
-            <br><br>
-                <div class="result_processed">
-                    <table class="table table-hover">
-                        <thead>
-                          <tr>
-                            <th scope="col">Mã chủ hộ</th>
-                            <th scope="col">Tên chủ hộ</th>
-                            <th scope="col">Địa chỉ</th>
-                            <th scope="col">Tháng thanh toán</th>
-                            <th scope="col">Tiền đã thanh toán</th>
-                            <th scope="col">Tra cứu</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                                @foreach ($bills as $bill)
-                                    @if($bill -> count() > 0)
-                                        @if(($bill -> customer_id) == ($customer_result -> id))
-                                            <tr>
-                                                <th scope="row">{{ $customer_result -> id }}</th>
-                                                <td>{{ $customer_result -> name }}</td>
-                                                <td>
-                                                    Căn hộ {{ $customer_result->apartmentAddress['block'].$customer_result->apartmentAddress['floor'].$customer_result->apartmentAddress['apartment']}}
-                                                </td>
-                                                <td>{{$bill->payment_month}}</td>
-                                                <td>
-                                                    {{$bill->money_to_pay}}
-                                                </td>
-                                                <td>
-                                                    @if($bill->living_expenses_type_id == 1)
-                                                    <a href="{{ route('admin.show-bill-detail', [ 1, $bill->id])}}"><i class="fa fa-search" style="font-size:20px"></i></a></td>     
-                                                    @elseif($bill->living_expenses_type_id == 2)
-                                                    <a href="{{ route('admin.show-bill-detail', [ 2, $bill->id])}}"><i class="fa fa-search" style="font-size:20px"></i></a></td>
-                                                    @elseif($bill->living_expenses_type_id == 3)
-                                                    <a href="{{ route('admin.show-bill-detail', [ 3, $bill->id])}}"><i class="fa fa-search" style="font-size:20px"></i></a></td>
+@if($result == 1)
+    <p style="margin:15px; text-align: center; font-weight: bold; font-size: 20px" >{{$title}}:</p>
+        <div class="result_processed">
+            <table class="table table-hover">
+                <thead>
+                <tr> 
+                    <th scope="col"><p style="text-align: center">Mã</p></th>
+                    <th scope="col"><p style="text-align: center">Tên chủ hộ</p></th>
+                    <th scope="col"><p style="text-align: center">Địa chỉ</p></th>
+                    <th scope="col"><p style="text-align: center">Tháng</p></th>
+                    <th scope="col"><p style="text-align: center">Điện</p></th>
+                    <th scope="col"><p style="text-align: center">Nước</p></th>
+                    <th scope="col"><p style="text-align: center">Gửi xe</p></th>
+                    <th scope="col"><p style="text-align: center">Quản lý vận hành chung cư</p></th>
+                    <th scope="col"><p style="text-align: center">Tổng tiền</p></th>
+                </tr>
+                </thead>
+                <tbody>
+                @if($result_processed == 1 || $result_processed == 2)
+                    @if($apartmentAddress -> count() > 0) {{-- nếu có thống kê theo block hoặc floor --}}
+                        @foreach ($apartmentAddress as $apartment)
+                            @foreach($customers as $key => $customer)
+                                @if($customer->id == $apartment->customer_id)
+                                    @php
+                                        $totalmoney = 0;
+                                    @endphp
+                                    <tr>
+                                        <td>{{$customer->id}}</td>
+                                        <td>{{$customer->name}}</td>
+                                        <td>Căn hộ {{ $customer->apartmentAddress['block'].$customer->apartmentAddress['floor'].$customer->apartmentAddress['apartment']}}</td>
+                                        @foreach($bills as $allbill)
+                                            <td>
+                                                @foreach($bills as $bill)
+                                                    @if($bill->customer_id == $customer->id && $bill->living_expenses_type_id == 1)
+                                                            <p title="Tháng" style="text-align: center">{{ $bill->payment_month}}/{{ $bill->payment_year}}</p>
                                                     @endif
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    @endif
-                                @endforeach
-                        </tbody>
-                      </table>
-                </div>
-            @endif
-            @if($result_processed == 3)
-            <b style="margin:auto" >{{$title}}:</b>
-            <br><br>
-                <div class="result_processed">
-                    <table class="table table-hover">
-                        <thead>
-                          <tr>
-                            <th scope="col">Mã chủ hộ</th>
-                            <th scope="col">Tên chủ hộ</th>
-                            <th scope="col">Địa chỉ</th>
-                            <th scope="col">Tháng thanh toán</th>
-                            <th scope="col">Tiền đã thanh toán</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($customers as $customer)
-                                @foreach ($bills as $bill)
-                                    @if($bill -> count() > 0)
-                                        @if(($bill -> customer_id) == ($customer -> id))
-                                            <tr>
-                                                <th scope="row">{{ $customer -> id }}</th>
-                                                <td>{{ $customer -> name }}</td>
-                                                <td>
-                                                    Căn hộ {{ $customer->apartmentAddress['block'].$customer->apartmentAddress['floor'].$customer->apartmentAddress['apartment']}}
-                                                </td>
-                                                <td>{{$bill->payment_month}}</td>
-                                                <td>
-                                                    {{$bill->money_to_pay}}
-                                                </td>
-                                                <td>
-                                                    @if($bill->living_expenses_type_id == 1)
-                                                    <a href="{{ route('admin.show-bill-detail', [ 1, $bill->id])}}"><i class="fa fa-search" style="font-size:20px"></i></a></td>     
-                                                    @elseif($bill->living_expenses_type_id == 2)
-                                                    <a href="{{ route('admin.show-bill-detail', [ 2, $bill->id])}}"><i class="fa fa-search" style="font-size:20px"></i></a></td>
-                                                    @elseif($bill->living_expenses_type_id == 3)
-                                                    <a href="{{ route('admin.show-bill-detail', [ 3, $bill->id])}}"><i class="fa fa-search" style="font-size:20px"></i></a></td>
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                @foreach($bills as $bill)
+                                                    @if($bill->customer_id == $apartment->customer_id && $bill->living_expenses_type_id == 1)
+                                                    <a title="Tiền điện" href="{{ route('admin.show-bill-detail', [ 1, $bill->id])}}">
+                                                        <p style="text-align: center">{{$bill->money_to_pay}}</p>
+                                                        @php
+                                                            $totalmoney += $bill->money_to_pay;
+                                                        @endphp
+                                                    </a>  
                                                     @endif
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    @endif
-                                @endforeach
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                @foreach($bills as $bill)
+                                                    @if($bill->customer_id == $apartment->customer_id && $bill->living_expenses_type_id == 2)
+                                                    <a title="Tiền nước" href="{{ route('admin.show-bill-detail', [ 2, $bill->id])}}">
+                                                        <p style="text-align: center">{{$bill->money_to_pay}}</p>
+                                                        @php
+                                                            $totalmoney += $bill->money_to_pay;
+                                                        @endphp
+                                                    </a>
+                                                @endif
+                                            @endforeach
+                                            </td>
+                                            <td>
+                                                @foreach($bills as $bill)
+                                                    @if($bill->customer_id == $apartment->customer_id && $bill->living_expenses_type_id == 3)
+                                                    <a title="Tiền gửi xe" href="{{ route('admin.show-bill-detail', [ 3, $bill->id])}}">
+                                                        <p style="text-align: center">{{$bill->money_to_pay}}</p>
+                                                        @php
+                                                            $totalmoney += $bill->money_to_pay;
+                                                        @endphp
+                                                    </a>
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                @foreach($bills as $bill)
+                                                    @if($bill->customer_id == $apartment->customer_id && $bill->living_expenses_type_id == 4)
+                                                    <a title="Tiền QLVH Chung cư" href="{{ route('admin.show-bill-detail', [ 4, $bill->id])}}">
+                                                        <p style="text-align: center">{{$bill->money_to_pay}}</p>
+                                                        @php
+                                                            $totalmoney += $bill->money_to_pay;
+                                                        @endphp
+                                                    </a>
+                                                @endif
+                                                @endforeach
+                                            </td>
+                                            @break
+                                        @endforeach
+                                        <td>
+                                            <p title="Tổng tiền" style="text-align: center">{{ $totalmoney }}</p>
+                                        </td>
+                                    </tr>
+                                    @php
+                                        $totalmoney = 0;
+                                    @endphp
+                                @endif
                             @endforeach
-                        </tbody>
-                      </table>
-                </div>
-            @endif
+                        @endforeach
+                    @endif
+                @endif
+                </tbody>
+            </table>
         </div>
     @endif
+
+    @if($result == 2)
+    <p style="margin:15px; text-align: center; font-weight: bold; font-size: 20px" >{{$title}}:</p>
+        <div class="result_processed">
+            <table class="table table-hover">
+                <thead>
+                <tr> 
+                    <th scope="col"><p >Mã</p></th>
+                    <th scope="col"><p >Tên chủ hộ</p></th>
+                    <th scope="col"><p >Địa chỉ</p></th>
+                    <th scope="col"><p style="text-align: center">Tháng</p></th>
+                    @if($typeServices == 1 )
+                        <th scope="col"><p style="text-align: center">Tiền Điện</p></th>
+                    @elseif($typeServices == 2 )
+                        <th scope="col"><p style="text-align: center">Tiền Nước</p></th>
+                    @elseif($typeServices == 3 )
+                        <th scope="col"><p style="text-align: center">Tiền Gửi xe</p></th>
+                    @elseif($typeServices == 4 )
+                        <th scope="col"><p style="text-align: center">Tiền Quản lý vận hành chung cư</p></th>
+                    @endif
+                    <th scope="col"><p >Tra cứu</p></th>
+                </tr>
+                </thead>
+                <tbody>
+                @if($result_processed == 3 || $result_processed == 4)
+                    @if($apartmentAddress -> count() > 0) {{-- nếu có thống kê theo block hoặc floor --}}
+                        @foreach ($apartmentAddress as $apartment)
+                            @foreach($customers as $key => $customer)
+                                @if($customer->id == $apartment->customer_id)
+                                    <tr>
+                                        <td>{{$customer->id}}</td>
+                                        <td>{{$customer->name}}</td>
+                                        <td>Căn hộ {{ $customer->apartmentAddress['block'].$customer->apartmentAddress['floor'].$customer->apartmentAddress['apartment']}}</td>
+                                        @foreach($bills as $allbill)
+                                            <td>
+                                                @foreach($bills as $bill)
+                                                    @if($bill->customer_id == $customer->id && $bill->living_expenses_type_id == 1)
+                                                            <p title="Tháng" style="text-align: center">{{ $bill->payment_month}}/{{ $bill->payment_year}}</p>
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                @foreach($bills as $bill)
+                                                    @if($bill->customer_id == $apartment->customer_id)
+                                                        @if($bill->living_expenses_type_id == 1)
+                                                        <a title="Tiền điện" href="{{ route('admin.show-bill-detail', [ 1, $bill->id])}}">
+                                                            <p style="text-align: center">{{$bill->money_to_pay}}</p>
+                                                        </a>  
+                                                        @endif
+                                                        @if($bill->living_expenses_type_id == 2)
+                                                        <a title="Tiền nước" href="{{ route('admin.show-bill-detail', [ 2, $bill->id])}}">
+                                                            <p style="text-align: center">{{$bill->money_to_pay}}</p>
+                                                        </a>
+                                                        @endif
+                                                        @if($bill->living_expenses_type_id == 3)
+                                                        <a title="Tiền gửi xe" href="{{ route('admin.show-bill-detail', [ 3, $bill->id])}}">
+                                                            <p style="text-align: center">{{$bill->money_to_pay}}</p>
+                                                        </a>
+                                                        @endif
+                                                        @if($bill->living_expenses_type_id == 4)
+                                                        <a title="Tiền QLVH Chung cư" href="{{ route('admin.show-bill-detail', [ 4, $bill->id])}}">
+                                                            <p style="text-align: center">{{$bill->money_to_pay}}</p>
+                                                        </a>
+                                                        @endif
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            @break
+                                        @endforeach
+                                        <td>
+                                            <a href="{{ route('admin.bills.show', $customer -> id)}}"><i class="fa fa-search" style="font-size:20px"></i></a>
+                                        </td>
+                                        
+                                    </tr>
+                                @endif
+                            @endforeach
+                        @endforeach
+                    @endif
+                @endif
+                </tbody>
+            </table>
+        </div>
+@endif
 </div>
-<style>
-    .statistical{
-        position: relative;
-        left: 0%;
-        top: 0%;
-        width: 100%;
-        height: auto;
-        border: 1px solid black;
-        border-radius: 5px;
-        padding: 30px;
-    }
-    .result{
-        position: relative;
-        width: 100%;
-        height: auto;
-        margin-top: 20px;
-    }
-    .menuTime{
-        position: relative;
-    }
-    .menuTime li{
-        list-style: none;
-        float: left;
-        margin-right: 5px;
-    }
-    .hienthi{
-        position: relative;
-        width: 100%;
-        height: 170px;
-        margin-top: 65px;
-        padding: 5px;
-        right: 0%;
-        border: 1px solid gray;
-        border-radius: 5px;
-    }
-    .hienthi-left{
-        position: absolute;
-        left: 0%;
-        top: 0%;
-        width: 20%;
-        height: 100%;
-        padding: 13px;
-    }
-    .hienthi-left-center{
-        position: absolute;
-        left: 23%;
-        top: 0%;
-        width: 20%;
-        height: 100%;
-        padding: 13px;
-    }
-    .hienthi-right{
-        position: absolute;
-        left: 46%;
-        top: 0%;
-        width: 40%;
-        height: 100%;
-        padding: 13px;
-    }
-    .nutsubmit{
-        position: absolute;
-        right: 10%;
-        top: 36%;
-        width: 10%;
-        height: 20%;
-    }
-    select{
-        height: 35px;
-        border-radius: 4px;
-    }
-</style>
+
 @endsection

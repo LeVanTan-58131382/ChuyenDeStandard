@@ -92,7 +92,7 @@
             </li>
         </ul>
     </div>
-    <form action="{{ route('admin.statistical')}}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('admin.statistical', 1)}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="hienthi">
         <div class="hienthi-left">
@@ -230,7 +230,7 @@
                                                 <td>
                                                     @foreach($bills as $bill)
                                                         @if($bill->customer_id == $customer->id)
-                                                            <p title="Tháng" style="text-align: center">{{ $bill->payment_month}}</p>
+                                                            <p title="Tháng" style="text-align: center">{{ $bill->payment_month}}/{{ $bill->payment_year}}</p>
                                                         @break;
                                                         @endif
                                                     @endforeach
@@ -338,7 +338,7 @@
                                                 <td>
                                                     @foreach($bills as $bill)
                                                         @if($bill->customer_id == $customer->id)
-                                                            <p title="Tháng" style="text-align: center">{{ $bill->payment_month}}</p>
+                                                            <p title="Tháng" style="text-align: center">{{ $bill->payment_month}}/{{ $bill->payment_year}}</p>
                                                         @break;
                                                         @endif
                                                     @endforeach
@@ -383,7 +383,4 @@
                 </div>
         @endif
     </div>
-    
-</div>
-
 @endsection

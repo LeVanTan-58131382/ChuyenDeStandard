@@ -75,7 +75,7 @@
                 </tbody>
               </table>
         </div>
-        {{ $customers->links() }}
+        <div style="position: relative; margin: auto">{{ $customers->links() }}</div>
     </div>
 </div>
 <style>
