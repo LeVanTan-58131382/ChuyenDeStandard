@@ -449,11 +449,17 @@
     </div>
 </div>
       
-      
-      
-
-
 <style>
+    .ad-part-right{
+        position: absolute;
+        right: 0%;
+        top: 80px;
+        width:80%;
+        height: auto;
+        background-color: whitesmoke;
+        overflow: hidden;
+        
+    }
     .bill{
         position: relative;
         left: 0%;

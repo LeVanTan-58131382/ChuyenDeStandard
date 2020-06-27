@@ -108,7 +108,7 @@ class BillsController extends Controller
             $bills = Bill::where([['payment_year', '=', $year-1],['payment_month', '=', 12]])->get();
         }
         
-        $customers = Customer::paginate(10);
+        $customers = Customer::paginate(30);
         $apartments = ApartmentAddress::get();
         return view('admin.paymentForServices.index', compact('bills', 'customers', 'apartments', 'month', 'calendar'));
     }
