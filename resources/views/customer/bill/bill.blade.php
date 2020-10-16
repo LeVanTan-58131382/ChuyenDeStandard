@@ -1,6 +1,79 @@
 @extends('customer.home')
 
 @section('content')
+<style>
+    .comment-item{
+        position: relative;
+        width: 400px;
+        height: auto;
+        background-color: white;
+        border: 1px solid black;
+        color: #343a40;
+        border-radius: 5px;
+        margin: 30px;
+        margin-bottom: 0px;
+        float: left;
+        padding: 10px;
+    }
+
+    .bill{
+        position: relative;
+        left: 5%;
+        top: 0%;
+        width: 95%;
+        height: auto;
+        /* background-color: -webkit-linear-gradient(top right, #00d8c2, #0068b7);
+        background-image: -webkit-linear-gradient(right top, rgb(0, 216, 194), rgb(0, 104, 183)); */
+        background-color: #007bff;
+        border: 1px solid white;
+        color: white;
+        border-radius: 5px;
+        padding: 10px;
+    }
+    .bang{
+        background-color: white;
+        border: 1px solid grey;
+        color: #343a40;
+        border-radius: 9px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .chitietdien, .chitietnuoc{
+        background-color: white;
+        border: 1px solid grey;
+        color: #343a40;
+        border-radius: 9px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .comment{
+        position: relative;
+        left: 0%;
+        top: 0%;
+        width: 100%;
+        height: auto;
+        border: 1px solid gray;
+        background-color: lightslategrey;
+        color: black;
+        border-radius: 9px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    #nutgui{
+        position: absolute;
+        width: 100px;
+        left: 400px;
+    }
+    #nutgui:hover{ 
+        box-shadow: 0 4px 8px 0 rgba(0, 255, 255, 0.8), 0 6px 20px 0 rgba(0, 255, 255, 0.8);
+    }
+</style>
 <div class="bill wow fadeInRight">
     @php
         $idBillE = 0;
@@ -298,77 +371,5 @@
     @endif
 </div>
     
-<style>
-    .comment-item{
-        position: relative;
-        width: 400px;
-        height: auto;
-        background-color: white;
-        border: 1px solid black;
-        color: #343a40;
-        border-radius: 5px;
-        margin: 30px;
-        margin-bottom: 0px;
-        float: left;
-        padding: 10px;
-    }
 
-    .bill{
-        position: relative;
-        left: 5%;
-        top: 0%;
-        width: 95%;
-        height: auto;
-        /* background-color: -webkit-linear-gradient(top right, #00d8c2, #0068b7);
-        background-image: -webkit-linear-gradient(right top, rgb(0, 216, 194), rgb(0, 104, 183)); */
-        background-color: #007bff;
-        border: 1px solid white;
-        color: white;
-        border-radius: 5px;
-        padding: 10px;
-    }
-    .bang{
-        background-color: white;
-        border: 1px solid grey;
-        color: #343a40;
-        border-radius: 9px;
-        padding: 15px;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
-
-    .chitietdien, .chitietnuoc{
-        background-color: white;
-        border: 1px solid grey;
-        color: #343a40;
-        border-radius: 9px;
-        padding: 15px;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
-
-    .comment{
-        position: relative;
-        left: 0%;
-        top: 0%;
-        width: 100%;
-        height: auto;
-        border: 1px solid gray;
-        background-color: lightslategrey;
-        color: black;
-        border-radius: 9px;
-        padding: 15px;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
-
-    #nutgui{
-        position: absolute;
-        width: 100px;
-        left: 400px;
-    }
-    #nutgui:hover{ 
-        box-shadow: 0 4px 8px 0 rgba(0, 255, 255, 0.8), 0 6px 20px 0 rgba(0, 255, 255, 0.8);
-    }
-</style>
 @endsection

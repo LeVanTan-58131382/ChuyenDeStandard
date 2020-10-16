@@ -10,6 +10,7 @@
                             Tầng: {{ $customer->apartmentAddress['floor']}} 
                             Nhà: {{ $customer->apartmentAddress['apartment']}}</label><br>
                             @foreach($consumptionIndex_W as $consumptionIndex)
+                            <label for="">4. Tháng tiêu thụ: {{$consumptionIndex->month_consumption}}/{{$consumptionIndex->year_consumption}}</label><br>
                             <label for="">3. Chỉ số cũ: {{ $consumptionIndex->last_month_index}}</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<label for="">Chỉ số mới: {{ $consumptionIndex->this_month_index}}</label><br>
                             @endforeach
             <label for="">4. Nước tiêu thụ:</label><br>
@@ -66,6 +67,7 @@
                 </tbody>
               </table>
         </div>
+        <a style="position: relative; left: 46%;"  href="{{ url()->previous() }}" class="btn btn-primary">Quay lại</a>
     </div>
 </div>
       

@@ -63,6 +63,29 @@ class CommentsController extends Controller
         return view('admin.comment.listComment', compact('comments', 'customers', 'calendar'));
     }
 
+    public function duyetComments(Request $request)
+    {
+        $calendar = SystemCalendar::find(1);
+        $customers = Customer::get();
+        if($request->duyet == 1)
+        {
+            // bình luận đã xem
+            $comments = Comment::select('*')->Where("read", 1)->orderByDesc('created_at', )->get();
+        }
+        if($request->duyet == 2)
+        {
+            // bình luận chưa xem
+            $comments = Comment::select('*')->Where("read", 0)->orderByDesc('created_at', )->get();
+        }
+        if($request->duyet == 3)
+        {
+            // bình luận mới nhất
+            $comments = Comment::select('*')->orderByDesc('created_at', )->get();
+        }
+        
+        return view('admin.comment.listComment', compact('comments', 'customers', 'calendar'));
+    }
+
     public function destroy_comment($id){
         $comment = Comment::find($id);
         $comment->delete();

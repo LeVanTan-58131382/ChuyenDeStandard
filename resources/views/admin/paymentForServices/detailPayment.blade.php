@@ -154,6 +154,8 @@
         </div>
     </div>
 </form>
+<br>
+<a style="position: relative; left: 46%;" href="{{ url()->previous() }}" class="btn btn-primary">Quay lại</a>
 </div>
 <style>
     .detail-payment{
@@ -196,7 +198,7 @@
 
     .xuat{
         position: relative;
-        left: 500px;
+        left: 44.3%;
     }
 </style>
 @endsection

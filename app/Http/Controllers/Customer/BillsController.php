@@ -27,83 +27,131 @@ class BillsController extends Controller
     {
         //
     }
-    public function allBills($customerId){
+    public function allBills($customerId, $billMonth, $billYear){
        
         $calendar = SystemCalendar::find(1);
         $month = $calendar -> month;
         $year = $calendar -> year;
 
         $customer = Customer::find($customerId);
-
-        if($month > 1)
+        if($billMonth == 0 && $billYear == 0)
         {
-            $bills = Bill::where([['customer_id','=', $customerId], ['payment_year','=', $year], ['payment_month','=', $month - 1]])->get();
-            $consumptionIndex_E = ConsumptionIndex::where([ ['customer_id', '=', $customerId], 
-                                                            ['year_consumption', '=', $year], 
-                                                            ['month_consumption', '=', $month-1],
-                                                            ['living_expenses_type_id', '=', 1] ])
-                                                            ->get();
-            $consumptionIndex_W = ConsumptionIndex::where([ ['customer_id', '=', $customerId], 
-                                                            ['year_consumption', '=', $year], 
-                                                            ['month_consumption', '=', $month-1],
-                                                            ['living_expenses_type_id', '=', 1] ])
-                                                            ->get();
-            $billElectric = Bill::where([   ['customer_id', $customerId],
+            if($month > 1)
+            {
+                $bills = Bill::where([['customer_id','=', $customerId], ['payment_year','=', $year], ['payment_month','=', $month - 1]])->get();
+                $consumptionIndex_E = ConsumptionIndex::where([ ['customer_id', '=', $customerId], 
+                                                                ['year_consumption', '=', $year], 
+                                                                ['month_consumption', '=', $month-1],
+                                                                ['living_expenses_type_id', '=', 1] ])
+                                                                ->get();
+                $consumptionIndex_W = ConsumptionIndex::where([ ['customer_id', '=', $customerId], 
+                                                                ['year_consumption', '=', $year], 
+                                                                ['month_consumption', '=', $month-1],
+                                                                ['living_expenses_type_id', '=', 1] ])
+                                                                ->get();
+                $billElectric = Bill::where([   ['customer_id', $customerId],
+                                                ['payment_year', $year],
+                                                ['payment_month', $month-1],
+                                                ['living_expenses_type_id', 1]])                 
+                                                ->get();
+                $billWater = Bill::where([  ['customer_id', $customerId],
                                             ['payment_year', $year],
                                             ['payment_month', $month-1],
-                                            ['living_expenses_type_id', 1]])                 
+                                            ['living_expenses_type_id', 2]])                 
                                             ->get();
-            $billWater = Bill::where([  ['customer_id', $customerId],
-                                        ['payment_year', $year],
-                                        ['payment_month', $month-1],
-                                        ['living_expenses_type_id', 2]])                 
-                                        ->get();
-            $billCar = Bill::where([    ['customer_id', $customerId],
-                                        ['payment_year', $year],
-                                        ['payment_month', $month-1],
-                                        ['living_expenses_type_id', 3]])                 
-                                        ->get();
-            // $vehicles = VehicleCuctomer::where([
-            //                             ['customer_id', $customerId],
-            //                             ['using', '=', 1],
-            //                             ['year_use', '=', $year],
-            //                             ['month_start_use', '=', $month-1]])
-            //                             ->get();
-        }
-        elseif($month == 1)
-        {
-            $bills = Bill::where([['customer_id','=', $customerId], ['payment_year','=', $year-1], ['payment_month','=', 12]])->get();
-            $consumptionIndex_E = ConsumptionIndex::where([ ['customer_id', '=', $customerId], 
-                                                            ['year_consumption', '=', $year-1], 
-                                                            ['month_consumption', '=', 12],
-                                                            ['living_expenses_type_id', '=', 1] ])
-                                                            ->get();
-            $consumptionIndex_W = ConsumptionIndex::where([ ['customer_id', '=', $customerId], 
-                                                            ['year_consumption', '=', $year-1], 
-                                                            ['month_consumption', '=', 12],
-                                                            ['living_expenses_type_id', '=', 1] ])
-                                                            ->get();
-            $billElectric = Bill::where([   ['customer_id', $customerId],
+                $billCar = Bill::where([    ['customer_id', $customerId],
+                                            ['payment_year', $year],
+                                            ['payment_month', $month-1],
+                                            ['living_expenses_type_id', 3]])                 
+                                            ->get();
+                $billServices = Bill::where([    ['customer_id', $customerId],
+                                            ['payment_year', $year],
+                                            ['payment_month', $month-1],
+                                            ['living_expenses_type_id', 4]])                 
+                                            ->get();
+                // $vehicles = VehicleCuctomer::where([
+                //                             ['customer_id', $customerId],
+                //                             ['using', '=', 1],
+                //                             ['year_use', '=', $year],
+                //                             ['month_start_use', '=', $month-1]])
+                //                             ->get();
+            }
+            elseif($month == 1)
+            {
+                $bills = Bill::where([['customer_id','=', $customerId], ['payment_year','=', $year-1], ['payment_month','=', 12]])->get();
+                $consumptionIndex_E = ConsumptionIndex::where([ ['customer_id', '=', $customerId], 
+                                                                ['year_consumption', '=', $year-1], 
+                                                                ['month_consumption', '=', 12],
+                                                                ['living_expenses_type_id', '=', 1] ])
+                                                                ->get();
+                $consumptionIndex_W = ConsumptionIndex::where([ ['customer_id', '=', $customerId], 
+                                                                ['year_consumption', '=', $year-1], 
+                                                                ['month_consumption', '=', 12],
+                                                                ['living_expenses_type_id', '=', 1] ])
+                                                                ->get();
+                $billElectric = Bill::where([   ['customer_id', $customerId],
+                                                ['payment_year', $year-1],
+                                                ['payment_month', 12],
+                                                ['living_expenses_type_id', 1]])                 
+                                                ->get();
+                $billWater = Bill::where([  ['customer_id', $customerId],
                                             ['payment_year', $year-1],
                                             ['payment_month', 12],
-                                            ['living_expenses_type_id', 1]])                 
+                                            ['living_expenses_type_id', 2]])                 
                                             ->get();
-            $billWater = Bill::where([  ['customer_id', $customerId],
-                                        ['payment_year', $year-1],
-                                        ['payment_month', 12],
-                                        ['living_expenses_type_id', 2]])                 
-                                        ->get();
-            $billCar = Bill::where([    ['customer_id', $customerId],
-                                        ['payment_year', $year-1],
-                                        ['payment_month', 12],
-                                        ['living_expenses_type_id', 3]])                 
-                                        ->get();
-            // $vehicles = VehicleCuctomer::where([
-            //                             ['customer_id', $customerId],
-            //                             ['using', '=', 1],
-            //                             ['year_use', '=', $year-1],
-            //                             ['month_start_use', '=', 12]])
-            //                             ->get();
+                $billCar = Bill::where([    ['customer_id', $customerId],
+                                            ['payment_year', $year-1],
+                                            ['payment_month', 12],
+                                            ['living_expenses_type_id', 3]])                 
+                                            ->get();
+                $billServices = Bill::where([    ['customer_id', $customerId],
+                                            ['payment_year', $year-1],
+                                            ['payment_month', 12],
+                                            ['living_expenses_type_id', 4]])                 
+                                            ->get();
+
+                // $vehicles = VehicleCuctomer::where([
+                //                             ['customer_id', $customerId],
+                //                             ['using', '=', 1],
+                //                             ['year_use', '=', $year-1],
+                //                             ['month_start_use', '=', 12]])
+                //                             ->get();
+            }
+        }
+        elseif($billMonth != 0 && $billYear != 0)
+        {
+            $bills = Bill::where([['customer_id','=', $customerId], ['payment_year','=', $billYear], ['payment_month','=', $billMonth]])->get();
+                $consumptionIndex_E = ConsumptionIndex::where([ ['customer_id', '=', $customerId], 
+                                                                ['year_consumption', '=', $billYear], 
+                                                                ['month_consumption', '=', $billMonth],
+                                                                ['living_expenses_type_id', '=', 1] ])
+                                                                ->get();
+                
+                $consumptionIndex_W = ConsumptionIndex::where([ ['customer_id', '=', $customerId], 
+                                                                ['year_consumption', '=', $billYear], 
+                                                                ['month_consumption', '=', $billMonth],
+                                                                ['living_expenses_type_id', '=', 1] ])
+                                                                ->get();
+                $billElectric = Bill::where([   ['customer_id', $customerId],
+                                                ['payment_year', $billYear],
+                                                ['payment_month', $billMonth],
+                                                ['living_expenses_type_id', 1]])                 
+                                                ->get();
+                $billWater = Bill::where([  ['customer_id', $customerId],
+                                            ['payment_year', $billYear],
+                                            ['payment_month', $billMonth],
+                                            ['living_expenses_type_id', 2]])                 
+                                            ->get();
+                $billCar = Bill::where([    ['customer_id', $customerId],
+                                            ['payment_year', $billYear],
+                                            ['payment_month', $billMonth],
+                                            ['living_expenses_type_id', 3]])                 
+                                            ->get();
+                $billServices = Bill::where([    ['customer_id', $customerId],
+                                            ['payment_year', $billYear],
+                                            ['payment_month', $billMonth],
+                                            ['living_expenses_type_id', 4]])                 
+                                            ->get();
         }
         // nếu khách hàng chưa dc xuất hóa đơn cho tháng 5 thì hiển thị thông báo
         if($bills->isEmpty()){
@@ -142,71 +190,11 @@ class BillsController extends Controller
     
         $comments = Comment::select('*')->orderBy('created_at', 'asc')->get();
   
-        return view('customer.bill.bill', compact('customer', 'consumptionIndex_E', 'consumptionIndex_W', 'billElectric', 'billWater', 'billCar', 'price_regulation', 'vehicles', 'vehicles_prices', 'usage_norm', 'calendar', 'comments'));
+        return view('customer.bill.bill', compact('customer', 'consumptionIndex_E', 'consumptionIndex_W', 'billElectric', 'billWater', 'billCar', 'billServices', 'price_regulation', 'vehicles', 'vehicles_prices', 'usage_norm', 'calendar', 'comments'));
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function historyBills($customerId){
+        $customer = Customer::find($customerId);
+        $bills = Bill::where('customer_id', $customerId)->get();
+        return view('customer.bill.history', compact('bills', 'customer'));
     }
 }

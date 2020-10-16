@@ -94,6 +94,8 @@
             </table>
             <br>
     </div>
+    <a style="position: relative; left: 46%;" href="{{ url()->previous() }}" class="btn btn-primary">Quay lại</a>
+</div>
 </div>
 <style>
     .bill{

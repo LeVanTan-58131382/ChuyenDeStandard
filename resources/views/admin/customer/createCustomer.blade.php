@@ -137,7 +137,11 @@
                 <div class="dientich">
                     <div class="form-group">
                         <label for="">Diện tích căn hộ:</label>
-                        <input style="width: 395px; border: 1px solid gray;" required type="number" min="0" class="form-control" placeholder="Nhập diện tích căn hộ" name="acreage" value=70>
+                        <select name="acreage" id="">
+                            <option value="80">80</option>
+                            <option value="85">85</option>
+                            <option value="90">90</option>
+                        </select>
                     </div>
                 </div>
             </div>

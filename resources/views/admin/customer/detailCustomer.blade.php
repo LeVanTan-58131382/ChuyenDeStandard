@@ -23,7 +23,6 @@
     </p>
     <p><b>Diện tích căn hộ:&nbsp</b>{{ $customer->apartmentAddress['acreage']}} mét vuông</p>
     <p><b>Số điện thoại:&nbsp;&nbsp;&nbsp;&nbsp;</b> {{ $customer -> phone}}</p>
-    <a class="btn btn-info" href="{{ route('admin.customers.index') }}">Quay về</a>
 
     @if(count($customer->familyMembers) > 0)
     <h3>Thành viên gia đình</h3>
@@ -42,6 +41,8 @@
         </p>
     </div>
     @endforeach
+    <br>
+    <a style="position: relative; left: 46%;" href="{{ url()->previous() }}" class="btn btn-primary">Quay lại</a>
 </div>
 <style>
     .detail-customer{

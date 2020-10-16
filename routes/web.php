@@ -71,6 +71,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
 
     // Comment
     Route::get('comments/list', 'CommentsController@comments')->name('comment-list');
+    Route::get('comments/duyetlist', 'CommentsController@duyetComments')->name('comment-list-duyet');
     Route::get('comments/create/{id}', 'CommentsController@create_comment')->name('comment-create');
     Route::post('comments/send/{id}', 'CommentsController@send_comment')->name('comment-send');
     Route::get('comments/read/{id}', 'CommentsController@read_comment')->name('comment-read');
@@ -94,8 +95,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
 Route::group(['prefix' => 'customer', 'as' => 'customer.', 'namespace' => 'Customer', 'middleware' => ['auth']], function () {
     Route::get('/home', 'CustomerHomeController@index')->name('home');
     // Bills
-    Route::get('allbills/{customerId}', 'BillsController@allBills')->name('list-bills');
-
+    Route::get('allbills/{customerId}/{billMonth?}/{billYear?}', 'BillsController@allBills')->name('list-bills');
+    Route::get('historybills/{customerId}', 'BillsController@historyBills')->name('history-bills');
     // Messages
     Route::get('messages/{id}', 'MessagesController@messages')->name('list-messages');
     Route::get('destroy/{id}', 'MessagesController@destroy_message')->name('destroy-messages');

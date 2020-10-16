@@ -148,8 +148,10 @@
             </div>
         </div>
         <br><br>
-        <button type="submit" class="btn btn-primary">Cập nhật</button>
+        <button style="position: relative; left: 45.8%;" type="submit" class="btn btn-primary">Cập nhật</button>
       </form>
+      <br>
+      <a style="position: relative; left: 46%;" href="{{ url()->previous() }}" class="btn btn-primary">Quay lại</a>
 </div>
 <style>
     .vehicle{

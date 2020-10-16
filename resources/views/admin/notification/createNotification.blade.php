@@ -25,6 +25,7 @@
         <br><br>
     <button type="submit" class="btn btn-primary guitb">Gửi thông báo</button>
   </form>
+  <a style="position: relative; left: 56%;" href="{{ url()->previous() }}" class="btn btn-primary">Quay lại</a>
 </div>
 <style>
     .create-notifi{

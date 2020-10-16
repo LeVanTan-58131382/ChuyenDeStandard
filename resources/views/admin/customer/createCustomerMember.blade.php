@@ -15,6 +15,16 @@
                     <input required type="text" class="form-control" placeholder="Nhập tên..." name="name" value="{{ old('name') }}">
                 </div>
                 <div class="form-group">
+                    <label for="">Loại thành viên gia đình:</label>
+                    <select name="thanhvien" id="">
+                        <option value="1">Vợ</option>
+                        <option value="2">Chồng</option>
+                        <option value="3">Con</option>
+                        <option value="2">Anh/ Em trai</option>
+                        <option value="2">Chị/ Em gái</option>
+                    </select>
+                    </div>
+                <div class="form-group">
                     <label for="">Ngày sinh:</label>
                     <input required type="date" class="form-control" name="date_of_birth">
                 </div>

@@ -5,12 +5,11 @@
 <div class="list-mes">
     <h3 style="text-align: center">Danh sách bình luận</h3>
     <div class="duyet">
-        <form action="">
+        <form action="{{ route("admin.comment-list-duyet")}}">
             <select name="duyet" id="">
                 <option value="1">Các bình luận đã xem</option>
                 <option value="2">Các bình luận chưa xem</option>
                 <option value="3">Các bình luận mới nhất</option>
-                <option value="4">Các bình luận cũ nhất</option>
             </select>
             <button type="submit" class="btn" style="background-color: #343a40; color: white">Duyệt</button>
         </form>

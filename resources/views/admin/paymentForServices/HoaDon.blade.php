@@ -10,41 +10,41 @@
         $negative    = 'âm ';
         $decimal     = ' phẩy ';
         $dictionary  = array(
-        0                   => 'không',
-        1                   => 'một',
-        2                   => 'hai',
-        3                   => 'ba',
-        4                   => 'bốn',
-        5                   => 'năm',
-        6                   => 'sáu',
-        7                   => 'bảy',
-        8                   => 'tám',
-        9                   => 'chín',
-        10                  => 'mười',
-        11                  => 'mười một',
-        12                  => 'mười hai',
-        13                  => 'mười ba',
-        14                  => 'mười bốn',
-        15                  => 'mười năm',
-        16                  => 'mười sáu',
-        17                  => 'mười bảy',
-        18                  => 'mười tám',
-        19                  => 'mười chín',
-        20                  => 'hai mươi',
-        30                  => 'ba mươi',
-        40                  => 'bốn mươi',
-        50                  => 'năm mươi',
-        60                  => 'sáu mươi',
-        70                  => 'bảy mươi',
-        80                  => 'tám mươi',
-        90                  => 'chín mươi',
-        100                 => 'trăm',
-        1000                => 'nghìn',
-        1000000             => 'triệu',
-        1000000000          => 'tỷ',
-        1000000000000       => 'nghìn tỷ',
-        1000000000000000    => 'nghìn triệu triệu',
-        1000000000000000000 => 'tỷ tỷ'
+        0                   => 'Không',
+        1                   => 'Một',
+        2                   => 'Hai',
+        3                   => 'Ba',
+        4                   => 'Bốn',
+        5                   => 'Năm',
+        6                   => 'Sáu',
+        7                   => 'Bảy',
+        8                   => 'Tám',
+        9                   => 'Chín',
+        10                  => 'Mười',
+        11                  => 'Mười Một',
+        12                  => 'Mười Hai',
+        13                  => 'Mười Ba',
+        14                  => 'Mười Bốn',
+        15                  => 'Mười Năm',
+        16                  => 'Mười Sáu',
+        17                  => 'Mười Bảy',
+        18                  => 'Mười Tám',
+        19                  => 'Mười Chín',
+        20                  => 'Hai Mươi',
+        30                  => 'Ba Mươi',
+        40                  => 'Bốn Mươi',
+        50                  => 'Năm Mươi',
+        60                  => 'Sáu Mươi',
+        70                  => 'Bảy Mươi',
+        80                  => 'Tám Mươi',
+        90                  => 'Chín Mươi',
+        100                 => 'Trăm',
+        1000                => 'Nghìn',
+        1000000             => 'Triệu',
+        1000000000          => 'Tỷ',
+        1000000000000       => 'Nghìn tỷ',
+        1000000000000000    => 'Nghìn Triệu Triệu',
+        1000000000000000000 => 'Tỷ Tỷ'
         );
     if (!is_numeric($number)) {
         return false;
@@ -396,7 +396,7 @@
             @endif
             @foreach ($billCar as $itembill)
             <caption style="text-align: center; margin: 20px; color:#353232"><p style="text-align:center"><b>Tổng cộng: </b>{{$itembill->money_to_pay}}&nbspVND</p>
-                <p><b>Thành chữ: </b>{{convert_number_to_words($price_total)}} &nbspVND</p>
+                <p><b>Thành chữ: </b>{{convert_number_to_words($itembill->money_to_pay)}} &nbspVND</p>
             </caption>
             @endforeach
             </tr>
@@ -446,6 +446,7 @@
             </table>
             <br>
         </div>
+        <a style="position: relative; left: 46%;" href="{{ url()->previous() }}" class="btn btn-primary">Quay lại</a>
     </div>
 </div>
       

@@ -37,19 +37,22 @@ class BillsController extends Controller
             $excel->load($savePath.$fileName);
             $collection = $excel->getCollection();
 
-            if(sizeof($collection[1]) == 4){ // 4 là số cột dữ liệu có trong file excel
-                for($row=1; $row<sizeof($collection); $row++)
-                    try{
-                        //dd($collection[$row]);
-                    }catch(\Exception $e){
-                        return redirect()->back()
-                            ->withErrors(['errors' => $e->getMessage()]);
-                    }
-                    return redirect() -> back() -> with(['success'=>'Import thành công!!!']);
-            }else{
-                return redirect()->back()
-                    ->withErrors(['errors' => [0 => 'Xin cung cấp đủ dữ liệu cho bảng dữ liệu.']]);
-            }
+            return redirect() -> back() -> with(['success'=>'Import thành công!!!']);
+
+            // if(sizeof($collection[1]) == 4){ // 4 là số cột dữ liệu có trong file excel
+            //     for($row=1; $row<sizeof($collection); $row++)
+            //         try{
+            //             //dd($collection[$row]);
+            //         }catch(\Exception $e){
+            //             return redirect()->back()
+            //                 ->withErrors(['errors' => $e->getMessage()]);
+            //         }
+            //         return redirect() -> back() -> with(['success'=>'Import thành công!!!']);
+            // }
+            // else{
+            //     return redirect()->back()
+            //         ->withErrors(['errors' => [0 => 'Xin cung cấp đủ dữ liệu cho bảng dữ liệu.']]);
+            // }
         }else{
             return redirect()->back()
                 ->withErrors(['errors'=>$validator->errors()->all()]);
@@ -74,19 +77,22 @@ class BillsController extends Controller
             $excel->load($savePath.$fileName);
             $collection = $excel->getCollection();
 
-            if(sizeof($collection[1]) == 4){ // 4 là số cột dữ liệu có trong file excel
-                for($row=1; $row<sizeof($collection); $row++)
-                    try{
-                        //dd($collection[$row]);
-                    }catch(\Exception $e){
-                        return redirect()->back()
-                            ->withErrors(['errors' => $e->getMessage()]);
-                    }
             return redirect() -> back() -> with(['success'=>'Import thành công!!!']);
-            }else{
-                return redirect()->back()
-                    ->withErrors(['errors' => [0 => 'Xin cung cấp đủ dữ liệu cho bảng dữ liệu.']]);
-            }
+
+            // if(sizeof($collection[1]) == 4){ // 4 là số cột dữ liệu có trong file excel
+            //     for($row=1; $row<sizeof($collection); $row++)
+            //         try{
+            //             //dd($collection[$row]);
+            //         }catch(\Exception $e){
+            //             return redirect()->back()
+            //                 ->withErrors(['errors' => $e->getMessage()]);
+            //         }
+            // return redirect() -> back() -> with(['success'=>'Import thành công!!!']);
+            // }
+            // else{
+            //     return redirect()->back()
+            //         ->withErrors(['errors' => [0 => 'Xin cung cấp đủ dữ liệu cho bảng dữ liệu.']]);
+            // }
         }else{
             return redirect()->back()
                 ->withErrors(['errors'=>$validator->errors()->all()]);

@@ -92,7 +92,7 @@
             </li>
         </ul>
     </div>
-    <form action="{{ route('admin.statistical', 2)}}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('admin.statistical', 2)}}" method="get" enctype="multipart/form-data">
     @csrf
     <div class="hienthi">
         <div class="hienthi-left">
@@ -296,12 +296,12 @@
                                             <td>
                                                 @foreach($bills as $bill)
                                                     @if($bill->customer_id == $apartment->customer_id && $bill->living_expenses_type_id == 4)
-                                                    <a title="Tiền QLVH Chung cư" href="{{ route('admin.show-bill-detail', [ 4, $bill->id])}}">
+                                                    
                                                         <p style="text-align: center">{{$bill->money_to_pay}}</p>
                                                         @php
                                                             $totalmoney += $bill->money_to_pay;
                                                         @endphp
-                                                    </a>
+                                                    
                                                 @endif
                                                 @endforeach
                                             </td>

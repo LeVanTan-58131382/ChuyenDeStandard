@@ -65,8 +65,8 @@
                 <div class="menu-sub">
                     <ul>
                         <a href="{{route('customer.customer-info', Auth::user()->id)}}"><li id="li1" style="margin-right: 2%; margin-left: 1%">Hồ sơ Chủ hộ</li></a>
-                        <a href="{{route('customer.list-bills', Auth::user()->id)}}"><li id="li2" style="margin-right: 2%">Tiền dịch vụ</li></a>
-                        <a href=""><li id="li3" style="margin-right: 2%">Lịch sử nộp tiền</li></a>
+                        <a href="{{route('customer.list-bills', [Auth::user()->id, 0, 0])}}"><li id="li2" style="margin-right: 2%">Tiền dịch vụ</li></a>
+                        <a href="{{route('customer.history-bills', Auth::user()->id)}}"><li id="li3" style="margin-right: 2%">Lịch sử nộp tiền</li></a>
                         <a href="{{route('customer.list-messages', Auth::user()->id)}}"><li id="li4" style="margin-right: 2%">Tin nhắn</li></a>
                         <a href="{{route('customer.list-notifications', Auth::user()->id)}}"><li id="li5" style="margin-right: 1%">Thông báo</li></a>
                     </ul>
